@@ -6,7 +6,7 @@ import { ChevronRight, Shield } from 'lucide-react';
 import { DiscordJoinModal } from './DiscordJoinModal';
 export function HeroSection() {
   return (
-    <section className="relative min-h-[85vh] flex items-center justify-center pt-16 md:pt-24 lg:pt-16 overflow-hidden bg-white">
+    <section className="relative min-h-[90vh] flex items-center justify-center pt-28 md:pt-32 lg:pt-24 overflow-hidden bg-white">
       <div
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-[0.08]"
         style={{ backgroundImage: `url('${HERO_DATA.backgroundImage}')` }}

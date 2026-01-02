@@ -68,7 +68,7 @@ export function ApplicationSection() {
             Whitelisting Open
           </div>
           <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tight">Community Application</h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto font-medium">
             Fill out the details below. Our staff reviews applications daily.
           </p>
         </div>
@@ -92,9 +92,9 @@ export function ApplicationSection() {
                           <FormItem>
                             <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">Discord Username</FormLabel>
                             <FormControl>
-                              <Input placeholder="username#0000" className="border-4 border-black p-6 rounded-xl focus-visible:ring-orange-500 bg-orange-50/20" {...field} />
+                              <Input placeholder="username#0000" className="border-4 border-black p-6 rounded-xl focus-visible:ring-orange-500 bg-white ring-offset-2 transition-all shadow-hard-sm" {...field} />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className="text-xs font-bold" />
                           </FormItem>
                         )}
                       />
@@ -105,9 +105,9 @@ export function ApplicationSection() {
                           <FormItem>
                             <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">Your Age</FormLabel>
                             <FormControl>
-                              <Input type="text" placeholder="18" className="border-4 border-black p-6 rounded-xl focus-visible:ring-orange-500 bg-orange-50/20" {...field} />
+                              <Input type="text" placeholder="e.g. 18+" className="border-4 border-black p-6 rounded-xl focus-visible:ring-orange-500 bg-white ring-offset-2 transition-all shadow-hard-sm" {...field} />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className="text-xs font-bold" />
                           </FormItem>
                         )}
                       />
@@ -119,9 +119,9 @@ export function ApplicationSection() {
                         <FormItem>
                           <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">Region & Timezone</FormLabel>
                           <FormControl>
-                            <Textarea placeholder="e.g. US East / EST" className="border-4 border-black p-4 rounded-xl min-h-[100px] focus-visible:ring-orange-500 bg-orange-50/20" {...field} />
+                            <Textarea placeholder="e.g. US East / EST" className="border-4 border-black p-4 rounded-xl min-h-[100px] focus-visible:ring-orange-500 bg-white ring-offset-2 transition-all shadow-hard-sm" {...field} />
                           </FormControl>
-                          <FormMessage />
+                          <FormMessage className="text-xs font-bold" />
                         </FormItem>
                       )}
                     />
@@ -133,9 +133,9 @@ export function ApplicationSection() {
                           <FormItem>
                             <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">Minecraft Experience</FormLabel>
                             <FormControl>
-                              <Input placeholder="e.g. 3 years" className="border-4 border-black p-6 rounded-xl focus-visible:ring-orange-500 bg-orange-50/20" {...field} />
+                              <Input placeholder="e.g. 3 years" className="border-4 border-black p-6 rounded-xl focus-visible:ring-orange-500 bg-white ring-offset-2 transition-all shadow-hard-sm" {...field} />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className="text-xs font-bold" />
                           </FormItem>
                         )}
                       />
@@ -146,9 +146,9 @@ export function ApplicationSection() {
                           <FormItem>
                             <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">Weekly Hours</FormLabel>
                             <FormControl>
-                              <Input placeholder="e.g. 10 hrs/week" className="border-4 border-black p-6 rounded-xl focus-visible:ring-orange-500 bg-orange-50/20" {...field} />
+                              <Input placeholder="e.g. 10 hrs/week" className="border-4 border-black p-6 rounded-xl focus-visible:ring-orange-500 bg-white ring-offset-2 transition-all shadow-hard-sm" {...field} />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className="text-xs font-bold" />
                           </FormItem>
                         )}
                       />
@@ -160,9 +160,9 @@ export function ApplicationSection() {
                         <FormItem>
                           <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">What brings you here?</FormLabel>
                           <FormControl>
-                            <Textarea placeholder="Tell us why you want to be part..." className="border-4 border-black p-4 rounded-xl min-h-[120px] focus-visible:ring-orange-500 bg-orange-50/20" {...field} />
+                            <Textarea placeholder="Tell us why you want to be part of our community..." className="border-4 border-black p-4 rounded-xl min-h-[120px] focus-visible:ring-orange-500 bg-white ring-offset-2 transition-all shadow-hard-sm" {...field} />
                           </FormControl>
-                          <FormMessage />
+                          <FormMessage className="text-xs font-bold" />
                         </FormItem>
                       )}
                     />
@@ -173,9 +173,9 @@ export function ApplicationSection() {
                         <FormItem>
                           <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">Your Specializations</FormLabel>
                           <FormControl>
-                            <Textarea placeholder="Building, Redstone..." className="border-4 border-black p-4 rounded-xl min-h-[100px] focus-visible:ring-orange-500 bg-orange-50/20" {...field} />
+                            <Textarea placeholder="Building, Redstone, Technical, Lore writing..." className="border-4 border-black p-4 rounded-xl min-h-[100px] focus-visible:ring-orange-500 bg-white ring-offset-2 transition-all shadow-hard-sm" {...field} />
                           </FormControl>
-                          <FormMessage />
+                          <FormMessage className="text-xs font-bold" />
                         </FormItem>
                       )}
                     />
@@ -188,12 +188,12 @@ export function ApplicationSection() {
                             <Checkbox
                               checked={field.value}
                               onCheckedChange={field.onChange}
-                              className="mt-1 border-4 border-black data-[state=checked]:bg-orange-600 data-[state=checked]:border-black h-6 w-6"
+                              className="mt-1 border-4 border-black data-[state=checked]:bg-orange-600 data-[state=checked]:border-black h-6 w-6 transition-all"
                             />
                           </FormControl>
                           <div className="space-y-1 leading-none">
                             <FormLabel className="font-bold cursor-pointer text-foreground text-sm">
-                              I agree to follow the community guidelines.
+                              I agree to follow the community guidelines and respect all players.
                             </FormLabel>
                           </div>
                         </FormItem>
@@ -209,8 +209,8 @@ export function ApplicationSection() {
                         <Send className="ml-3 h-6 w-6" />
                       </Button>
                       <div className="mt-4 flex items-center justify-center gap-2 text-muted-foreground text-xs uppercase tracking-widest font-black">
-                        <AlertCircle className="w-4 h-4" />
-                        Staff response within 24 hours
+                        <AlertCircle className="w-4 h-4 text-orange-600" />
+                        Average response time: 24 hours
                       </div>
                     </div>
                   </form>
@@ -219,8 +219,8 @@ export function ApplicationSection() {
             ) : (
               <motion.div
                 key="success"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
                 className="flex flex-col items-center justify-center text-center py-20 space-y-8"
               >
                 <div className="w-24 h-24 bg-green-100 rounded-3xl border-4 border-black flex items-center justify-center -rotate-6 shadow-hard-sm">
@@ -228,23 +228,23 @@ export function ApplicationSection() {
                 </div>
                 <div className="space-y-4">
                   <h3 className="text-4xl font-black uppercase italic tracking-tighter">Application Sent!</h3>
-                  <p className="text-xl text-muted-foreground max-w-sm">
-                    Thank you for applying to Forsaken SMP. Our staff will review your application soon.
+                  <p className="text-xl text-muted-foreground max-w-sm font-medium">
+                    Thank you for applying to Forsaken SMP. Our team has received your request.
                   </p>
                 </div>
                 <div className="p-6 bg-orange-50 border-4 border-black rounded-2xl shadow-hard-sm flex items-start gap-4 max-w-md">
                   <BellRing className="w-8 h-8 text-orange-600 shrink-0 mt-1" />
                   <div className="text-left">
-                    <p className="text-sm font-black uppercase tracking-tight text-orange-600">Check Discord</p>
+                    <p className="text-sm font-black uppercase tracking-tight text-orange-600">Check Your DMs</p>
                     <p className="text-sm font-bold text-foreground leading-relaxed">
-                      Make sure you are in the server! You will be pinged once a decision is made.
+                      Make sure your Discord DMs are open! A staff member will contact you for a brief follow-up.
                     </p>
                   </div>
                 </div>
-                <Button 
+                <Button
                   onClick={() => setIsSubmitted(false)}
-                  variant="ghost" 
-                  className="font-black uppercase tracking-widest text-muted-foreground hover:text-orange-600"
+                  variant="ghost"
+                  className="font-black uppercase tracking-widest text-muted-foreground hover:text-orange-600 transition-colors"
                 >
                   Send another application
                 </Button>

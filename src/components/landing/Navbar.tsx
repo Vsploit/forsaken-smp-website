@@ -53,36 +53,43 @@ export function Navbar() {
           <div className="md:hidden">
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="border-2 border-black hover:bg-orange-50 focus-visible:ring-orange-500">
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="border-2 border-black hover:bg-orange-50 focus-visible:ring-orange-500 active:scale-95 transition-all"
+                >
                   <Menu className="h-6 w-6" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="bg-white border-l-4 border-black w-[300px]">
-                <SheetHeader className="text-left border-b-4 border-black pb-6 mb-8">
-                  <div className="flex items-center gap-2">
+              <SheetContent side="right" className="bg-white border-l-4 border-black w-[300px] p-0 flex flex-col">
+                <SheetHeader className="text-left border-b-4 border-black p-6 bg-orange-50/30">
+                  <div className="flex items-center gap-2 mb-2">
                     <img src={HERO_DATA.logoUrl} alt="Logo" className="w-8 h-8 object-contain" />
                     <SheetTitle className="text-2xl font-black uppercase tracking-tighter italic">
                       Forsaken <span className="text-orange-600">SMP</span>
                     </SheetTitle>
                   </div>
-                  <SheetDescription>
-                    Navigate through our community world, seasons, and technical features.
+                  <SheetDescription className="text-foreground/80 font-medium">
+                    Navigate our world and join the community.
                   </SheetDescription>
                 </SheetHeader>
-                <div className="flex flex-col gap-6">
+                <div className="flex flex-col gap-2 p-6 overflow-y-auto">
                   {NAV_LINKS.map((link) => (
                     <SheetClose asChild key={link.href}>
                       <a
                         href={link.href}
-                        className="text-xl font-black uppercase tracking-widest hover:text-orange-600 border-b-2 border-black/5 pb-2 transition-colors"
+                        className="text-xl font-black uppercase tracking-widest hover:text-orange-600 border-b-2 border-black/5 py-4 transition-colors flex items-center justify-between group"
                       >
                         {link.label}
+                        <ChevronRight className="h-5 w-5 opacity-0 group-hover:opacity-100 transition-opacity text-orange-600" />
                       </a>
                     </SheetClose>
                   ))}
+                </div>
+                <div className="mt-auto p-6 border-t-4 border-black bg-white">
                   <DiscordJoinModal>
                     <Button
-                      className="w-full h-14 text-lg font-bold bg-orange-600 text-white border-2 border-black shadow-hard active:translate-y-1 active:shadow-none transition-all"
+                      className="w-full h-14 text-lg font-black bg-orange-600 text-white border-4 border-black shadow-hard active:translate-y-1 active:shadow-none transition-all"
                     >
                       Join Discord
                     </Button>
