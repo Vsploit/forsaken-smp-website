@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -7,9 +7,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormDescription } from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { toast } from 'sonner';
-import { Send, FileText, AlertCircle, BellRing } from 'lucide-react';
+import { Send, FileText, AlertCircle, BellRing, CheckCircle2 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 const formSchema = z.object({
   age: z.string().min(1, "Age is required"),
   discord: z.string().min(2, "Invalid Discord username"),
@@ -22,6 +23,7 @@ const formSchema = z.object({
 });
 type FormValues = z.infer<typeof formSchema>;
 export function ApplicationSection() {
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -43,28 +45,20 @@ export function ApplicationSection() {
         body: JSON.stringify(values),
       });
       if (!response.ok) {
-        let errorMsg = "Failed to submit application.";
-        try {
-          const errorData = await response.json();
-          errorMsg = errorData.error || errorMsg;
-        } catch {
-          const text = await response.text();
-          if (text) errorMsg = text;
-        }
-        throw new Error(errorMsg);
+        throw new Error("Failed to submit application.");
       }
       const result = await response.json();
       if (result.success) {
-        toast.success("Application submitted! Check Discord for updates.");
-        form.reset();
+        toast.success("Application received!");
+        setIsSubmitted(true);
       } else {
         toast.error(result.error || "Submission failed.");
       }
     } catch (error) {
       console.error("Application submission error:", error);
-      toast.error(error instanceof Error ? error.message : "Connection error. Please try again later.");
+      toast.error("Connection error. Please try again later.");
     }
-  }, [form]);
+  }, []);
   return (
     <section id="apply" className="py-24 bg-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -78,161 +72,185 @@ export function ApplicationSection() {
             Fill out the details below. Our staff reviews applications daily.
           </p>
         </div>
-        <RetroCard className="p-6 md:p-10 lg:p-12">
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <FormField
-                  control={form.control}
-                  name="discord"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground flex items-center gap-2">
-                        Discord Username
-                      </FormLabel>
-                      <FormControl>
-                        <Input placeholder="username#0000" className="border-2 border-black p-6 rounded-xl focus-visible:ring-orange-500 bg-orange-50/20" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="age"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">Your Age</FormLabel>
-                      <FormControl>
-                        <Input type="text" placeholder="18" className="border-2 border-black p-6 rounded-xl focus-visible:ring-orange-500 bg-orange-50/20" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-              <FormField
-                control={form.control}
-                name="region"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">Region & Timezone</FormLabel>
-                    <FormControl>
-                      <Textarea placeholder="e.g. US East / EST" className="border-2 border-black p-4 rounded-xl min-h-[100px] focus-visible:ring-orange-500 bg-orange-50/20" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <FormField
-                  control={form.control}
-                  name="playtime"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">Minecraft Experience</FormLabel>
-                      <FormControl>
-                        <Input placeholder="e.g. 3 years" className="border-2 border-black p-6 rounded-xl focus-visible:ring-orange-500 bg-orange-50/20" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="activity"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">Weekly Hours</FormLabel>
-                      <FormControl>
-                        <Input placeholder="e.g. 10 hrs/week" className="border-2 border-black p-6 rounded-xl focus-visible:ring-orange-500 bg-orange-50/20" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-              <FormField
-                control={form.control}
-                name="whyJoin"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">What brings you here?</FormLabel>
-                    <FormControl>
-                      <Textarea placeholder="Tell us why you want to be part of the community..." className="border-2 border-black p-4 rounded-xl min-h-[120px] focus-visible:ring-orange-500 bg-orange-50/20" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="skills"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">Your Specializations</FormLabel>
-                    <FormControl>
-                      <Textarea placeholder="Building, Redstone, Exploration, Lore..." className="border-2 border-black p-4 rounded-xl min-h-[100px] focus-visible:ring-orange-500 bg-orange-50/20" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <div className="space-y-4">
-                <FormField
-                  control={form.control}
-                  name="rulesAccepted"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-xl border-4 border-black p-6 bg-orange-50 shadow-hard-sm">
-                      <FormControl>
-                        <Checkbox
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                          className="mt-1 border-2 border-black data-[state=checked]:bg-orange-600 data-[state=checked]:border-black h-5 w-5"
-                        />
-                      </FormControl>
-                      <div className="space-y-1 leading-none">
-                        <FormLabel className="font-bold cursor-pointer text-foreground text-sm">
-                          I agree to follow the community guidelines and respect all players.
-                        </FormLabel>
-                        <p className="text-xs text-muted-foreground">
-                          Applications without Discord presence will be automatically declined.
-                        </p>
+        <RetroCard className="p-6 md:p-10 lg:p-12 relative min-h-[400px]">
+          <AnimatePresence mode="wait">
+            {!isSubmitted ? (
+              <motion.div
+                key="form"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.3 }}
+              >
+                <Form {...form}>
+                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                      <FormField
+                        control={form.control}
+                        name="discord"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">Discord Username</FormLabel>
+                            <FormControl>
+                              <Input placeholder="username#0000" className="border-4 border-black p-6 rounded-xl focus-visible:ring-orange-500 bg-orange-50/20" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="age"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">Your Age</FormLabel>
+                            <FormControl>
+                              <Input type="text" placeholder="18" className="border-4 border-black p-6 rounded-xl focus-visible:ring-orange-500 bg-orange-50/20" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <FormField
+                      control={form.control}
+                      name="region"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">Region & Timezone</FormLabel>
+                          <FormControl>
+                            <Textarea placeholder="e.g. US East / EST" className="border-4 border-black p-4 rounded-xl min-h-[100px] focus-visible:ring-orange-500 bg-orange-50/20" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                      <FormField
+                        control={form.control}
+                        name="playtime"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">Minecraft Experience</FormLabel>
+                            <FormControl>
+                              <Input placeholder="e.g. 3 years" className="border-4 border-black p-6 rounded-xl focus-visible:ring-orange-500 bg-orange-50/20" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="activity"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">Weekly Hours</FormLabel>
+                            <FormControl>
+                              <Input placeholder="e.g. 10 hrs/week" className="border-4 border-black p-6 rounded-xl focus-visible:ring-orange-500 bg-orange-50/20" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <FormField
+                      control={form.control}
+                      name="whyJoin"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">What brings you here?</FormLabel>
+                          <FormControl>
+                            <Textarea placeholder="Tell us why you want to be part..." className="border-4 border-black p-4 rounded-xl min-h-[120px] focus-visible:ring-orange-500 bg-orange-50/20" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="skills"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">Your Specializations</FormLabel>
+                          <FormControl>
+                            <Textarea placeholder="Building, Redstone..." className="border-4 border-black p-4 rounded-xl min-h-[100px] focus-visible:ring-orange-500 bg-orange-50/20" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="rulesAccepted"
+                      render={({ field }) => (
+                        <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-xl border-4 border-black p-6 bg-orange-50 shadow-hard-sm">
+                          <FormControl>
+                            <Checkbox
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                              className="mt-1 border-4 border-black data-[state=checked]:bg-orange-600 data-[state=checked]:border-black h-6 w-6"
+                            />
+                          </FormControl>
+                          <div className="space-y-1 leading-none">
+                            <FormLabel className="font-bold cursor-pointer text-foreground text-sm">
+                              I agree to follow the community guidelines.
+                            </FormLabel>
+                          </div>
+                        </FormItem>
+                      )}
+                    />
+                    <div className="pt-4">
+                      <Button
+                        type="submit"
+                        disabled={form.formState.isSubmitting}
+                        className="w-full h-16 text-xl font-black bg-orange-600 hover:bg-orange-700 text-white border-4 border-black shadow-hard hover:shadow-hard-lg active:translate-y-1 active:shadow-none transition-all disabled:opacity-70"
+                      >
+                        {form.formState.isSubmitting ? "Submitting..." : "Send Application"}
+                        <Send className="ml-3 h-6 w-6" />
+                      </Button>
+                      <div className="mt-4 flex items-center justify-center gap-2 text-muted-foreground text-xs uppercase tracking-widest font-black">
+                        <AlertCircle className="w-4 h-4" />
+                        Staff response within 24 hours
                       </div>
-                    </FormItem>
-                  )}
-                />
-              </div>
-              <div className="pt-4 space-y-6">
-                <div>
-                  <Button
-                    type="submit"
-                    disabled={form.formState.isSubmitting}
-                    className="w-full h-16 text-xl font-black bg-orange-600 hover:bg-orange-700 text-white border-4 border-black shadow-hard hover:shadow-hard-lg active:translate-y-1 active:shadow-none transition-all disabled:opacity-70"
-                  >
-                    {form.formState.isSubmitting ? "Submitting..." : "Send Application"}
-                    <Send className="ml-3 h-6 w-6" />
-                  </Button>
-                  <div className="mt-4 flex items-center justify-center gap-2 text-muted-foreground text-xs uppercase tracking-widest font-black">
-                    <AlertCircle className="w-4 h-4" />
-                    Staff response within 24 hours
-                  </div>
+                    </div>
+                  </form>
+                </Form>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="success"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="flex flex-col items-center justify-center text-center py-20 space-y-8"
+              >
+                <div className="w-24 h-24 bg-green-100 rounded-3xl border-4 border-black flex items-center justify-center -rotate-6 shadow-hard-sm">
+                  <CheckCircle2 className="w-12 h-12 text-green-600" />
                 </div>
-                {/* Next Steps Information Box */}
-                <div className="mt-8 p-6 bg-orange-50 border-2 border-black rounded-xl shadow-hard-sm flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-4">
-                  <div className="shrink-0 w-12 h-12 bg-orange-600 rounded-lg border-2 border-black flex items-center justify-center text-white shadow-hard-sm">
-                    <BellRing className="w-7 h-7" />
-                  </div>
-                  <div className="space-y-1">
-                    <p className="text-sm font-black uppercase tracking-tight text-orange-600">Next Steps</p>
+                <div className="space-y-4">
+                  <h3 className="text-4xl font-black uppercase italic tracking-tighter">Application Sent!</h3>
+                  <p className="text-xl text-muted-foreground max-w-sm">
+                    Thank you for applying to Forsaken SMP. Our staff will review your application soon.
+                  </p>
+                </div>
+                <div className="p-6 bg-orange-50 border-4 border-black rounded-2xl shadow-hard-sm flex items-start gap-4 max-w-md">
+                  <BellRing className="w-8 h-8 text-orange-600 shrink-0 mt-1" />
+                  <div className="text-left">
+                    <p className="text-sm font-black uppercase tracking-tight text-orange-600">Check Discord</p>
                     <p className="text-sm font-bold text-foreground leading-relaxed">
-                      You will be pinged in the main Discord when your application is accepted or denied. Ensure your notifications are on!
+                      Make sure you are in the server! You will be pinged once a decision is made.
                     </p>
                   </div>
                 </div>
-              </div>
-            </form>
-          </Form>
+                <Button 
+                  onClick={() => setIsSubmitted(false)}
+                  variant="ghost" 
+                  className="font-black uppercase tracking-widest text-muted-foreground hover:text-orange-600"
+                >
+                  Send another application
+                </Button>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </RetroCard>
       </div>
     </section>

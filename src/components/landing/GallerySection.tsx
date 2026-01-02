@@ -10,7 +10,9 @@ export function GallerySection() {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: false,
     align: 'start',
-    containScroll: 'trimSnaps'
+    containScroll: 'trimSnaps',
+    skipSnaps: false,
+    dragFree: false
   });
   const [prevBtnDisabled, setPrevBtnDisabled] = useState(true);
   const [nextBtnDisabled, setNextBtnDisabled] = useState(true);
@@ -58,11 +60,11 @@ export function GallerySection() {
               size="icon"
               aria-label="Previous slide"
               className={cn(
-                "bg-white border-4 border-black text-black hover:bg-black hover:text-white shadow-hard-sm transition-all active:translate-y-0.5 active:shadow-none",
+                "w-12 h-12 bg-white border-4 border-black text-black hover:bg-black hover:text-white shadow-hard-sm transition-all active:translate-y-0.5 active:shadow-none",
                 prevBtnDisabled && "opacity-30 cursor-not-allowed pointer-events-none shadow-none"
               )}
             >
-              <ChevronLeft className="h-6 w-6" />
+              <ChevronLeft className="h-6 w-6 stroke-[3px]" />
             </Button>
             <Button
               onClick={scrollNext}
@@ -70,41 +72,41 @@ export function GallerySection() {
               size="icon"
               aria-label="Next slide"
               className={cn(
-                "bg-white border-4 border-black text-black hover:bg-black hover:text-white shadow-hard-sm transition-all active:translate-y-0.5 active:shadow-none",
+                "w-12 h-12 bg-white border-4 border-black text-black hover:bg-black hover:text-white shadow-hard-sm transition-all active:translate-y-0.5 active:shadow-none",
                 nextBtnDisabled && "opacity-30 cursor-not-allowed pointer-events-none shadow-none"
               )}
             >
-              <ChevronRight className="h-6 w-6" />
+              <ChevronRight className="h-6 w-6 stroke-[3px]" />
             </Button>
           </div>
         </div>
-        <div className="embla overflow-hidden" ref={emblaRef}>
-          <div className="embla__container flex">
+        <div className="embla overflow-visible" ref={emblaRef}>
+          <div className="embla__container flex -ml-4 md:-ml-6">
             {SEASONS_GALLERY.map((season) => (
-              <div key={season.id} className="embla__slide flex-[0_0_85%] min-w-0 sm:flex-[0_0_50%] lg:flex-[0_0_40%] pl-6 first:pl-0 select-none">
+              <div key={season.id} className="embla__slide flex-[0_0_85%] min-w-0 sm:flex-[0_0_50%] lg:flex-[0_0_40%] pl-4 md:pl-6 select-none">
                 <motion.div
                   whileHover={{ y: -10 }}
                   transition={{ type: 'spring', stiffness: 300, damping: 20 }}
                 >
-                  <RetroCard className="h-[400px] relative group p-0">
+                  <RetroCard className="h-[350px] md:h-[450px] relative group p-0">
                     <img
                       src={season.url}
                       alt={season.title}
                       draggable={false}
-                      className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
+                      className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent pointer-events-none" />
-                    <div className="absolute bottom-0 left-0 right-0 p-8 text-white text-left pointer-events-none">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent pointer-events-none" />
+                    <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 text-white text-left pointer-events-none">
                       <div className="flex items-center gap-2 mb-3">
                         <Calendar className="w-4 h-4 text-orange-400" />
-                        <span className="text-sm font-black uppercase tracking-widest text-orange-400">
+                        <span className="text-xs md:text-sm font-black uppercase tracking-widest text-orange-400">
                           {season.year}
                         </span>
                       </div>
-                      <h3 className="text-2xl font-black uppercase italic mb-2 tracking-tight">
+                      <h3 className="text-xl md:text-3xl font-black uppercase italic mb-2 tracking-tighter">
                         {season.title}
                       </h3>
-                      <p className="text-sm font-bold text-gray-300">
+                      <p className="text-xs md:text-sm font-bold text-gray-300 uppercase tracking-wide">
                         {season.theme}
                       </p>
                     </div>

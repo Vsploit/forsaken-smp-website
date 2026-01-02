@@ -24,10 +24,6 @@
     --input: 214.3 31.8% 91.4%;
     --radius: 0.75rem;
   }
-  /* Global border rule - excluding SVGs and their descendants */
-  *:not(svg, svg *, [role="img"]) {
-    @apply border-black;
-  }
   /* Improved accessibility defaults */
   *:focus {
     @apply outline-none;
