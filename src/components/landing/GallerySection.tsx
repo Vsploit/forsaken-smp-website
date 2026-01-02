@@ -41,7 +41,7 @@ export function GallerySection() {
             </div>
             <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tight">Past Seasons</h2>
             <p className="text-xl text-muted-foreground max-w-xl">
-              Take a trip through the history of Forsaken and see where it all began.
+              Take a trip through the history of Forsaken and see our journey since the beginning.
             </p>
           </div>
           <div className="flex gap-4">

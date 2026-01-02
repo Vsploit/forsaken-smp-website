@@ -15,10 +15,10 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center text-center space-y-8 mb-16">
           <h3 className="text-3xl md:text-5xl font-black uppercase italic tracking-widest text-orange-500">
-            Claim Your Heart.
+            Start Your Journey.
           </h3>
           <p className="text-gray-400 max-w-md">
-            The hardcore realm awaits its next legend. Join the Forsaken community and stake your claim today.
+            The survival community awaits. Join the Forsaken community and explore the world today.
           </p>
           <div className="flex flex-col sm:flex-row items-center gap-4">
             <Button

@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { CURRENT_SEASON_DATA, SOCIAL_LINKS } from '@/data/server-data';
 import { RetroCard } from '@/components/ui/retro-card';
 import { Button } from '@/components/ui/button';
@@ -20,8 +19,8 @@ export function SeasonHighlight() {
         <RetroCard className="max-w-5xl mx-auto bg-white">
           <div className="flex flex-col lg:flex-row">
             <div className="lg:w-3/5 aspect-video overflow-hidden">
-              <img 
-                src={CURRENT_SEASON_DATA.url} 
+              <img
+                src={CURRENT_SEASON_DATA.url}
                 alt={CURRENT_SEASON_DATA.title}
                 className="w-full h-full object-cover"
               />
@@ -34,15 +33,15 @@ export function SeasonHighlight() {
                 </p>
               </div>
               <p className="text-muted-foreground">
-                Step into our most vibrant world yet. Season 3 brings the community together like never before.
+                Step into our most vibrant world yet. Season 3 brings the community together in an ever-evolving landscape.
               </p>
-              <Button 
+              <Button
                 size="lg"
                 className="w-full h-14 text-lg font-black bg-orange-600 hover:bg-orange-700 text-white border-4 border-black shadow-hard active:translate-y-1 active:shadow-none transition-all"
                 asChild
               >
                 <a href={SOCIAL_LINKS.discord} target="_blank" rel="noopener noreferrer">
-                  Play Season 3 <ArrowRight className="ml-2 h-5 w-5" />
+                  Join Season 3 <ArrowRight className="ml-2 h-5 w-5" />
                 </a>
               </Button>
             </div>
