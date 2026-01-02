@@ -20,11 +20,13 @@ export function Navbar() {
             onClick={scrollToTop}
             className="flex items-center gap-3 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 rounded-lg p-1"
           >
-            <img
-              src={HERO_DATA.logoUrl}
-              alt="Forsaken Logo"
-              className="w-10 h-10 object-contain drop-shadow-sm transition-transform group-hover:rotate-12"
-            />
+            <div className="w-12 h-12 flex items-center justify-center">
+              <img
+                src={HERO_DATA.logoUrl}
+                alt="Forsaken Logo"
+                className="w-full h-full object-contain drop-shadow-sm transition-transform group-hover:rotate-12 group-hover:scale-110"
+              />
+            </div>
             <span className="text-2xl font-black uppercase tracking-tighter italic text-gradient-forsaken">
               Forsaken
               <span className="text-orange-600"> SMP</span>
@@ -53,9 +55,9 @@ export function Navbar() {
           <div className="md:hidden">
             <Sheet>
               <SheetTrigger asChild>
-                <Button 
-                  variant="ghost" 
-                  size="icon" 
+                <Button
+                  variant="ghost"
+                  size="icon"
                   className="border-2 border-black hover:bg-orange-50 focus-visible:ring-orange-500 active:scale-95 transition-all"
                 >
                   <Menu className="h-6 w-6" />
@@ -63,8 +65,8 @@ export function Navbar() {
               </SheetTrigger>
               <SheetContent side="right" className="bg-white border-l-4 border-black w-[300px] p-0 flex flex-col">
                 <SheetHeader className="text-left border-b-4 border-black p-6 bg-orange-50/30">
-                  <div className="flex items-center gap-2 mb-2">
-                    <img src={HERO_DATA.logoUrl} alt="Logo" className="w-8 h-8 object-contain" />
+                  <div className="flex items-center gap-3 mb-2">
+                    <img src={HERO_DATA.logoUrl} alt="Logo" className="w-10 h-10 object-contain" />
                     <SheetTitle className="text-2xl font-black uppercase tracking-tighter italic">
                       Forsaken <span className="text-orange-600">SMP</span>
                     </SheetTitle>

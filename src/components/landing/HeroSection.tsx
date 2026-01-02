@@ -19,18 +19,18 @@ export function HeroSection() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-            className="w-full max-w-[280px] sm:max-w-[350px] lg:max-w-[450px] order-first lg:order-last"
+            className="w-full max-w-[280px] sm:max-w-[350px] lg:max-w-[500px] order-first lg:order-last"
           >
             <div className="relative">
-              <div className="absolute -inset-10 bg-orange-50 rounded-full blur-[100px] opacity-10 animate-pulse" />
-              <div className="flex justify-center">
+              <div className="absolute -inset-10 bg-orange-100 rounded-full blur-[120px] opacity-20 animate-pulse" />
+              <div className="flex justify-center p-4">
                 <motion.img
                   src={HERO_DATA.logoUrl}
                   alt="Forsaken SMP Logo"
-                  className="w-full h-auto object-contain drop-shadow-[0_20px_50px_rgba(249,115,22,0.3)]"
+                  className="w-full h-auto max-h-[400px] object-contain drop-shadow-[0_15px_35px_rgba(234,88,12,0.4)]"
                   animate={{
-                    y: [0, -10, 0],
-                    rotate: [0, 0.5, -0.5, 0]
+                    y: [0, -15, 0],
+                    rotate: [0, 1, -1, 0]
                   }}
                   transition={{
                     duration: 6,
@@ -47,14 +47,14 @@ export function HeroSection() {
             transition={{ duration: 0.6, ease: "easeOut" }}
             className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 sm:space-y-8"
           >
-            <div className="inline-flex items-center px-4 py-1 rounded-full bg-orange-500/10 border-2 border-orange-500 text-orange-600 font-bold text-xs sm:text-sm uppercase tracking-wider animate-bounce-slight whitespace-nowrap">
+            <div className="inline-flex items-center px-4 py-1 rounded-full bg-orange-500/10 border-2 border-orange-500 text-orange-600 font-bold text-xs sm:text-sm uppercase tracking-wider animate-bounce-slight whitespace-nowrap shadow-hard-sm">
               <Shield className="w-4 h-4 mr-2" />
               {HERO_DATA.badgeText}
             </div>
             <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-black leading-tight uppercase tracking-tight break-words text-gradient-forsaken">
               {HERO_DATA.title}
             </h1>
-            <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-lg leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-lg leading-relaxed font-medium">
               {HERO_DATA.subtitle}
             </p>
             <div className="flex flex-wrap justify-center lg:justify-start gap-4 pt-4">

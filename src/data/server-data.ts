@@ -13,7 +13,7 @@ export const NAV_LINKS = [
 export const HERO_DATA = {
   title: "A New Chapter in Survival",
   subtitle: "Experience a pure community survival world where every path, building, and landmark is shaped by players like you. Join the journey today.",
-  logoUrl: "https://i.postimg.cc/CzzgJvrq/be3d0115.png",
+  logoUrl: "https://i.postimg.cc/mD8P8p48/logo-forsaken.png",
   backgroundImage: "https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&q=80&w=1920",
   badgeText: "Season 3 (2026) Active"
 };
