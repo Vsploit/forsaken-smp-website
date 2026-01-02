@@ -7,7 +7,11 @@ import { ChevronLeft, ChevronRight, Calendar, Camera } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 export function GallerySection() {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, align: 'center' });
+  const [emblaRef, emblaApi] = useEmblaCarousel({ 
+    loop: false, 
+    align: 'start',
+    containScroll: 'trimSnaps'
+  });
   const [prevBtnDisabled, setPrevBtnDisabled] = useState(true);
   const [nextBtnDisabled, setNextBtnDisabled] = useState(true);
   const scrollPrev = useCallback(() => {
@@ -45,9 +49,10 @@ export function GallerySection() {
               onClick={scrollPrev}
               disabled={prevBtnDisabled}
               size="icon"
+              aria-label="Previous slide"
               className={cn(
-                "bg-white border-4 border-black text-black hover:bg-black hover:text-white shadow-hard-sm transition-all",
-                prevBtnDisabled && "opacity-50 cursor-not-allowed pointer-events-none"
+                "bg-white border-4 border-black text-black hover:bg-black hover:text-white shadow-hard-sm transition-all active:translate-y-0.5 active:shadow-none",
+                prevBtnDisabled && "opacity-30 cursor-not-allowed pointer-events-none"
               )}
             >
               <ChevronLeft className="h-6 w-6" />
@@ -56,31 +61,33 @@ export function GallerySection() {
               onClick={scrollNext}
               disabled={nextBtnDisabled}
               size="icon"
+              aria-label="Next slide"
               className={cn(
-                "bg-white border-4 border-black text-black hover:bg-black hover:text-white shadow-hard-sm transition-all",
-                nextBtnDisabled && "opacity-50 cursor-not-allowed pointer-events-none"
+                "bg-white border-4 border-black text-black hover:bg-black hover:text-white shadow-hard-sm transition-all active:translate-y-0.5 active:shadow-none",
+                nextBtnDisabled && "opacity-30 cursor-not-allowed pointer-events-none"
               )}
             >
               <ChevronRight className="h-6 w-6" />
             </Button>
           </div>
         </div>
-        <div className="embla" ref={emblaRef}>
+        <div className="embla overflow-hidden" ref={emblaRef}>
           <div className="embla__container flex">
             {SEASONS_GALLERY.map((season) => (
-              <div key={season.id} className="embla__slide flex-[0_0_85%] min-w-0 sm:flex-[0_0_50%] lg:flex-[0_0_40%] pl-6 first:pl-0">
+              <div key={season.id} className="embla__slide flex-[0_0_85%] min-w-0 sm:flex-[0_0_50%] lg:flex-[0_0_40%] pl-6 first:pl-0 select-none">
                 <motion.div
                   whileHover={{ y: -10 }}
-                  transition={{ type: 'spring', stiffness: 300 }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 20 }}
                 >
                   <RetroCard className="h-[450px] relative group p-0">
                     <img
                       src={season.url}
                       alt={season.title}
+                      draggable={false}
                       className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent" />
-                    <div className="absolute bottom-0 left-0 right-0 p-8 text-white text-left">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent pointer-events-none" />
+                    <div className="absolute bottom-0 left-0 right-0 p-8 text-white text-left pointer-events-none">
                       <div className="flex items-center gap-2 mb-3">
                         <Calendar className="w-4 h-4 text-orange-400" />
                         <span className="text-sm font-black uppercase tracking-widest text-orange-400">

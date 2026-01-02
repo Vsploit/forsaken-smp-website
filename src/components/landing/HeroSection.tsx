@@ -7,28 +7,32 @@ export function HeroSection() {
   return (
     <section className="relative min-h-[85vh] flex items-center justify-center pt-16 overflow-hidden bg-white">
       {/* Background Decor */}
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(#f97316_1px,transparent_1px)] [background-size:40px_40px] opacity-[0.15]" />
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(#f97316_1px,transparent_1px)] [background-size:40px_40px] opacity-[0.1]" />
       <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-orange-500/5 via-transparent to-white pointer-events-none" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-8"
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 sm:space-y-8"
           >
-            <div className="inline-flex items-center px-4 py-1 rounded-full bg-orange-500/10 border-2 border-orange-500 text-orange-600 font-bold text-sm uppercase tracking-wider animate-bounce-slight">
+            <div className="inline-flex items-center px-4 py-1 rounded-full bg-orange-500/10 border-2 border-orange-500 text-orange-600 font-bold text-xs sm:text-sm uppercase tracking-wider animate-bounce-slight">
               <Flame className="w-4 h-4 mr-2" />
               Forsaken Season 1: Origins
             </div>
-            <h1 className="text-4xl sm:text-5xl md:text-7xl font-black leading-tight text-foreground uppercase tracking-tight">
+            <h1 className="text-3xl sm:text-5xl md:text-7xl font-black leading-tight text-foreground uppercase tracking-tight break-words">
               {HERO_DATA.title}
             </h1>
-            <p className="text-lg sm:text-xl text-muted-foreground max-w-lg leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-lg leading-relaxed">
               {HERO_DATA.subtitle}
             </p>
             <div className="flex flex-wrap justify-center lg:justify-start gap-4 pt-4">
-              <Button size="lg" className="h-14 px-10 text-lg font-bold bg-orange-600 hover:bg-orange-700 text-white border-4 border-black shadow-hard hover:shadow-hard-lg transition-all active:translate-x-1 active:translate-y-1 active:shadow-none" asChild>
+              <Button 
+                size="lg" 
+                className="h-14 px-10 text-lg font-bold bg-orange-600 hover:bg-orange-700 text-white border-4 border-black shadow-hard hover:shadow-hard-lg transition-all active:translate-x-1 active:translate-y-1 active:shadow-none" 
+                asChild
+              >
                 <a href={SOCIAL_LINKS.discord} target="_blank" rel="noopener noreferrer">
                   Join The Battle <ChevronRight className="ml-2 h-5 w-5" />
                 </a>
@@ -36,9 +40,9 @@ export function HeroSection() {
             </div>
           </motion.div>
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
+            initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             className="hidden lg:block"
           >
             <div className="relative">
@@ -48,8 +52,15 @@ export function HeroSection() {
                   src={HERO_DATA.logoUrl}
                   alt="Forsaken SMP Logo"
                   className="w-full max-w-[450px] object-contain drop-shadow-[0_20px_50px_rgba(249,115,22,0.3)]"
-                  animate={{ y: [0, -15, 0], rotate: [0, 1, -1, 0] }}
-                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                  animate={{ 
+                    y: [0, -10, 0],
+                    rotate: [0, 0.5, -0.5, 0]
+                  }}
+                  transition={{ 
+                    duration: 6, 
+                    repeat: Infinity, 
+                    ease: "easeInOut" 
+                  }}
                 />
               </div>
             </div>

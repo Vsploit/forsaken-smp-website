@@ -9,7 +9,7 @@
     --primary-foreground: 210 20% 98%;
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
-    --border: 214.3 31.8% 91.4%;
+    --border: 0 0% 0%;
     --ring: 24.6 95% 53.1%;
     --card: 0 0% 100%;
     --card-foreground: 224 71.4% 4.1%;
@@ -25,41 +25,56 @@
     --radius: 0.75rem;
   }
   * {
-    @apply border-border;
+    @apply border-black;
+    outline: none !important;
+  }
+  *:focus-visible {
+    @apply ring-2 ring-orange-500 ring-offset-2;
   }
   html {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
+    scrollbar-gutter: stable;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground overflow-x-hidden;
   }
 }
 @layer components {
-  .btn {
-    @apply inline-flex items-center justify-center px-4 py-2 text-sm font-bold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50;
+  .btn-hard {
+    @apply inline-flex items-center justify-center font-black uppercase tracking-tight transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none;
   }
-  .btn-gradient {
-    @apply btn text-white shadow-hard hover:shadow-hard-lg hover:scale-105 active:scale-95;
+  .bg-noise {
+    background-image: url('https://www.transparenttextures.com/patterns/noise-lines.png');
+    pointer-events: none;
+    opacity: 0.02;
+  }
+  .text-gradient-forsaken {
     background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
-  }
-  .bg-gradient-primary {
-    background: linear-gradient(135deg, #f97316 0%, #ea580c 50%, #dc2626 100%);
-  }
-  .text-gradient {
-    background: linear-gradient(90deg, #f97316 0%, #ea580c 50%, #dc2626 100%);
     -webkit-background-clip: text;
-    background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-  .floating {
-    animation: float 3s ease-in-out infinite;
+}
+@layer utilities {
+  .shadow-hard {
+    box-shadow: 4px 4px 0px 0px rgba(0,0,0,1);
   }
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+  .shadow-hard-lg {
+    box-shadow: 8px 8px 0px 0px rgba(0,0,0,1);
   }
-  ::selection {
-    @apply bg-orange-500 text-white;
+  .shadow-hard-sm {
+    box-shadow: 2px 2px 0px 0px rgba(0,0,0,1);
   }
+}
+::selection {
+  @apply bg-orange-500 text-white;
+}
+/* Embla Carousel Global Fixes */
+.embla {
+  position: relative;
+  width: 100%;
+}
+.embla__container {
+  display: flex;
+  will-change: transform;
 }
