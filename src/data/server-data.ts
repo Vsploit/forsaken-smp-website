@@ -15,7 +15,7 @@ export const HERO_DATA = {
   subtitle: "Experience a community-driven world where every player makes an impact. Join our ever-evolving landscape and start your journey today.",
   logoUrl: "https://i.postimg.cc/CzzgJvrq/be3d0115.png",
   backgroundImage: "https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&q=80&w=1920",
-  badgeText: "Season 3 (2026) Active"
+  badgeText: "Season 3 (2025) Active"
 };
 export const ABOUT_DATA = {
   title: "Building a Legacy Together",
@@ -33,11 +33,11 @@ export const CURRENT_SEASON_DATA = {
   title: "Season 3: New Horizons",
   highlight: "An expansive new world designed for community growth, featuring massive group projects and a completely refreshed map.",
   url: "https://i.postimg.cc/Gtwmt17F/website11.png",
-  year: "2026"
+  year: "2025"
 };
 export const SEASONS_GALLERY = [
   { id: 1, title: "Season 1: Origins", theme: "The Beginning", year: "2025", url: "https://i.postimg.cc/SR6Nzt31/website1.png" },
-  { id: 2, title: "Season 2: Discovery", theme: "Age of Exploration", year: "2026", url: "https://i.postimg.cc/1Xh3XZCg/website10.png" }
+  { id: 2, title: "Season 2: Discovery", theme: "Age of Exploration", year: "Dec 2025", url: "https://i.postimg.cc/1Xh3XZCg/website10.png" }
 ];
 export const PLUGIN_FEATURES = [
   {
