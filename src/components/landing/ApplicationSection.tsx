@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -20,8 +20,9 @@ const formSchema = z.object({
   activity: z.string().min(1, "Required"),
   rulesAccepted: z.boolean().refine(val => val === true, "You must accept the community rules")
 });
+type FormValues = z.infer<typeof formSchema>;
 export function ApplicationSection() {
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       age: "",
@@ -34,13 +35,16 @@ export function ApplicationSection() {
       rulesAccepted: false,
     },
   });
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  const onSubmit = useCallback(async (values: FormValues) => {
     try {
       const response = await fetch('/api/apply', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values),
       });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
       const result = await response.json();
       if (result.success) {
         toast.success("Application submitted successfully! Our staff will review it soon.");
@@ -49,9 +53,10 @@ export function ApplicationSection() {
         toast.error(result.error || "Failed to submit application.");
       }
     } catch (error) {
+      console.error("Application submission error:", error);
       toast.error("Connection error. Please try again later.");
     }
-  }
+  }, [form]);
   return (
     <section id="apply" className="py-24 bg-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -74,7 +79,7 @@ export function ApplicationSection() {
                   name="discord"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="font-black uppercase tracking-tight text-xs">Discord Username</FormLabel>
+                      <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">Discord Username</FormLabel>
                       <FormControl>
                         <Input placeholder="username#0000" className="border-2 border-black p-6 rounded-xl focus-visible:ring-orange-500 bg-secondary/30" {...field} />
                       </FormControl>
@@ -87,9 +92,9 @@ export function ApplicationSection() {
                   name="age"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="font-black uppercase tracking-tight text-xs">Your Age</FormLabel>
+                      <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">Your Age</FormLabel>
                       <FormControl>
-                        <Input type="number" placeholder="18" className="border-2 border-black p-6 rounded-xl focus-visible:ring-orange-500 bg-secondary/30" {...field} />
+                        <Input type="text" placeholder="18" className="border-2 border-black p-6 rounded-xl focus-visible:ring-orange-500 bg-secondary/30" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -101,7 +106,7 @@ export function ApplicationSection() {
                 name="region"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="font-black uppercase tracking-tight text-xs">Region & Timezone</FormLabel>
+                    <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">Region & Timezone</FormLabel>
                     <FormControl>
                       <Textarea placeholder="e.g. Europe / GMT+1" className="border-2 border-black p-4 rounded-xl min-h-[100px] focus-visible:ring-orange-500 bg-secondary/30" {...field} />
                     </FormControl>
@@ -115,11 +120,11 @@ export function ApplicationSection() {
                   name="playtime"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="font-black uppercase tracking-tight text-xs">Minecraft Playtime</FormLabel>
+                      <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">Minecraft Playtime</FormLabel>
                       <FormControl>
                         <Input placeholder="e.g. 5 years" className="border-2 border-black p-6 rounded-xl focus-visible:ring-orange-500 bg-secondary/30" {...field} />
                       </FormControl>
-                      <FormDescription>How long have you been playing MC?</FormDescription>
+                      <FormDescription className="text-muted-foreground/80">How long have you been playing MC?</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -129,7 +134,7 @@ export function ApplicationSection() {
                   name="activity"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="font-black uppercase tracking-tight text-xs">Weekly Activity</FormLabel>
+                      <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">Weekly Activity</FormLabel>
                       <FormControl>
                         <Input placeholder="e.g. 15 hours / week" className="border-2 border-black p-6 rounded-xl focus-visible:ring-orange-500 bg-secondary/30" {...field} />
                       </FormControl>
@@ -143,7 +148,7 @@ export function ApplicationSection() {
                 name="whyJoin"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="font-black uppercase tracking-tight text-xs">Why do you want to join Forsaken?</FormLabel>
+                    <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">Why do you want to join Forsaken?</FormLabel>
                     <FormControl>
                       <Textarea placeholder="Tell us what draws you to our community..." className="border-2 border-black p-4 rounded-xl min-h-[150px] focus-visible:ring-orange-500 bg-secondary/30" {...field} />
                     </FormControl>
@@ -156,7 +161,7 @@ export function ApplicationSection() {
                 name="skills"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="font-black uppercase tracking-tight text-xs">What are your skills/contributions?</FormLabel>
+                    <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">What are your skills/contributions?</FormLabel>
                     <FormControl>
                       <Textarea placeholder="Builder, Redstoner, Community organizer..." className="border-2 border-black p-4 rounded-xl min-h-[120px] focus-visible:ring-orange-500 bg-secondary/30" {...field} />
                     </FormControl>
@@ -177,7 +182,7 @@ export function ApplicationSection() {
                       />
                     </FormControl>
                     <div className="space-y-1 leading-none">
-                      <FormLabel className="font-bold cursor-pointer">
+                      <FormLabel className="font-bold cursor-pointer text-foreground">
                         I agree to respect the rules, staff, and decisions made by the community.
                       </FormLabel>
                       <p className="text-xs text-muted-foreground">
