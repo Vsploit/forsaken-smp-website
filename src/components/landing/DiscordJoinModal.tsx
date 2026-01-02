@@ -18,7 +18,8 @@ export function DiscordJoinModal({ children }: DiscordJoinModalProps) {
       toast.success("Invite link copied to clipboard!");
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
-      toast.error("Failed to copy link.");
+      toast.error("Failed to copy link. Please manually copy the URL.");
+      console.error("Copy failed:", err);
     }
   }, [discordLink]);
   const openDiscord = useCallback(() => {
@@ -60,7 +61,7 @@ export function DiscordJoinModal({ children }: DiscordJoinModalProps) {
               ⚠️ Important Note
             </p>
             <p className="text-sm text-center font-bold mt-1 text-foreground">
-              Join Discord first before applying!
+              You must be in the Discord server to complete your application review!
             </p>
           </div>
           <Button

@@ -27,9 +27,7 @@ export function GallerySection() {
   }, []);
   useEffect(() => {
     if (!emblaApi) return;
-    // Initial state check
     onSelect(emblaApi);
-    // Listen to select and scroll events for complete sync
     emblaApi.on('reInit', onSelect);
     emblaApi.on('select', onSelect);
     emblaApi.on('scroll', onSelect);

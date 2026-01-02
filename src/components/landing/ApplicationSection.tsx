@@ -42,43 +42,27 @@ export function ApplicationSection() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values),
       });
-
       if (!response.ok) {
-        const errorInfo = {
-          status: response.status,
-          statusText: response.statusText,
-          error: 'Unknown error',
-          detail: ''
-        };
+        let errorMsg = "Failed to submit application.";
         try {
           const errorData = await response.json();
-          errorInfo.error = errorData.error || errorInfo.error;
-          errorInfo.detail = errorData.detail || '';
+          errorMsg = errorData.error || errorMsg;
         } catch {
-          errorInfo.detail = await response.text();
+          const text = await response.text();
+          if (text) errorMsg = text;
         }
-        console.error('Application submission error:', errorInfo);
-        toast.error(errorInfo.error || errorInfo.detail || errorInfo.statusText);
-        return;
+        throw new Error(errorMsg);
       }
-
       const result = await response.json();
       if (result.success) {
         toast.success("Application submitted successfully! Our staff will review it soon.");
         form.reset();
       } else {
-        const errorInfo = {
-          status: response.status,
-          statusText: response.statusText,
-          error: result.error || "Failed to submit application.",
-          detail: ''
-        };
-        console.error('Application submission error:', errorInfo);
-        toast.error(errorInfo.error);
+        toast.error(result.error || "Submission failed.");
       }
     } catch (error) {
       console.error("Application submission error:", error);
-      toast.error("Connection error. Please try again later.");
+      toast.error(error instanceof Error ? error.message : "Connection error. Please try again later.");
     }
   }, [form]);
   return (
@@ -148,7 +132,7 @@ export function ApplicationSection() {
                       <FormControl>
                         <Input placeholder="e.g. 5 years" className="border-2 border-black p-6 rounded-xl focus-visible:ring-orange-500 bg-secondary/30" {...field} />
                       </FormControl>
-                      <FormDescription className="text-muted-foreground/80">How long have you been playing MC?</FormDescription>
+                      <FormDescription className="text-muted-foreground/80 text-xs">How long have you been playing MC?</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -219,7 +203,7 @@ export function ApplicationSection() {
               <Button
                 type="submit"
                 disabled={form.formState.isSubmitting}
-                className="w-full h-16 text-xl font-black bg-orange-600 hover:bg-orange-700 text-white border-4 border-black shadow-hard active:translate-y-1 active:shadow-none transition-all"
+                className="w-full h-16 text-xl font-black bg-orange-600 hover:bg-orange-700 text-white border-4 border-black shadow-hard active:translate-y-1 active:shadow-none transition-all disabled:opacity-70"
               >
                 {form.formState.isSubmitting ? "Processing..." : "Submit Application"}
                 <Send className="ml-2 h-6 w-6" />
