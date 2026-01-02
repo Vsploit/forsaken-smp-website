@@ -24,9 +24,13 @@
     --input: 214.3 31.8% 91.4%;
     --radius: 0.75rem;
   }
-  * {
+  /* Global border rule - excluding SVGs and their descendants */
+  *:not(svg, svg *, [role="img"]) {
     @apply border-black;
-    outline: none !important;
+  }
+  /* Improved accessibility defaults */
+  *:focus {
+    @apply outline-none;
   }
   *:focus-visible {
     @apply ring-2 ring-orange-500 ring-offset-2;
@@ -53,6 +57,7 @@
     background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 }
 @layer utilities {

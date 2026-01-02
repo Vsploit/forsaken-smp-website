@@ -219,14 +219,14 @@ export function ApplicationSection() {
                   </div>
                 </div>
                 {/* Next Steps Information Box */}
-                <div className="mt-8 p-6 bg-orange-50 border-2 border-black rounded-xl shadow-hard-sm flex items-start gap-4">
-                  <div className="shrink-0 w-10 h-10 bg-orange-600 rounded-lg border-2 border-black flex items-center justify-center text-white">
-                    <BellRing className="w-6 h-6" />
+                <div className="mt-8 p-6 bg-orange-50 border-2 border-black rounded-xl shadow-hard-sm flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-4">
+                  <div className="shrink-0 w-12 h-12 bg-orange-600 rounded-lg border-2 border-black flex items-center justify-center text-white shadow-hard-sm">
+                    <BellRing className="w-7 h-7" />
                   </div>
                   <div className="space-y-1">
                     <p className="text-sm font-black uppercase tracking-tight text-orange-600">Next Steps</p>
                     <p className="text-sm font-bold text-foreground leading-relaxed">
-                      You will be pinged in the main Discord when your application is accepted or denied.
+                      You will be pinged in the main Discord when your application is accepted or denied. Ensure your notifications are on!
                     </p>
                   </div>
                 </div>
