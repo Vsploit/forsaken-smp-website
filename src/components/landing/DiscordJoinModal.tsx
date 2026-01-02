@@ -30,7 +30,7 @@ export function DiscordJoinModal({ children }: DiscordJoinModalProps) {
       <DialogTrigger asChild>
         {children}
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md border-4 border-black shadow-hard p-6 bg-white z-[110]">
+      <DialogContent className="sm:max-w-md border-4 border-black shadow-hard p-6 bg-white z-[200]">
         <DialogHeader className="space-y-4">
           <div className="mx-auto w-16 h-16 bg-orange-100 rounded-2xl border-4 border-black flex items-center justify-center -rotate-3 mb-2 shadow-hard-sm">
             <MessageSquare className="w-8 h-8 text-orange-600" />
@@ -58,7 +58,7 @@ export function DiscordJoinModal({ children }: DiscordJoinModalProps) {
           </div>
           <div className="bg-orange-50 border-2 border-black p-4 rounded-xl shadow-hard-sm">
             <p className="text-xs font-black uppercase tracking-widest text-center text-orange-600 mb-1">
-              ⚠️ Important Note
+              ⚠��� Important Note
             </p>
             <p className="text-sm text-center font-bold text-foreground">
               Your application review requires you to be present in our Discord server!

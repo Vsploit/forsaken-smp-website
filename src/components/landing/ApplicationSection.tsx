@@ -73,15 +73,15 @@ export function ApplicationSection() {
             Fill out the details below. Our staff reviews applications daily.
           </p>
         </div>
-        <RetroCard className="p-6 md:p-10 lg:p-12 relative min-h-[400px]">
+        <RetroCard className="p-6 md:p-10 lg:p-12 relative min-h-[400px] overflow-hidden">
           <AnimatePresence mode="wait">
             {!isSubmitted ? (
               <motion.div
                 key="form"
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.4, ease: "easeOut" }}
+                exit={{ opacity: 0, scale: 0.98, transition: { duration: 0.2 } }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
               >
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -93,10 +93,10 @@ export function ApplicationSection() {
                           <FormItem>
                             <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">Discord Username</FormLabel>
                             <FormControl>
-                              <Input 
-                                placeholder="username#0000" 
-                                className="border-4 border-black p-6 rounded-xl focus-visible:ring-orange-500 ring-offset-2 bg-white transition-all shadow-hard-sm" 
-                                {...field} 
+                              <Input
+                                placeholder="username#0000"
+                                className="border-4 border-black p-6 rounded-xl focus-visible:ring-orange-500 ring-offset-2 bg-white transition-all shadow-hard-sm"
+                                {...field}
                               />
                             </FormControl>
                             <FormMessage className="text-xs font-black text-destructive" />
@@ -110,11 +110,11 @@ export function ApplicationSection() {
                           <FormItem>
                             <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">Your Age</FormLabel>
                             <FormControl>
-                              <Input 
-                                type="text" 
-                                placeholder="e.g. 18+" 
-                                className="border-4 border-black p-6 rounded-xl focus-visible:ring-orange-500 ring-offset-2 bg-white transition-all shadow-hard-sm" 
-                                {...field} 
+                              <Input
+                                type="text"
+                                placeholder="e.g. 18+"
+                                className="border-4 border-black p-6 rounded-xl focus-visible:ring-orange-500 ring-offset-2 bg-white transition-all shadow-hard-sm"
+                                {...field}
                               />
                             </FormControl>
                             <FormMessage className="text-xs font-black text-destructive" />
@@ -129,10 +129,10 @@ export function ApplicationSection() {
                         <FormItem>
                           <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">Region & Timezone</FormLabel>
                           <FormControl>
-                            <Textarea 
-                              placeholder="e.g. US East / EST" 
-                              className="border-4 border-black p-4 rounded-xl min-h-[100px] focus-visible:ring-orange-500 ring-offset-2 bg-white transition-all shadow-hard-sm" 
-                              {...field} 
+                            <Textarea
+                              placeholder="e.g. US East / EST"
+                              className="border-4 border-black p-4 rounded-xl min-h-[100px] focus-visible:ring-orange-500 ring-offset-2 bg-white transition-all shadow-hard-sm"
+                              {...field}
                             />
                           </FormControl>
                           <FormMessage className="text-xs font-black text-destructive" />
@@ -147,10 +147,10 @@ export function ApplicationSection() {
                           <FormItem>
                             <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">Minecraft Experience</FormLabel>
                             <FormControl>
-                              <Input 
-                                placeholder="e.g. 3 years" 
-                                className="border-4 border-black p-6 rounded-xl focus-visible:ring-orange-500 ring-offset-2 bg-white transition-all shadow-hard-sm" 
-                                {...field} 
+                              <Input
+                                placeholder="e.g. 3 years"
+                                className="border-4 border-black p-6 rounded-xl focus-visible:ring-orange-500 ring-offset-2 bg-white transition-all shadow-hard-sm"
+                                {...field}
                               />
                             </FormControl>
                             <FormMessage className="text-xs font-black text-destructive" />
@@ -164,10 +164,10 @@ export function ApplicationSection() {
                           <FormItem>
                             <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">Weekly Hours</FormLabel>
                             <FormControl>
-                              <Input 
-                                placeholder="e.g. 10 hrs/week" 
-                                className="border-4 border-black p-6 rounded-xl focus-visible:ring-orange-500 ring-offset-2 bg-white transition-all shadow-hard-sm" 
-                                {...field} 
+                              <Input
+                                placeholder="e.g. 10 hrs/week"
+                                className="border-4 border-black p-6 rounded-xl focus-visible:ring-orange-500 ring-offset-2 bg-white transition-all shadow-hard-sm"
+                                {...field}
                               />
                             </FormControl>
                             <FormMessage className="text-xs font-black text-destructive" />
@@ -182,10 +182,10 @@ export function ApplicationSection() {
                         <FormItem>
                           <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">What brings you here?</FormLabel>
                           <FormControl>
-                            <Textarea 
-                              placeholder="Tell us why you want to be part of our community..." 
-                              className="border-4 border-black p-4 rounded-xl min-h-[120px] focus-visible:ring-orange-500 ring-offset-2 bg-white transition-all shadow-hard-sm" 
-                              {...field} 
+                            <Textarea
+                              placeholder="Tell us why you want to be part of our community..."
+                              className="border-4 border-black p-4 rounded-xl min-h-[120px] focus-visible:ring-orange-500 ring-offset-2 bg-white transition-all shadow-hard-sm"
+                              {...field}
                             />
                           </FormControl>
                           <FormMessage className="text-xs font-black text-destructive" />
@@ -199,10 +199,10 @@ export function ApplicationSection() {
                         <FormItem>
                           <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">Your Specializations</FormLabel>
                           <FormControl>
-                            <Textarea 
-                              placeholder="Building, Redstone, Technical, Lore writing..." 
-                              className="border-4 border-black p-4 rounded-xl min-h-[100px] focus-visible:ring-orange-500 ring-offset-2 bg-white transition-all shadow-hard-sm" 
-                              {...field} 
+                            <Textarea
+                              placeholder="Building, Redstone, Technical, Lore writing..."
+                              className="border-4 border-black p-4 rounded-xl min-h-[100px] focus-visible:ring-orange-500 ring-offset-2 bg-white transition-all shadow-hard-sm"
+                              {...field}
                             />
                           </FormControl>
                           <FormMessage className="text-xs font-black text-destructive" />
@@ -249,12 +249,12 @@ export function ApplicationSection() {
             ) : (
               <motion.div
                 key="success"
-                initial={{ opacity: 0, scale: 0.8, y: 50 }}
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ type: "spring", damping: 15, stiffness: 200 }}
+                transition={{ type: "spring", damping: 15, stiffness: 200, duration: 0.3 }}
                 className="flex flex-col items-center justify-center text-center py-20 space-y-8"
               >
-                <motion.div 
+                <motion.div
                   initial={{ rotate: -20 }}
                   animate={{ rotate: [-20, 10, -5, 0] }}
                   transition={{ delay: 0.2, duration: 0.5 }}

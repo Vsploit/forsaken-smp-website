@@ -11,7 +11,8 @@ import { Toaster } from '@/components/ui/sonner';
 export function HomePage() {
   return (
     <div className="min-h-screen bg-background text-foreground font-sans selection:bg-orange-500 selection:text-white transition-colors duration-300">
-      <div className="fixed inset-0 pointer-events-none opacity-[0.03] z-[100] bg-[url('https://www.transparenttextures.com/patterns/noise-lines.png')]" />
+      {/* Noise overlay moved to lower z-index to avoid blocking interactions while maintaining visual texture */}
+      <div className="fixed inset-0 pointer-events-none opacity-[0.03] z-[10] bg-[url('https://www.transparenttextures.com/patterns/noise-lines.png')]" />
       <Navbar />
       <main className="relative">
         <HeroSection />
