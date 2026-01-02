@@ -22,7 +22,7 @@ export function HeroSection() {
             className="w-full max-w-[280px] sm:max-w-[350px] lg:max-w-[450px] order-first lg:order-last"
           >
             <div className="relative">
-              <div className="absolute -inset-10 bg-orange-500 rounded-full blur-[100px] opacity-10 animate-pulse" />
+              <div className="absolute -inset-10 bg-orange-50 rounded-full blur-[100px] opacity-10 animate-pulse" />
               <div className="flex justify-center">
                 <motion.img
                   src={HERO_DATA.logoUrl}
@@ -51,7 +51,7 @@ export function HeroSection() {
               <Shield className="w-4 h-4 mr-2" />
               {HERO_DATA.badgeText}
             </div>
-            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-tight uppercase tracking-tight break-words text-gradient-forsaken">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-black leading-tight uppercase tracking-tight break-words text-gradient-forsaken">
               {HERO_DATA.title}
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-lg leading-relaxed">

@@ -12,7 +12,8 @@ export function GallerySection() {
     align: 'start',
     containScroll: 'trimSnaps',
     skipSnaps: false,
-    dragFree: false
+    dragFree: false,
+    duration: 30
   });
   const [prevBtnDisabled, setPrevBtnDisabled] = useState(true);
   const [nextBtnDisabled, setNextBtnDisabled] = useState(true);
