@@ -1,6 +1,5 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  darkMode: ['class'],
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
   	extend: {
@@ -22,6 +21,7 @@ export default {
           dirt: '#795548',
           stone: '#616161',
           sky: '#29B6F6',
+          lava: '#F4511E',
         },
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
