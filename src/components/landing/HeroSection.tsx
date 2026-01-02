@@ -1,62 +1,69 @@
-import React, { useState } from 'react';
-import { HERO_DATA } from '@/data/server-data';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { HERO_DATA, SOCIAL_LINKS } from '@/data/server-data';
 import { Button } from '@/components/ui/button';
-import { ChevronRight, Shield } from 'lucide-react';
-import { DiscordJoinModal } from './DiscordJoinModal';
+import { RetroCard } from '@/components/ui/retro-card';
+import { Gamepad2, ChevronRight } from 'lucide-react';
 export function HeroSection() {
-  const [logoError, setLogoError] = useState(false);
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center pt-28 md:pt-32 lg:pt-24 overflow-hidden bg-background">
-      <div
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-[0.08] dark:opacity-[0.05]"
-        style={{ backgroundImage: `url('${HERO_DATA.backgroundImage}')` }}
-      />
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(#f97316_1px,transparent_1px)] [background-size:40px_40px] opacity-[0.05]" />
-      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-orange-500/5 via-transparent to-background pointer-events-none" />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-8 md:py-12">
-        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
-          <div className="w-full max-w-[280px] sm:max-w-[350px] lg:max-w-[500px] order-first lg:order-last">
-            <div className="relative">
-              <div className="absolute -inset-10 bg-orange-100 dark:bg-orange-900/10 rounded-full blur-[120px] opacity-20 animate-pulse" />
-              <div className="flex justify-center p-4">
-                {!logoError ? (
-                  <img
-                    src={HERO_DATA.logoUrl}
-                    alt="Forsaken SMP Logo"
-                    loading="eager"
-                    onError={() => setLogoError(true)}
-                    className="w-full h-auto max-h-[400px] object-contain drop-shadow-[0_15px_35px_rgba(234,88,12,0.4)] transition-all duration-[8s] animate-bounce-slow hover:scale-105 hover:rotate-[0.5deg]"
-                  />
-                ) : (
-                  <div className="w-full aspect-square max-w-[300px] bg-orange-50 dark:bg-orange-900/10 border-8 border-foreground rounded-[2rem] shadow-hard-lg flex items-center justify-center rotate-3">
-                    <Shield className="w-32 h-32 text-orange-600" />
-                  </div>
-                )}
-              </div>
+    <section className="relative min-h-[85vh] flex items-center justify-center pt-16 overflow-hidden">
+      {/* Background Decor */}
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:32px_32px] opacity-40" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <motion.div 
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-left space-y-8"
+          >
+            <div className="inline-flex items-center px-4 py-1 rounded-full bg-minecraft-grass/10 border-2 border-minecraft-grass text-minecraft-grass font-bold text-sm uppercase tracking-wider animate-bounce-slight">
+              Season 6 Now Live!
             </div>
-          </div>
-          <div className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 sm:space-y-8">
-            <div className="inline-flex items-center px-4 py-1 rounded-full bg-orange-500/10 border-2 border-orange-500 text-orange-600 font-bold text-xs sm:text-sm uppercase tracking-wider animate-bounce-slight whitespace-nowrap shadow-hard-sm transition-all duration-500 hover:scale-105">
-              <Shield className="w-4 h-4 mr-2" />
-              {HERO_DATA.badgeText}
-            </div>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-black leading-[1.1] uppercase tracking-tight break-words text-gradient-forsaken">
+            <h1 className="text-5xl md:text-7xl font-black leading-tight text-foreground uppercase tracking-tight">
               {HERO_DATA.title}
             </h1>
-            <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-lg leading-relaxed font-medium">
+            <p className="text-xl text-muted-foreground max-w-lg leading-relaxed">
               {HERO_DATA.subtitle}
             </p>
-            <div className="flex flex-wrap justify-center lg:justify-start gap-4 pt-4">
-              <DiscordJoinModal>
-                <Button
-                  size="lg"
-                  className="h-14 px-8 sm:px-10 text-base sm:text-lg font-bold bg-orange-600 hover:bg-orange-700 text-white border-4 border-foreground shadow-hard hover:shadow-hard-lg transition-all active:translate-x-1 active:translate-y-1 active:shadow-none"
-                >
-                  Join The Community <ChevronRight className="ml-2 h-5 w-5" />
-                </Button>
-              </DiscordJoinModal>
+            <div className="flex flex-wrap gap-4 pt-4">
+              <Button size="lg" className="h-14 px-8 text-lg font-bold bg-minecraft-grass hover:bg-minecraft-grass/90 border-4 border-black shadow-hard hover:shadow-hard-lg transition-all active:translate-x-1 active:translate-y-1 active:shadow-none" asChild>
+                <a href={SOCIAL_LINKS.discord} target="_blank" rel="noopener noreferrer">
+                  Join Discord <ChevronRight className="ml-2 h-5 w-5" />
+                </a>
+              </Button>
+              <RetroCard className="px-6 py-3 flex items-center gap-3 bg-white">
+                <div className="p-2 bg-minecraft-sky/20 rounded-lg">
+                  <Gamepad2 className="w-5 h-5 text-minecraft-sky" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-muted-foreground uppercase">Server IP</p>
+                  <p className="text-sm font-black font-mono">{SOCIAL_LINKS.ip}</p>
+                </div>
+              </RetroCard>
             </div>
-          </div>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="hidden lg:block"
+          >
+            <div className="relative">
+              <div className="absolute -inset-4 bg-minecraft-dirt rounded-3xl blur-2xl opacity-20 animate-pulse" />
+              <RetroCard className="aspect-square relative p-0 overflow-hidden group">
+                <img 
+                  src={HERO_DATA.backgroundImage} 
+                  alt="Minecraft Scenic" 
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <div className="absolute bottom-6 left-6 right-6">
+                  <p className="text-white text-2xl font-black uppercase tracking-widest italic">Est. 2021</p>
+                </div>
+              </RetroCard>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>

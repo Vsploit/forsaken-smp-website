@@ -1,66 +1,45 @@
-export const SERVER_NAME = "Forsaken SMP";
+export const SERVER_NAME = "CraftAdventures SMP";
 export const SOCIAL_LINKS = {
-  discord: "https://discord.gg/BTjwSbvQM9",
-  twitter: "https://twitter.com/ForsakenSMP",
-  tiktok: "https://www.tiktok.com/@forsakensmp"
+  discord: "https://discord.gg/craftadventures",
+  twitter: "https://twitter.com/craftadventures",
+  ip: "play.craftadventures.net"
 };
-export const NAV_LINKS = [
-  { label: "The World", href: "#about" },
-  { label: "Current Season", href: "#current-season" },
-  { label: "Archives", href: "#gallery" },
-  { label: "Plugins", href: "#plugins" },
-  { label: "Apply Now", href: "#apply" }
-];
 export const HERO_DATA = {
-  title: "A New Chapter in Survival",
-  subtitle: "Experience a pure community survival world where every path, building, and landmark is shaped by players like you. Join the journey today.",
-  logoUrl: "https://i.postimg.cc/xdLbqZ6W/logo.png",
-  backgroundImage: "https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&q=80&w=1920",
-  badgeText: "Season 3 (2026) Active"
+  title: "Your Ultimate Survival Journey Awaits",
+  subtitle: "Join a community-driven SMP where creativity meets chaos. Custom plugins, unique seasons, and a world built by players like you.",
+  logoUrl: "https://i.postimg.cc/tJ0vW5z1/logo-placeholder.png", // Replace with actual logo
+  backgroundImage: "https://images.unsplash.com/photo-1587573089734-09cb69c0f2b4?auto=format&fit=crop&q=80&w=1920"
 };
 export const ABOUT_DATA = {
-  title: "Building a Legacy Together",
-  description: "Forsaken SMP is a collaborative survival environment focused on creativity and player-driven infrastructure. Our world is completely shaped by the community, offering a welcoming atmosphere for those who love pure survival.",
+  title: "More Than Just Blocks",
+  description: "CraftAdventures isn't just a server; it's a living history. Since 2021, we've hosted over 5 seasons of high-stakes survival, massive community builds, and unique world events that shape the map forever.",
   features: [
-    "100% Player Built",
-    "Community Driven",
-    "Pure Survival",
-    "Active Discord"
+    "100% Player-Driven Economy",
+    "Custom World Generation",
+    "Active Staff & Mature Community",
+    "Zero Pay-To-Win Mechanics"
   ],
-  imageUrl: "https://i.postimg.cc/Gtwmt17F/website11.png"
-};
-export const CURRENT_SEASON_DATA = {
-  id: 3,
-  title: "Season 3: New Horizons",
-  highlight: "Player-built world launching in 2026 – join the community survival experience.",
-  description: "Season 3 focuses on the core of SMP: player creativity. Join a world where everything you see is built by the community, from the smallest paths to the largest settlements.",
-  url: "https://i.postimg.cc/Gtwmt17F/website11.png",
-  year: "2026"
+  imageUrl: "https://images.unsplash.com/photo-1627398242454-45a1465c2479?auto=format&fit=crop&q=80&w=800"
 };
 export const SEASONS_GALLERY = [
-  {
-    id: 1,
-    title: "Season 1: Origins",
-    theme: "The Foundation of Forsaken",
-    year: "Summer 2025",
-    url: "https://i.postimg.cc/SR6Nzt31/website1.png"
-  },
-  {
-    id: 2,
-    title: "Season 2: Discovery",
-    theme: "The Era of Expansion",
-    year: "December 2025",
-    url: "https://i.postimg.cc/1Xh3XZCg/website10.png"
-  }
+  { id: 1, title: "Season 1: Genesis", url: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=800" },
+  { id: 2, title: "Season 2: Origins", url: "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=800" },
+  { id: 3, title: "Season 3: Ascension", url: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=800" }
 ];
 export const PLUGIN_FEATURES = [
   {
-    imageUrl: "https://i.postimg.cc/SR6Nzt31/website1.png"
+    title: "Custom Enchants",
+    description: "Discover over 50+ unique enchantments that change how you fight, mine, and explore.",
+    icon: "Sparkles"
   },
   {
-    imageUrl: "https://i.postimg.cc/2yQ8BXMH/website2.png"
+    title: "Dynamic Economy",
+    description: "A fully player-run market with physical currency and shop plots.",
+    icon: "Coins"
   },
   {
-    imageUrl: "https://i.postimg.cc/yx48xzQL/website3.png"
+    title: "Territory Claims",
+    description: "Protect your builds with our intuitive land claiming system.",
+    icon: "Shield"
   }
 ];
