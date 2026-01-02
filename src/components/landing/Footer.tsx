@@ -1,15 +1,8 @@
 import React from 'react';
 import { SOCIAL_LINKS, SERVER_NAME } from '@/data/server-data';
 import { Button } from '@/components/ui/button';
-import { MessageSquare, Twitter, Globe, Copy } from 'lucide-react';
-import { toast } from 'sonner';
+import { MessageSquare, Twitter, Globe } from 'lucide-react';
 export function Footer() {
-  const handleCopyIP = () => {
-    navigator.clipboard.writeText(SOCIAL_LINKS.ip);
-    toast.success("Server IP copied to clipboard!", {
-      description: SOCIAL_LINKS.ip,
-    });
-  };
   return (
     <footer className="bg-[#111] text-white pt-20 pb-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -20,7 +13,7 @@ export function Footer() {
           <p className="text-gray-400 max-w-md">
             The survival community awaits. Join the Forsaken community and explore the world today.
           </p>
-          <div className="flex flex-col sm:flex-row items-center gap-4">
+          <div className="flex justify-center w-full">
             <Button
               size="lg"
               className="h-16 px-12 text-xl font-bold bg-orange-600 hover:bg-orange-500 text-white border-4 border-white shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] hover:shadow-[10px_10px_0px_0px_rgba(255,255,255,1)] transition-all active:translate-x-1 active:translate-y-1 active:shadow-none"
@@ -29,14 +22,6 @@ export function Footer() {
               <a href={SOCIAL_LINKS.discord} target="_blank" rel="noopener noreferrer">
                 Join Discord
               </a>
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              onClick={handleCopyIP}
-              className="h-16 px-8 text-xl font-bold bg-transparent border-4 border-white text-white hover:bg-white hover:text-black shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] transition-all active:translate-x-1 active:translate-y-1 active:shadow-none"
-            >
-              <Copy className="mr-2 h-6 w-6" /> Copy IP
             </Button>
           </div>
         </div>
