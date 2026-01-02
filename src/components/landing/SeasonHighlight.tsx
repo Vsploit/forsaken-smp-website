@@ -34,7 +34,7 @@ export function SeasonHighlight() {
                 </p>
               </div>
               <p className="text-muted-foreground">
-                Enter the next generation of our community. Season 3 marks a major milestone as we expand our horizons into 2026.
+                {CURRENT_SEASON_DATA.description}
               </p>
               <DiscordJoinModal>
                 <Button

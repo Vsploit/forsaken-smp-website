@@ -31,24 +31,25 @@ export const ABOUT_DATA = {
 export const CURRENT_SEASON_DATA = {
   id: 3,
   title: "Season 3: New Horizons",
-  highlight: "Our most ambitious map yet, launching for the 2026 era with expanded community hubs and custom-generated landscapes.",
+  highlight: "Our most ambitious map yet, launching for the 2026 era with expanded community hubs and refined social spaces.",
+  description: "Enter the next generation of our community. Season 3 marks a major milestone as we expand our horizons into 2026 with a focus on collaborative survival and shared infrastructure.",
   url: "https://i.postimg.cc/Gtwmt17F/website11.png",
   year: "2026"
 };
 export const SEASONS_GALLERY = [
-  { 
-    id: 1, 
-    title: "Season 1: Origins", 
-    theme: "The Foundation of Forsaken", 
-    year: "Summer 2025", 
-    url: "https://i.postimg.cc/SR6Nzt31/website1.png" 
+  {
+    id: 1,
+    title: "Season 1: Origins",
+    theme: "The Foundation of Forsaken",
+    year: "Summer 2025",
+    url: "https://i.postimg.cc/SR6Nzt31/website1.png"
   },
-  { 
-    id: 2, 
-    title: "Season 2: Discovery", 
-    theme: "The Era of Expansion", 
-    year: "December 2025", 
-    url: "https://i.postimg.cc/1Xh3XZCg/website10.png" 
+  {
+    id: 2,
+    title: "Season 2: Discovery",
+    theme: "The Era of Expansion",
+    year: "December 2025",
+    url: "https://i.postimg.cc/1Xh3XZCg/website10.png"
   }
 ];
 export const PLUGIN_FEATURES = [
