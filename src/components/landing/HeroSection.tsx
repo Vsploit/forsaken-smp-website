@@ -49,7 +49,7 @@ export function HeroSection() {
             transition={{ duration: 0.6, ease: "easeOut" }}
             className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 sm:space-y-8"
           >
-            <div className="inline-flex items-center px-4 py-1 rounded-full bg-orange-500/10 border-2 border-orange-500 text-orange-600 font-bold text-xs sm:text-sm uppercase tracking-wider animate-bounce-slight">
+            <div className="inline-flex items-center px-4 py-1 rounded-full bg-orange-500/10 border-2 border-orange-500 text-orange-600 font-bold text-xs sm:text-sm uppercase tracking-wider animate-bounce-slight whitespace-nowrap">
               <Shield className="w-4 h-4 mr-2" />
               {HERO_DATA.badgeText}
             </div>

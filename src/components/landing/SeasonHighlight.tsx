@@ -28,13 +28,13 @@ export function SeasonHighlight() {
             </div>
             <div className="lg:w-2/5 p-8 md:p-12 flex flex-col justify-center space-y-6">
               <div className="space-y-2">
-                <span className="text-sm font-black text-orange-600 uppercase tracking-widest">Est. {CURRENT_SEASON_DATA.year}</span>
+                <span className="text-sm font-black text-orange-600 uppercase tracking-widest">Active {CURRENT_SEASON_DATA.year}</span>
                 <p className="text-xl md:text-2xl font-bold leading-tight">
                   {CURRENT_SEASON_DATA.highlight}
                 </p>
               </div>
               <p className="text-muted-foreground">
-                Step into our most vibrant world yet. Season 3 brings the community together in an ever-evolving landscape.
+                Enter the next generation of our community. Season 3 marks a major milestone as we expand our horizons into 2026.
               </p>
               <DiscordJoinModal>
                 <Button
