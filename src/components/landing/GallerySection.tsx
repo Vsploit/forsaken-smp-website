@@ -1,18 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import { motion } from 'framer-motion';
 import { SEASONS_GALLERY } from '@/data/server-data';
 import { RetroCard } from '@/components/ui/retro-card';
 import { ChevronLeft, ChevronRight, Calendar, Camera } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 export function GallerySection() {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'center' });
-  const scrollPrev = React.useCallback(() => {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, align: 'center' });
+  const [prevBtnDisabled, setPrevBtnDisabled] = useState(true);
+  const [nextBtnDisabled, setNextBtnDisabled] = useState(true);
+  const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
   }, [emblaApi]);
-  const scrollNext = React.useCallback(() => {
+  const scrollNext = useCallback(() => {
     if (emblaApi) emblaApi.scrollNext();
   }, [emblaApi]);
+  const onSelect = useCallback((api: any) => {
+    setPrevBtnDisabled(!api.canScrollPrev());
+    setNextBtnDisabled(!api.canScrollNext());
+  }, []);
+  useEffect(() => {
+    if (!emblaApi) return;
+    onSelect(emblaApi);
+    emblaApi.on('reInit', onSelect);
+    emblaApi.on('select', onSelect);
+  }, [emblaApi, onSelect]);
   return (
     <section id="gallery" className="py-24 bg-minecraft-sky/5 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -30,15 +43,23 @@ export function GallerySection() {
           <div className="flex gap-4">
             <Button
               onClick={scrollPrev}
+              disabled={prevBtnDisabled}
               size="icon"
-              className="bg-white border-4 border-black text-black hover:bg-black hover:text-white shadow-hard-sm transition-all"
+              className={cn(
+                "bg-white border-4 border-black text-black hover:bg-black hover:text-white shadow-hard-sm transition-all",
+                prevBtnDisabled && "opacity-50 cursor-not-allowed pointer-events-none"
+              )}
             >
               <ChevronLeft className="h-6 w-6" />
             </Button>
             <Button
               onClick={scrollNext}
+              disabled={nextBtnDisabled}
               size="icon"
-              className="bg-white border-4 border-black text-black hover:bg-black hover:text-white shadow-hard-sm transition-all"
+              className={cn(
+                "bg-white border-4 border-black text-black hover:bg-black hover:text-white shadow-hard-sm transition-all",
+                nextBtnDisabled && "opacity-50 cursor-not-allowed pointer-events-none"
+              )}
             >
               <ChevronRight className="h-6 w-6" />
             </Button>

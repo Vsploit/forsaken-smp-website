@@ -9,10 +9,10 @@ export function AboutSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row gap-16 items-center">
           <div className="flex-1 w-full order-2 lg:order-1">
-            <RetroCard className="p-0 h-[500px]">
-              <img 
-                src={ABOUT_DATA.imageUrl} 
-                alt="Community Build" 
+            <RetroCard className="p-0 h-[300px] md:h-[400px] lg:h-[500px]">
+              <img
+                src={ABOUT_DATA.imageUrl}
+                alt="Community Build"
                 className="w-full h-full object-cover"
               />
             </RetroCard>
@@ -32,11 +32,11 @@ export function AboutSection() {
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {ABOUT_DATA.features.map((feature, idx) => (
-                  <div key={idx} className="flex items-center gap-3 p-4 bg-white border-2 border-black rounded-xl shadow-hard-sm">
-                    <div className="flex-shrink-0 w-8 h-8 bg-minecraft-grass rounded-lg border-2 border-black flex items-center justify-center">
+                  <div key={idx} className="flex items-start gap-3 p-4 bg-white border-2 border-black rounded-xl shadow-hard-sm">
+                    <div className="flex-shrink-0 w-8 h-8 bg-minecraft-grass rounded-lg border-2 border-black flex items-center justify-center mt-0.5">
                       <Check className="w-5 h-5 text-white stroke-[3px]" />
                     </div>
-                    <span className="font-bold text-foreground">{feature}</span>
+                    <span className="font-bold text-foreground leading-tight">{feature}</span>
                   </div>
                 ))}
               </div>

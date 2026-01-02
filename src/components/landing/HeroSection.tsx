@@ -14,19 +14,19 @@ export function HeroSection() {
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-left space-y-8"
+            className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-8"
           >
             <div className="inline-flex items-center px-4 py-1 rounded-full bg-minecraft-grass/10 border-2 border-minecraft-grass text-minecraft-grass font-bold text-sm uppercase tracking-wider animate-bounce-slight">
               <Sparkles className="w-4 h-4 mr-2" />
               Forsaken Season 3 Active
             </div>
-            <h1 className="text-5xl md:text-7xl font-black leading-tight text-foreground uppercase tracking-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-black leading-tight text-foreground uppercase tracking-tight">
               {HERO_DATA.title}
             </h1>
-            <p className="text-xl text-muted-foreground max-w-lg leading-relaxed">
+            <p className="text-lg sm:text-xl text-muted-foreground max-w-lg leading-relaxed">
               {HERO_DATA.subtitle}
             </p>
-            <div className="flex flex-wrap gap-4 pt-4">
+            <div className="flex flex-wrap justify-center lg:justify-start gap-4 pt-4">
               <Button size="lg" className="h-14 px-10 text-lg font-bold bg-minecraft-grass hover:bg-minecraft-grass/90 border-4 border-black shadow-hard hover:shadow-hard-lg transition-all active:translate-x-1 active:translate-y-1 active:shadow-none" asChild>
                 <a href={SOCIAL_LINKS.discord} target="_blank" rel="noopener noreferrer">
                   Join Discord <ChevronRight className="ml-2 h-5 w-5" />
