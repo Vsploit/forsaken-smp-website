@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { HERO_DATA, SOCIAL_LINKS } from '@/data/server-data';
 import { Button } from '@/components/ui/button';
 import { RetroCard } from '@/components/ui/retro-card';
-import { Gamepad2, ChevronRight } from 'lucide-react';
+import { Gamepad2, ChevronRight, Sparkles } from 'lucide-react';
 export function HeroSection() {
   return (
     <section className="relative min-h-[85vh] flex items-center justify-center pt-16 overflow-hidden">
@@ -11,14 +11,15 @@ export function HeroSection() {
       <div className="absolute inset-0 z-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:32px_32px] opacity-40" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             className="text-left space-y-8"
           >
             <div className="inline-flex items-center px-4 py-1 rounded-full bg-minecraft-grass/10 border-2 border-minecraft-grass text-minecraft-grass font-bold text-sm uppercase tracking-wider animate-bounce-slight">
-              Season 6 Now Live!
+              <Sparkles className="w-4 h-4 mr-2" />
+              Forsaken Season 6 Active
             </div>
             <h1 className="text-5xl md:text-7xl font-black leading-tight text-foreground uppercase tracking-tight">
               {HERO_DATA.title}
@@ -50,18 +51,16 @@ export function HeroSection() {
             className="hidden lg:block"
           >
             <div className="relative">
-              <div className="absolute -inset-4 bg-minecraft-dirt rounded-3xl blur-2xl opacity-20 animate-pulse" />
-              <RetroCard className="aspect-square relative p-0 overflow-hidden group">
-                <img 
-                  src={HERO_DATA.backgroundImage} 
-                  alt="Minecraft Scenic" 
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+              <div className="absolute -inset-10 bg-minecraft-grass rounded-full blur-[100px] opacity-10 animate-pulse" />
+              <div className="flex justify-center">
+                <motion.img
+                  src={HERO_DATA.logoUrl}
+                  alt="Forsaken SMP Logo"
+                  className="w-full max-w-[450px] object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.3)]"
+                  animate={{ y: [0, -15, 0] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <div className="absolute bottom-6 left-6 right-6">
-                  <p className="text-white text-2xl font-black uppercase tracking-widest italic">Est. 2021</p>
-                </div>
-              </RetroCard>
+              </div>
             </div>
           </motion.div>
         </div>

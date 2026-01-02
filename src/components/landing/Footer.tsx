@@ -8,15 +8,16 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center text-center space-y-8 mb-16">
           <h3 className="text-3xl md:text-5xl font-black uppercase italic tracking-widest">
-            Ready to Play?
+            The World is Waiting.
           </h3>
-          <Button 
-            size="lg" 
+          <p className="text-gray-400 max-w-md">Join hundreds of players in the definitive survival experience you won't forget.</p>
+          <Button
+            size="lg"
             className="h-16 px-12 text-xl font-bold bg-minecraft-sky hover:bg-minecraft-sky/90 border-4 border-white shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] hover:shadow-[10px_10px_0px_0px_rgba(255,255,255,1)] transition-all active:translate-x-1 active:translate-y-1 active:shadow-none"
             asChild
           >
             <a href={SOCIAL_LINKS.discord} target="_blank" rel="noopener noreferrer">
-              Join the Discord
+              Join Forsaken Discord
             </a>
           </Button>
         </div>
@@ -24,7 +25,7 @@ export function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="space-y-2 text-center md:text-left">
             <p className="text-2xl font-black uppercase tracking-tighter">{SERVER_NAME}</p>
-            <p className="text-sm text-gray-400">© {new Date().getFullYear()} CraftAdventures SMP. All rights reserved.</p>
+            <p className="text-sm text-gray-400">© {new Date().getFullYear()} {SERVER_NAME}. All rights reserved.</p>
           </div>
           <div className="flex items-center gap-4">
             <a href={SOCIAL_LINKS.discord} className="p-3 bg-white/10 rounded-xl hover:bg-white/20 transition-colors">
