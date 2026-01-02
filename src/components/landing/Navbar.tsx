@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NAV_LINKS, HERO_DATA } from '@/data/server-data';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader, SheetClose, SheetDescription } from '@/components/ui/sheet';
-import { Menu, ChevronRight } from 'lucide-react';
+import { Menu, ChevronRight, Shield } from 'lucide-react';
 import { DiscordJoinModal } from './DiscordJoinModal';
 export function Navbar() {
+  const [logoError, setLogoError] = useState(false);
   const scrollToTop = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -21,11 +22,19 @@ export function Navbar() {
             className="flex items-center gap-3 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 rounded-lg p-1"
           >
             <div className="w-12 h-12 flex items-center justify-center">
-              <img
-                src={HERO_DATA.logoUrl}
-                alt="Forsaken Logo"
-                className="w-full h-full object-contain drop-shadow-sm transition-transform group-hover:rotate-12 group-hover:scale-110"
-              />
+              {!logoError ? (
+                <img
+                  src={HERO_DATA.logoUrl}
+                  alt="Forsaken Logo"
+                  loading="lazy"
+                  onError={() => setLogoError(true)}
+                  className="w-full h-full object-contain drop-shadow-sm transition-transform group-hover:rotate-12 group-hover:scale-110"
+                />
+              ) : (
+                <div className="w-full h-full bg-orange-100 rounded-lg border-2 border-black flex items-center justify-center transition-transform group-hover:rotate-12 group-hover:scale-110">
+                  <Shield className="w-6 h-6 text-orange-600" />
+                </div>
+              )}
             </div>
             <span className="text-2xl font-black uppercase tracking-tighter italic text-gradient-forsaken">
               Forsaken
@@ -66,11 +75,18 @@ export function Navbar() {
               <SheetContent side="right" className="bg-white border-l-4 border-black w-[300px] p-0 flex flex-col z-[120]">
                 <SheetHeader className="text-left border-b-4 border-black p-6 bg-orange-50/30">
                   <div className="flex items-center gap-3 mb-2">
-                    <img 
-                      src={HERO_DATA.logoUrl} 
-                      alt="Logo" 
-                      className="w-12 h-12 object-contain drop-shadow-md" 
-                    />
+                    {!logoError ? (
+                      <img
+                        src={HERO_DATA.logoUrl}
+                        alt="Logo"
+                        onError={() => setLogoError(true)}
+                        className="w-12 h-12 object-contain drop-shadow-md"
+                      />
+                    ) : (
+                      <div className="w-12 h-12 bg-orange-100 rounded-lg border-2 border-black flex items-center justify-center shadow-hard-sm">
+                        <Shield className="w-6 h-6 text-orange-600" />
+                      </div>
+                    )}
                     <SheetTitle className="text-2xl font-black uppercase tracking-tighter italic">
                       Forsaken <span className="text-orange-600">SMP</span>
                     </SheetTitle>

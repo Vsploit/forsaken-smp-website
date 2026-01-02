@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { HERO_DATA } from '@/data/server-data';
 import { Button } from '@/components/ui/button';
 import { ChevronRight, Shield } from 'lucide-react';
 import { DiscordJoinModal } from './DiscordJoinModal';
 export function HeroSection() {
+  const [logoError, setLogoError] = useState(false);
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center pt-28 md:pt-32 lg:pt-24 overflow-hidden bg-white">
       <div
@@ -24,20 +25,32 @@ export function HeroSection() {
             <div className="relative">
               <div className="absolute -inset-10 bg-orange-100 rounded-full blur-[120px] opacity-20 animate-pulse" />
               <div className="flex justify-center p-4">
-                <motion.img
-                  src={HERO_DATA.logoUrl}
-                  alt="Forsaken SMP Logo"
-                  className="w-full h-auto max-h-[400px] object-contain drop-shadow-[0_15px_35px_rgba(234,88,12,0.4)]"
-                  animate={{
-                    y: [0, -15, 0],
-                    rotate: [0, 1, -1, 0]
-                  }}
-                  transition={{
-                    duration: 6,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                />
+                {!logoError ? (
+                  <motion.img
+                    src={HERO_DATA.logoUrl}
+                    alt="Forsaken SMP Logo"
+                    loading="eager"
+                    onError={() => setLogoError(true)}
+                    className="w-full h-auto max-h-[400px] object-contain drop-shadow-[0_15px_35px_rgba(234,88,12,0.4)]"
+                    animate={{
+                      y: [0, -15, 0],
+                      rotate: [0, 1, -1, 0]
+                    }}
+                    transition={{
+                      duration: 6,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  />
+                ) : (
+                  <motion.div 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="w-full aspect-square max-w-[300px] bg-orange-50 border-8 border-black rounded-[2rem] shadow-hard-lg flex items-center justify-center rotate-3"
+                  >
+                    <Shield className="w-32 h-32 text-orange-600" />
+                  </motion.div>
+                )}
               </div>
             </div>
           </motion.div>
