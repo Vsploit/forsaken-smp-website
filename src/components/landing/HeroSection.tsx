@@ -19,7 +19,7 @@ export function HeroSection() {
           >
             <div className="inline-flex items-center px-4 py-1 rounded-full bg-orange-500/10 border-2 border-orange-500 text-orange-600 font-bold text-xs sm:text-sm uppercase tracking-wider animate-bounce-slight">
               <Shield className="w-4 h-4 mr-2" />
-              The New Standard of Hardcore
+              {HERO_DATA.badgeText || "Season Live"}
             </div>
             <h1 className="text-3xl sm:text-5xl md:text-7xl font-black leading-tight text-foreground uppercase tracking-tight break-words">
               {HERO_DATA.title}
