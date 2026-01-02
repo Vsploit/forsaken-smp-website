@@ -36,7 +36,7 @@ export const CURRENT_SEASON_DATA = {
   year: "2025"
 };
 export const SEASONS_GALLERY = [
-  { id: 1, title: "Season 1: Origins", theme: "The Beginning", year: "2025", url: "https://i.postimg.cc/SR6Nzt31/website1.png" },
+  { id: 1, title: "Season 1: Origins", theme: "The Beginning", year: "Jan 2025", url: "https://i.postimg.cc/SR6Nzt31/website1.png" },
   { id: 2, title: "Season 2: Discovery", theme: "Age of Exploration", year: "Dec 2025", url: "https://i.postimg.cc/1Xh3XZCg/website10.png" }
 ];
 export const PLUGIN_FEATURES = [
