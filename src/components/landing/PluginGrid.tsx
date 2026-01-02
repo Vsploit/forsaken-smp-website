@@ -1,20 +1,19 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { PLUGIN_FEATURES } from '@/data/server-data';
 import { RetroCard } from '@/components/ui/retro-card';
-import { Sparkles, Coins, Shield, Info } from 'lucide-react';
+import { Sparkles, Shield, Zap, Info } from 'lucide-react';
 const IconMap = {
   Sparkles: Sparkles,
-  Coins: Coins,
+  Zap: Zap,
   Shield: Shield,
 };
 export function PluginGrid() {
   return (
     <section id="plugins" className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="text-center mb-16 space-y-4">
-        <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tight">Forsaken Features</h2>
+        <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tight">Core Mechanics</h2>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-          Our custom plugin suite is engineered for depth and stability. No mods required to play.
+          Every custom feature is tuned for a balanced yet unforgiving Lifesteal experience.
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -27,9 +26,9 @@ export function PluginGrid() {
             >
               {/* Plugin Preview Image */}
               <div className="h-48 w-full overflow-hidden border-b-4 border-black">
-                <img 
-                  src={feature.imageUrl} 
-                  alt={feature.title} 
+                <img
+                  src={feature.imageUrl}
+                  alt={feature.title}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
               </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { SOCIAL_LINKS, NAV_LINKS, SERVER_NAME, HERO_DATA } from '@/data/server-data';
+import { SOCIAL_LINKS, NAV_LINKS, HERO_DATA } from '@/data/server-data';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet';
 import { Menu, ChevronRight } from 'lucide-react';
@@ -10,10 +10,10 @@ export function Navbar() {
         <div className="flex justify-between h-20 items-center">
           {/* Logo */}
           <div className="flex items-center gap-3">
-            <img 
-              src={HERO_DATA.logoUrl} 
-              alt="Forsaken Logo" 
-              className="w-10 h-10 object-contain drop-shadow-sm" 
+            <img
+              src={HERO_DATA.logoUrl}
+              alt="Forsaken Logo"
+              className="w-10 h-10 object-contain drop-shadow-sm"
             />
             <span className="text-2xl font-black uppercase tracking-tighter italic">
               Forsaken
@@ -36,7 +36,7 @@ export function Navbar() {
               asChild
             >
               <a href={SOCIAL_LINKS.discord} target="_blank" rel="noopener noreferrer">
-                Join Portal <ChevronRight className="ml-1 h-4 w-4" />
+                Join Discord <ChevronRight className="ml-1 h-4 w-4" />
               </a>
             </Button>
           </div>

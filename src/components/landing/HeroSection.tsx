@@ -2,8 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { HERO_DATA, SOCIAL_LINKS } from '@/data/server-data';
 import { Button } from '@/components/ui/button';
-import { RetroCard } from '@/components/ui/retro-card';
-import { Gamepad2, ChevronRight, Sparkles } from 'lucide-react';
+import { ChevronRight, Sparkles } from 'lucide-react';
 export function HeroSection() {
   return (
     <section className="relative min-h-[85vh] flex items-center justify-center pt-16 overflow-hidden">
@@ -19,7 +18,7 @@ export function HeroSection() {
           >
             <div className="inline-flex items-center px-4 py-1 rounded-full bg-minecraft-grass/10 border-2 border-minecraft-grass text-minecraft-grass font-bold text-sm uppercase tracking-wider animate-bounce-slight">
               <Sparkles className="w-4 h-4 mr-2" />
-              Forsaken Season 6 Active
+              Forsaken Season 3 Active
             </div>
             <h1 className="text-5xl md:text-7xl font-black leading-tight text-foreground uppercase tracking-tight">
               {HERO_DATA.title}
@@ -28,20 +27,11 @@ export function HeroSection() {
               {HERO_DATA.subtitle}
             </p>
             <div className="flex flex-wrap gap-4 pt-4">
-              <Button size="lg" className="h-14 px-8 text-lg font-bold bg-minecraft-grass hover:bg-minecraft-grass/90 border-4 border-black shadow-hard hover:shadow-hard-lg transition-all active:translate-x-1 active:translate-y-1 active:shadow-none" asChild>
+              <Button size="lg" className="h-14 px-10 text-lg font-bold bg-minecraft-grass hover:bg-minecraft-grass/90 border-4 border-black shadow-hard hover:shadow-hard-lg transition-all active:translate-x-1 active:translate-y-1 active:shadow-none" asChild>
                 <a href={SOCIAL_LINKS.discord} target="_blank" rel="noopener noreferrer">
                   Join Discord <ChevronRight className="ml-2 h-5 w-5" />
                 </a>
               </Button>
-              <RetroCard className="px-6 py-3 flex items-center gap-3 bg-white">
-                <div className="p-2 bg-minecraft-sky/20 rounded-lg">
-                  <Gamepad2 className="w-5 h-5 text-minecraft-sky" />
-                </div>
-                <div>
-                  <p className="text-xs font-bold text-muted-foreground uppercase">Server IP</p>
-                  <p className="text-sm font-black font-mono">{SOCIAL_LINKS.ip}</p>
-                </div>
-              </RetroCard>
             </div>
           </motion.div>
           <motion.div
