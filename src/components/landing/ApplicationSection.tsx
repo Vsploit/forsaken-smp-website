@@ -80,7 +80,7 @@ export function ApplicationSection() {
       console.error("Application submission error:", error);
       toast.error("Connection error. Please try again later.");
     }
-  }, []);
+  }, [form]);
   return (
     <section id="apply" className="py-24 bg-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
