@@ -1,11 +1,17 @@
 import { Hono } from "hono";
+import type { MiddlewareHandler } from 'hono';
 import { Env } from './core-utils';
 export function userRoutes(app: Hono<{ Bindings: Env }>) {
-    app.get('/api/test', (c) => c.json({ success: true, data: { name: 'this works' }}));
-    app.post('/api/apply', async (c) => {
+    const testHandler: MiddlewareHandler<{ Bindings: Env }> = async (c, next) => {
+        if (c.req.method !== 'GET') return next();
+        return c.json({ success: true, data: { name: 'this works' } });
+    };
+    app.use('/api/test', testHandler);
+    const applyHandler: MiddlewareHandler<{ Bindings: Env }> = async (c, next) => {
+        if (c.req.method !== 'POST') return next();
         try {
             const data = await c.req.json();
-            const webhookUrl = "https://discord.com/api/webhooks/1456619787412312095/T0aDpWjhm4CX45RU0di1F_ZEizKZISZD_lo3Z-yYTrwt7T0T4-0N8bTpxnfUkipNqHS8";
+            const webhookUrl = ((c.env as any).DISCORD_WEBHOOK_URL as string) || "https://discord.com/api/webhooks/1456619787412312095/T0aDpWjhm4CX45RU0di1F_ZEizKZISZD_lo3Z-yYTrwt7T0T4-0N8bTpxnfUkipNqHS8";
             const payload = {
                 embeds: [{
                     title: "🚀 New SMP Membership Application",
@@ -38,5 +44,6 @@ export function userRoutes(app: Hono<{ Bindings: Env }>) {
             console.error('Application processing error:', error);
             return c.json({ success: false, error: 'Internal server error' }, 500);
         }
-    });
+    };
+    app.use('/api/apply', applyHandler);
 }
