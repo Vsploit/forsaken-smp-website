@@ -12,7 +12,7 @@ export function AboutSection() {
             <RetroCard className="p-0 h-[300px] md:h-[400px] lg:h-[500px]">
               <img
                 src={ABOUT_DATA.imageUrl}
-                alt="Community World"
+                alt="Player-built world showcase"
                 className="w-full h-full object-cover"
               />
             </RetroCard>
