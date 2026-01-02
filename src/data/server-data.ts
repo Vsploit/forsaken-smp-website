@@ -2,7 +2,7 @@ export const SERVER_NAME = "Bizarre SMP";
 export const SOCIAL_LINKS = {
   discord: "https://discord.gg/7kbQRxWqHH",
   twitter: "https://twitter.com/BizarreSMP",
-  ip: "" 
+  ip: ""
 };
 export const NAV_LINKS = [
   { label: "Surreality", href: "#about" },
@@ -44,23 +44,23 @@ export const SEASONS_GALLERY = [
 export const PLUGIN_FEATURES = [
   {
     title: "Heart Seeker",
-    description: "The core Lifesteal mechanic with a twist. Hunt for hearts in the most dangerous corners of the rift. Maximize your life force or fade into the void.",
+    description: "The core Lifesteal mechanic with a surreal twist. Hunt for hearts in the most dangerous corners of the rift. Maximize your life force or dissolve into the static.",
     icon: "HeartPulse",
-    lore: "Your pulse is a currency.",
+    lore: "Your pulse is a borrowed currency.",
     imageUrl: "https://i.postimg.cc/SR6Nzt31/website1.png"
   },
   {
-    title: "Unique Mobs",
-    description: "Battle entities that shouldn't exist. Custom AI and surreal abilities make every encounter a puzzle for survival.",
+    title: "Anomaly Mobs",
+    description: "Battle entities that defy biological logic. Custom AI and surreal abilities make every encounter a puzzle for survival in an unpredictable world.",
     icon: "Ghost",
-    lore: "Not all that wanders is flesh.",
+    lore: "Not all that wanders is flesh or bone.",
     imageUrl: "https://i.postimg.cc/2yQ8BXMH/website2.png"
   },
   {
-    title: "Progression Quests",
-    description: "An evolving quest system that reacts to the world's state. Unlock bizarre powers and cosmetic perks as you descend deeper into the lore.",
+    title: "Fractured Quests",
+    description: "An evolving quest system that reacts to the rift's instability. Unlock bizarre reality-bending powers and cosmetic perks as you descend into the lore.",
     icon: "Map",
-    lore: "The path is never straight.",
+    lore: "The path is only visible to those who look sideways.",
     imageUrl: "https://i.postimg.cc/yx48xzQL/website3.png"
   }
 ];
