@@ -11,7 +11,7 @@ export function Navbar() {
     window.history.pushState(null, '', '#');
   };
   return (
-    <nav className="sticky top-0 z-[60] w-full bg-white/95 backdrop-blur-md border-b-4 border-black">
+    <nav className="sticky top-0 z-[100] w-full bg-white/95 backdrop-blur-md border-b-4 border-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20 items-center">
           {/* Logo / Home Trigger */}
@@ -45,7 +45,7 @@ export function Navbar() {
             ))}
             <DiscordJoinModal>
               <Button
-                className="bg-orange-600 hover:bg-orange-700 text-white border-2 border-black shadow-hard-sm hover:translate-y-[-2px] hover:shadow-hard active:translate-y-[0px] active:shadow-hard-sm transition-all"
+                className="bg-orange-600 hover:bg-orange-700 text-white border-4 border-black shadow-hard-sm hover:translate-y-[-2px] hover:shadow-hard active:translate-y-[0px] active:shadow-hard-sm transition-all h-12 px-6 font-black"
               >
                 Join Discord <ChevronRight className="ml-1 h-4 w-4" />
               </Button>
@@ -63,16 +63,20 @@ export function Navbar() {
                   <Menu className="h-6 w-6" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="bg-white border-l-4 border-black w-[300px] p-0 flex flex-col">
+              <SheetContent side="right" className="bg-white border-l-4 border-black w-[300px] p-0 flex flex-col z-[120]">
                 <SheetHeader className="text-left border-b-4 border-black p-6 bg-orange-50/30">
                   <div className="flex items-center gap-3 mb-2">
-                    <img src={HERO_DATA.logoUrl} alt="Logo" className="w-10 h-10 object-contain" />
+                    <img 
+                      src={HERO_DATA.logoUrl} 
+                      alt="Logo" 
+                      className="w-12 h-12 object-contain drop-shadow-md" 
+                    />
                     <SheetTitle className="text-2xl font-black uppercase tracking-tighter italic">
                       Forsaken <span className="text-orange-600">SMP</span>
                     </SheetTitle>
                   </div>
-                  <SheetDescription className="text-foreground/80 font-medium">
-                    Navigate our world and join the community.
+                  <SheetDescription className="text-foreground/80 font-bold">
+                    Navigate our world and join the survival community.
                   </SheetDescription>
                 </SheetHeader>
                 <div className="flex flex-col gap-2 p-6 overflow-y-auto">

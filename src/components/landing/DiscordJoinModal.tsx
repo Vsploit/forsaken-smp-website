@@ -15,10 +15,10 @@ export function DiscordJoinModal({ children }: DiscordJoinModalProps) {
     try {
       await navigator.clipboard.writeText(discordLink);
       setCopied(true);
-      toast.success("Invite link copied to clipboard!");
+      toast.success("Invite link copied!");
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
-      toast.error("Failed to copy link. Please manually copy the URL.");
+      toast.error("Failed to copy link.");
       console.error("Copy failed:", err);
     }
   }, [discordLink]);
@@ -30,18 +30,18 @@ export function DiscordJoinModal({ children }: DiscordJoinModalProps) {
       <DialogTrigger asChild>
         {children}
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md border-4 border-black shadow-hard p-6 bg-white z-[100]">
+      <DialogContent className="sm:max-w-md border-4 border-black shadow-hard p-6 bg-white z-[110]">
         <DialogHeader className="space-y-4">
-          <div className="mx-auto w-16 h-16 bg-orange-100 rounded-2xl border-4 border-black flex items-center justify-center -rotate-3 mb-2">
+          <div className="mx-auto w-16 h-16 bg-orange-100 rounded-2xl border-4 border-black flex items-center justify-center -rotate-3 mb-2 shadow-hard-sm">
             <MessageSquare className="w-8 h-8 text-orange-600" />
           </div>
           <DialogTitle className="text-3xl font-black uppercase tracking-tight text-center text-foreground">Join Our Discord</DialogTitle>
           <DialogDescription className="text-center text-muted-foreground font-medium">
-            Copy the invitation link below to join the community and start your application.
+            Join the community to complete your application and meet other players.
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-6 pt-4">
-          <div className="flex items-center space-x-2 bg-orange-50 p-2 border-2 border-black rounded-xl">
+          <div className="flex items-center space-x-2 bg-orange-50 p-2 border-2 border-black rounded-xl shadow-hard-sm">
             <Input
               readOnly
               value={discordLink}
@@ -56,19 +56,19 @@ export function DiscordJoinModal({ children }: DiscordJoinModalProps) {
               {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
             </Button>
           </div>
-          <div className="bg-black/5 p-4 rounded-xl border-2 border-black/10">
-            <p className="text-xs font-black uppercase tracking-widest text-center text-orange-600">
+          <div className="bg-orange-50 border-2 border-black p-4 rounded-xl shadow-hard-sm">
+            <p className="text-xs font-black uppercase tracking-widest text-center text-orange-600 mb-1">
               ⚠️ Important Note
             </p>
-            <p className="text-sm text-center font-bold mt-1 text-foreground">
-              You must be in the Discord server to complete your application review!
+            <p className="text-sm text-center font-bold text-foreground">
+              Your application review requires you to be present in our Discord server!
             </p>
           </div>
           <Button
-            className="w-full bg-black text-white hover:bg-gray-800 h-12 font-bold rounded-xl active:translate-y-0.5 transition-all"
+            className="w-full bg-black text-white hover:bg-gray-800 h-14 text-lg font-black rounded-xl active:translate-y-1 active:shadow-none transition-all shadow-hard border-2 border-black"
             onClick={openDiscord}
           >
-            Open Discord Directly
+            Open Discord App
           </Button>
         </div>
       </DialogContent>
