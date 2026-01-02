@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { HERO_DATA, SOCIAL_LINKS } from '@/data/server-data';
 import { Button } from '@/components/ui/button';
-import { ChevronRight, Flame } from 'lucide-react';
+import { ChevronRight, Shield } from 'lucide-react';
 export function HeroSection() {
   return (
     <section className="relative min-h-[85vh] flex items-center justify-center pt-16 overflow-hidden bg-white">
@@ -18,8 +18,8 @@ export function HeroSection() {
             className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 sm:space-y-8"
           >
             <div className="inline-flex items-center px-4 py-1 rounded-full bg-orange-500/10 border-2 border-orange-500 text-orange-600 font-bold text-xs sm:text-sm uppercase tracking-wider animate-bounce-slight">
-              <Flame className="w-4 h-4 mr-2" />
-              Forsaken Season 1: Origins
+              <Shield className="w-4 h-4 mr-2" />
+              The New Standard of Hardcore
             </div>
             <h1 className="text-3xl sm:text-5xl md:text-7xl font-black leading-tight text-foreground uppercase tracking-tight break-words">
               {HERO_DATA.title}
@@ -28,9 +28,9 @@ export function HeroSection() {
               {HERO_DATA.subtitle}
             </p>
             <div className="flex flex-wrap justify-center lg:justify-start gap-4 pt-4">
-              <Button 
-                size="lg" 
-                className="h-14 px-10 text-lg font-bold bg-orange-600 hover:bg-orange-700 text-white border-4 border-black shadow-hard hover:shadow-hard-lg transition-all active:translate-x-1 active:translate-y-1 active:shadow-none" 
+              <Button
+                size="lg"
+                className="h-14 px-10 text-lg font-bold bg-orange-600 hover:bg-orange-700 text-white border-4 border-black shadow-hard hover:shadow-hard-lg transition-all active:translate-x-1 active:translate-y-1 active:shadow-none"
                 asChild
               >
                 <a href={SOCIAL_LINKS.discord} target="_blank" rel="noopener noreferrer">
@@ -52,14 +52,14 @@ export function HeroSection() {
                   src={HERO_DATA.logoUrl}
                   alt="Forsaken SMP Logo"
                   className="w-full max-w-[450px] object-contain drop-shadow-[0_20px_50px_rgba(249,115,22,0.3)]"
-                  animate={{ 
+                  animate={{
                     y: [0, -10, 0],
                     rotate: [0, 0.5, -0.5, 0]
                   }}
-                  transition={{ 
-                    duration: 6, 
-                    repeat: Infinity, 
-                    ease: "easeInOut" 
+                  transition={{
+                    duration: 6,
+                    repeat: Infinity,
+                    ease: "easeInOut"
                   }}
                 />
               </div>

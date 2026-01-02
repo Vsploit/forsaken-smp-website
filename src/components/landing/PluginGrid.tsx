@@ -1,11 +1,12 @@
 import React from 'react';
 import { PLUGIN_FEATURES } from '@/data/server-data';
 import { RetroCard } from '@/components/ui/retro-card';
-import { Map, HeartPulse, Ghost, Info } from 'lucide-react';
+import { Map, Wand2, Skull, Trophy, Info } from 'lucide-react';
 const IconMap = {
+  Wand2: Wand2,
+  Skull: Skull,
+  Trophy: Trophy,
   Map: Map,
-  HeartPulse: HeartPulse,
-  Ghost: Ghost,
 };
 export function PluginGrid() {
   return (

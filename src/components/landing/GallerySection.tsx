@@ -7,8 +7,8 @@ import { ChevronLeft, ChevronRight, Calendar, Camera } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 export function GallerySection() {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ 
-    loop: false, 
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: false,
     align: 'start',
     containScroll: 'trimSnaps'
   });
@@ -39,9 +39,9 @@ export function GallerySection() {
               <Camera className="w-4 h-4" />
               Forsaken History
             </div>
-            <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tight">The Hall of Warriors</h2>
+            <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tight">The Hall of Legends</h2>
             <p className="text-xl text-muted-foreground max-w-xl">
-              Relive the battles, the betrayals, and the legendary builds of past Forsaken seasons.
+              Relive the conquests, the alliances, and the legendary builds of past Forsaken seasons.
             </p>
           </div>
           <div className="flex gap-4">
