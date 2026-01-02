@@ -4,12 +4,21 @@ import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader, SheetClose, SheetDescription } from '@/components/ui/sheet';
 import { Menu, ChevronRight } from 'lucide-react';
 export function Navbar() {
+  const scrollToTop = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.history.pushState(null, '', '#');
+  };
   return (
     <nav className="sticky top-0 z-[60] w-full bg-white/95 backdrop-blur-md border-b-4 border-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20 items-center">
-          {/* Logo */}
-          <a href="/" className="flex items-center gap-3 group">
+          {/* Logo / Home Trigger */}
+          <a 
+            href="#" 
+            onClick={scrollToTop}
+            className="flex items-center gap-3 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 rounded-lg p-1"
+          >
             <img
               src={HERO_DATA.logoUrl}
               alt="Forsaken Logo"
@@ -44,7 +53,7 @@ export function Navbar() {
           <div className="md:hidden">
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="border-2 border-black hover:bg-orange-50">
+                <Button variant="ghost" size="icon" className="border-2 border-black hover:bg-orange-50 focus-visible:ring-orange-500">
                   <Menu className="h-6 w-6" />
                 </Button>
               </SheetTrigger>
@@ -56,8 +65,8 @@ export function Navbar() {
                       Forsaken <span className="text-orange-600">SMP</span>
                     </SheetTitle>
                   </div>
-                  <SheetDescription className="sr-only">
-                    Navigation menu for Forsaken SMP website.
+                  <SheetDescription>
+                    Navigate through our community world, seasons, and technical features.
                   </SheetDescription>
                 </SheetHeader>
                 <div className="flex flex-col gap-6">

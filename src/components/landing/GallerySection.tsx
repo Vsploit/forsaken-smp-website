@@ -21,14 +21,23 @@ export function GallerySection() {
     if (emblaApi) emblaApi.scrollNext();
   }, [emblaApi]);
   const onSelect = useCallback((api: any) => {
+    if (!api) return;
     setPrevBtnDisabled(!api.canScrollPrev());
     setNextBtnDisabled(!api.canScrollNext());
   }, []);
   useEffect(() => {
     if (!emblaApi) return;
+    // Initial state check
     onSelect(emblaApi);
+    // Listen to select and scroll events for complete sync
     emblaApi.on('reInit', onSelect);
     emblaApi.on('select', onSelect);
+    emblaApi.on('scroll', onSelect);
+    return () => {
+      emblaApi.off('reInit', onSelect);
+      emblaApi.off('select', onSelect);
+      emblaApi.off('scroll', onSelect);
+    };
   }, [emblaApi, onSelect]);
   return (
     <section id="gallery" className="py-24 bg-white overflow-hidden">
@@ -52,7 +61,7 @@ export function GallerySection() {
               aria-label="Previous slide"
               className={cn(
                 "bg-white border-4 border-black text-black hover:bg-black hover:text-white shadow-hard-sm transition-all active:translate-y-0.5 active:shadow-none",
-                prevBtnDisabled && "opacity-30 cursor-not-allowed pointer-events-none"
+                prevBtnDisabled && "opacity-30 cursor-not-allowed pointer-events-none shadow-none"
               )}
             >
               <ChevronLeft className="h-6 w-6" />
@@ -64,7 +73,7 @@ export function GallerySection() {
               aria-label="Next slide"
               className={cn(
                 "bg-white border-4 border-black text-black hover:bg-black hover:text-white shadow-hard-sm transition-all active:translate-y-0.5 active:shadow-none",
-                nextBtnDisabled && "opacity-30 cursor-not-allowed pointer-events-none"
+                nextBtnDisabled && "opacity-30 cursor-not-allowed pointer-events-none shadow-none"
               )}
             >
               <ChevronRight className="h-6 w-6" />
