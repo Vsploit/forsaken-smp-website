@@ -1,7 +1,7 @@
 import React from 'react';
 import { SOCIAL_LINKS, NAV_LINKS, HERO_DATA } from '@/data/server-data';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader, SheetClose, SheetDescription } from '@/components/ui/sheet';
 import { Menu, ChevronRight } from 'lucide-react';
 export function Navbar() {
   return (
@@ -15,7 +15,7 @@ export function Navbar() {
               alt="Forsaken Logo"
               className="w-10 h-10 object-contain drop-shadow-sm transition-transform group-hover:rotate-12"
             />
-            <span className="text-2xl font-black uppercase tracking-tighter italic">
+            <span className="text-2xl font-black uppercase tracking-tighter italic text-gradient-forsaken">
               Forsaken
               <span className="text-orange-600"> SMP</span>
             </span>
@@ -56,16 +56,20 @@ export function Navbar() {
                       Forsaken <span className="text-orange-600">SMP</span>
                     </SheetTitle>
                   </div>
+                  <SheetDescription className="sr-only">
+                    Navigation menu for Forsaken SMP website.
+                  </SheetDescription>
                 </SheetHeader>
                 <div className="flex flex-col gap-6">
                   {NAV_LINKS.map((link) => (
-                    <a
-                      key={link.href}
-                      href={link.href}
-                      className="text-xl font-black uppercase tracking-widest hover:text-orange-600 border-b-2 border-black/5 pb-2 transition-colors"
-                    >
-                      {link.label}
-                    </a>
+                    <SheetClose asChild key={link.href}>
+                      <a
+                        href={link.href}
+                        className="text-xl font-black uppercase tracking-widest hover:text-orange-600 border-b-2 border-black/5 pb-2 transition-colors"
+                      >
+                        {link.label}
+                      </a>
+                    </SheetClose>
                   ))}
                   <Button
                     className="w-full h-14 text-lg font-bold bg-orange-600 text-white border-2 border-black shadow-hard active:translate-y-1 active:shadow-none transition-all"

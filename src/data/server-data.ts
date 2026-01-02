@@ -11,10 +11,10 @@ export const NAV_LINKS = [
 ];
 export const HERO_DATA = {
   title: "The Ultimate Hardcore Experience",
-  subtitle: "Forsaken SMP is a brutal hardcore survival realm where every decision matters and every death has a price. Join a competitive community of warriors and builders in a high-stakes faction warfare experience.",
+  subtitle: "Brutal survival meets strategic faction warfare. In Forsaken Season 3, death has a permanent price and glory is forged through blood and steel.",
   logoUrl: "https://i.postimg.cc/CzzgJvrq/be3d0115.png",
   backgroundImage: "https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&q=80&w=1920",
-  badgeText: "Forsaken Season 3 Active"
+  badgeText: "Season 3: Great Wars Live"
 };
 export const ABOUT_DATA = {
   title: "Survival of the Fittest",
@@ -30,7 +30,7 @@ export const ABOUT_DATA = {
 export const SEASONS_GALLERY = [
   { id: 1, title: "Season 1: Origins", theme: "The Beginning", year: "2022", url: "https://i.postimg.cc/SR6Nzt31/website1.png" },
   { id: 2, title: "Season 2: Iron Age", theme: "Industrial Might", year: "2023", url: "https://i.postimg.cc/1Xh3XZCg/website10.png" },
-  { id: 3, title: "Season 3: Great Wars", theme: "Faction Fallout", year: "2023", url: "https://i.postimg.cc/Gtwmt17F/website11.png" }
+  { id: 3, title: "Season 3: Great Wars", theme: "Faction Fallout", year: "2024", url: "https://i.postimg.cc/Gtwmt17F/website11.png" }
 ];
 export const PLUGIN_FEATURES = [
   {

@@ -6,10 +6,14 @@ import { ChevronRight, Shield } from 'lucide-react';
 export function HeroSection() {
   return (
     <section className="relative min-h-[85vh] flex items-center justify-center pt-16 overflow-hidden bg-white">
-      {/* Background Decor */}
+      {/* Background Layer with Image Overlay */}
+      <div 
+        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-[0.08]" 
+        style={{ backgroundImage: `url('${HERO_DATA.backgroundImage}')` }}
+      />
       <div className="absolute inset-0 z-0 bg-[radial-gradient(#f97316_1px,transparent_1px)] [background-size:40px_40px] opacity-[0.1]" />
       <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-orange-500/5 via-transparent to-white pointer-events-none" />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-8 md:py-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -21,7 +25,7 @@ export function HeroSection() {
               <Shield className="w-4 h-4 mr-2" />
               {HERO_DATA.badgeText || "Season Live"}
             </div>
-            <h1 className="text-3xl sm:text-5xl md:text-7xl font-black leading-tight text-foreground uppercase tracking-tight break-words">
+            <h1 className="text-3xl sm:text-5xl md:text-7xl font-black leading-tight uppercase tracking-tight break-words text-gradient-forsaken">
               {HERO_DATA.title}
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-lg leading-relaxed">
