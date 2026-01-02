@@ -12,9 +12,9 @@ export function PluginGrid() {
   return (
     <section id="plugins" className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-white">
       <div className="text-center mb-16 space-y-4">
-        <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tight">Forsaken Mechanics</h2>
+        <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tight">Featured Modules</h2>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-          Customized systems designed for high-stakes competition and long-term progression.
+          Technical enhancements that power our community world.
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -25,31 +25,25 @@ export function PluginGrid() {
               key={idx}
               className="group bg-white p-0 flex flex-col h-full"
             >
-              <div className="aspect-video w-full overflow-hidden border-b-4 border-black">
+              <div className="aspect-[16/10] w-full overflow-hidden border-b-4 border-black">
                 <img
                   src={feature.imageUrl}
                   alt={feature.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
               </div>
-              <div className="p-8 space-y-4 flex-1">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-orange-600 border-2 border-black flex items-center justify-center text-white shadow-hard-sm">
-                    <IconComponent className="w-6 h-6 stroke-[3px]" />
+              <div className="p-6 space-y-3 flex-1">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-orange-600 border-2 border-black flex items-center justify-center text-white shadow-hard-sm">
+                    <IconComponent className="w-5 h-5 stroke-[3px]" />
                   </div>
-                  <h3 className="text-2xl font-black uppercase tracking-tight group-hover:text-orange-600 transition-colors">
+                  <h3 className="text-xl font-black uppercase tracking-tight">
                     {feature.title}
                   </h3>
                 </div>
-                <p className="text-muted-foreground leading-relaxed">
+                <p className="text-muted-foreground text-sm leading-relaxed">
                   {feature.description}
                 </p>
-                <div className="pt-4 border-t-2 border-dashed border-black/10 flex items-center gap-2">
-                  <Info className="w-4 h-4 text-orange-600" />
-                  <span className="text-xs font-bold uppercase text-orange-600 italic">
-                    {feature.lore}
-                  </span>
-                </div>
               </div>
             </RetroCard>
           );

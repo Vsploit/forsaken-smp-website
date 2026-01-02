@@ -6,9 +6,8 @@ import { ChevronRight, Shield } from 'lucide-react';
 export function HeroSection() {
   return (
     <section className="relative min-h-[85vh] flex items-center justify-center pt-16 overflow-hidden bg-white">
-      {/* Background Layer with Image Overlay */}
-      <div 
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-[0.08]" 
+      <div
+        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-[0.08]"
         style={{ backgroundImage: `url('${HERO_DATA.backgroundImage}')` }}
       />
       <div className="absolute inset-0 z-0 bg-[radial-gradient(#f97316_1px,transparent_1px)] [background-size:40px_40px] opacity-[0.1]" />
@@ -23,7 +22,7 @@ export function HeroSection() {
           >
             <div className="inline-flex items-center px-4 py-1 rounded-full bg-orange-500/10 border-2 border-orange-500 text-orange-600 font-bold text-xs sm:text-sm uppercase tracking-wider animate-bounce-slight">
               <Shield className="w-4 h-4 mr-2" />
-              {HERO_DATA.badgeText || "Season Live"}
+              {HERO_DATA.badgeText}
             </div>
             <h1 className="text-3xl sm:text-5xl md:text-7xl font-black leading-tight uppercase tracking-tight break-words text-gradient-forsaken">
               {HERO_DATA.title}
@@ -38,7 +37,7 @@ export function HeroSection() {
                 asChild
               >
                 <a href={SOCIAL_LINKS.discord} target="_blank" rel="noopener noreferrer">
-                  Join The Battle <ChevronRight className="ml-2 h-5 w-5" />
+                  Join The Community <ChevronRight className="ml-2 h-5 w-5" />
                 </a>
               </Button>
             </div>
