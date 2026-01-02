@@ -1,6 +1,6 @@
 export const SERVER_NAME = "Forsaken SMP";
 export const SOCIAL_LINKS = {
-  discord: "https://discord.gg/7kbQRxWqHH",
+  discord: "https://discord.gg/Hh8d9V8brj",
   twitter: "https://twitter.com/ForsakenSMP"
 };
 export const NAV_LINKS = [

@@ -36,10 +36,22 @@ export function Footer() {
             </p>
           </div>
           <div className="flex items-center gap-4">
-            <a href={SOCIAL_LINKS.discord} className="p-3 bg-white/5 rounded-xl hover:bg-white/10 hover:text-orange-500 transition-all border border-transparent hover:border-orange-500/50" aria-label="Discord">
+            <a 
+              href={SOCIAL_LINKS.discord} 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 bg-white/5 rounded-xl hover:bg-white/10 hover:text-orange-500 transition-all border border-transparent hover:border-orange-500/50" 
+              aria-label="Discord"
+            >
               <MessageSquare className="w-6 h-6" />
             </a>
-            <a href={SOCIAL_LINKS.twitter} className="p-3 bg-white/5 rounded-xl hover:bg-white/10 hover:text-orange-500 transition-all border border-transparent hover:border-orange-500/50" aria-label="Twitter">
+            <a 
+              href={SOCIAL_LINKS.twitter} 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 bg-white/5 rounded-xl hover:bg-white/10 hover:text-orange-500 transition-all border border-transparent hover:border-orange-500/50" 
+              aria-label="Twitter"
+            >
               <Twitter className="w-6 h-6" />
             </a>
           </div>
