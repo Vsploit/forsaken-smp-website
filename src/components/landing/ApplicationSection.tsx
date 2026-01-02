@@ -9,7 +9,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormDescription } from '@/components/ui/form';
 import { toast } from 'sonner';
-import { Send, FileText, AlertCircle } from 'lucide-react';
+import { Send, FileText, AlertCircle, BellRing } from 'lucide-react';
 const formSchema = z.object({
   age: z.string().min(1, "Age is required"),
   discord: z.string().min(2, "Invalid Discord username"),
@@ -203,18 +203,32 @@ export function ApplicationSection() {
                   )}
                 />
               </div>
-              <div className="pt-4">
-                <Button
-                  type="submit"
-                  disabled={form.formState.isSubmitting}
-                  className="w-full h-16 text-xl font-black bg-orange-600 hover:bg-orange-700 text-white border-4 border-black shadow-hard hover:shadow-hard-lg active:translate-y-1 active:shadow-none transition-all disabled:opacity-70"
-                >
-                  {form.formState.isSubmitting ? "Submitting..." : "Send Application"}
-                  <Send className="ml-3 h-6 w-6" />
-                </Button>
-                <div className="mt-4 flex items-center justify-center gap-2 text-muted-foreground text-xs uppercase tracking-widest font-black">
-                  <AlertCircle className="w-4 h-4" />
-                  Staff response within 24 hours
+              <div className="pt-4 space-y-6">
+                <div>
+                  <Button
+                    type="submit"
+                    disabled={form.formState.isSubmitting}
+                    className="w-full h-16 text-xl font-black bg-orange-600 hover:bg-orange-700 text-white border-4 border-black shadow-hard hover:shadow-hard-lg active:translate-y-1 active:shadow-none transition-all disabled:opacity-70"
+                  >
+                    {form.formState.isSubmitting ? "Submitting..." : "Send Application"}
+                    <Send className="ml-3 h-6 w-6" />
+                  </Button>
+                  <div className="mt-4 flex items-center justify-center gap-2 text-muted-foreground text-xs uppercase tracking-widest font-black">
+                    <AlertCircle className="w-4 h-4" />
+                    Staff response within 24 hours
+                  </div>
+                </div>
+                {/* Next Steps Information Box */}
+                <div className="mt-8 p-6 bg-orange-50 border-2 border-black rounded-xl shadow-hard-sm flex items-start gap-4">
+                  <div className="shrink-0 w-10 h-10 bg-orange-600 rounded-lg border-2 border-black flex items-center justify-center text-white">
+                    <BellRing className="w-6 h-6" />
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-sm font-black uppercase tracking-tight text-orange-600">Next Steps</p>
+                    <p className="text-sm font-bold text-foreground leading-relaxed">
+                      You will be pinged in the main Discord when your application is accepted or denied.
+                    </p>
+                  </div>
                 </div>
               </div>
             </form>
