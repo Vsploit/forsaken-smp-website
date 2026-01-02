@@ -42,21 +42,45 @@ export function ApplicationSection() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values),
       });
+
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        const errorInfo = {
+          status: response.status,
+          statusText: response.statusText,
+          error: 'Unknown error',
+          detail: ''
+        };
+        try {
+          const errorData = await response.json();
+          errorInfo.error = errorData.error || errorInfo.error;
+          errorInfo.detail = errorData.detail || '';
+        } catch {
+          errorInfo.detail = await response.text();
+        }
+        console.error('Application submission error:', errorInfo);
+        toast.error(errorInfo.error || errorInfo.detail || errorInfo.statusText);
+        return;
       }
+
       const result = await response.json();
       if (result.success) {
         toast.success("Application submitted successfully! Our staff will review it soon.");
         form.reset();
       } else {
-        toast.error(result.error || "Failed to submit application.");
+        const errorInfo = {
+          status: response.status,
+          statusText: response.statusText,
+          error: result.error || "Failed to submit application.",
+          detail: ''
+        };
+        console.error('Application submission error:', errorInfo);
+        toast.error(errorInfo.error);
       }
     } catch (error) {
       console.error("Application submission error:", error);
       toast.error("Connection error. Please try again later.");
     }
-  }, [form]);
+  }, []);
   return (
     <section id="apply" className="py-24 bg-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
