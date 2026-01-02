@@ -1,203 +1,202 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
 import { RetroCard } from '@/components/ui/retro-card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Send, FileText, AlertCircle, CheckCircle2, Video } from 'lucide-react';
-interface FormValues {
-  age: string;
-  discord: string;
-  region: string;
-  whyJoin: string;
-  playtime: string;
-  skills: string;
-  activity: string;
-  videoLink: string;
-  rulesAccepted: boolean;
-}
+import { Checkbox } from '@/components/ui/checkbox';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormDescription } from '@/components/ui/form';
+import { toast } from 'sonner';
+import { Send, FileText } from 'lucide-react';
+const formSchema = z.object({
+  age: z.string().min(1, "Age is required"),
+  discord: z.string().min(2, "Invalid Discord username"),
+  region: z.string().min(5, "Please provide your region and timezone"),
+  whyJoin: z.string().min(20, "Please provide a more detailed reason (min 20 chars)"),
+  playtime: z.string().min(1, "Required"),
+  skills: z.string().min(10, "Tell us a bit about your skills"),
+  activity: z.string().min(1, "Required"),
+  rulesAccepted: z.boolean().refine(val => val === true, "You must accept the community rules")
+});
 export function ApplicationSection() {
-  const [formData, setFormData] = useState<FormValues>({
-    age: "",
-    discord: "",
-    region: "",
-    whyJoin: "",
-    playtime: "",
-    skills: "",
-    activity: "",
-    videoLink: "",
-    rulesAccepted: false,
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      age: "",
+      discord: "",
+      region: "",
+      whyJoin: "",
+      playtime: "",
+      skills: "",
+      activity: "",
+      rulesAccepted: false,
+    },
   });
-  const [errors, setErrors] = useState<Record<string, string>>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  }, []);
-  const handleCheck = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData(prev => ({ ...prev, rulesAccepted: e.target.checked }));
-  }, []);
-  const validate = useCallback((): Record<string, string> => {
-    const errs: Record<string, string> = {};
-    if (!formData.age.trim()) errs.age = "Age is required";
-    if (formData.discord.length < 2) errs.discord = "Invalid Discord username";
-    if (formData.region.length < 5) errs.region = "Provide your region and timezone";
-    if (formData.whyJoin.length < 20) errs.whyJoin = "Provide a more detailed reason (min 20 chars)";
-    if (!formData.playtime.trim()) errs.playtime = "Required";
-    if (formData.skills.length < 10) errs.skills = "Tell us about your skills";
-    if (!formData.activity.trim()) errs.activity = "Required";
-    if (formData.videoLink && !formData.videoLink.match(/^https?:\/\/.+/)) errs.videoLink = "Invalid URL";
-    if (!formData.rulesAccepted) errs.rulesAccepted = "Accept the community rules";
-    return errs;
-  }, [formData]);
-  const onSubmit = useCallback(async (e: React.FormEvent) => {
-    e.preventDefault();
-    const errs = validate();
-    if (Object.keys(errs).length > 0) {
-      setErrors(errs);
-      return;
-    }
-    setIsSubmitting(true);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       const response = await fetch('/api/apply', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(values),
       });
-      if (!response.ok) throw new Error(`Server error ${response.status}`);
-      setIsSubmitted(true);
+      const result = await response.json();
+      if (result.success) {
+        toast.success("Application submitted successfully! Our staff will review it soon.");
+        form.reset();
+      } else {
+        toast.error(result.error || "Failed to submit application.");
+      }
     } catch (error) {
-      console.error("Application submission error:", error);
-      alert('Connection error. Please try again later.');
-    } finally {
-      setIsSubmitting(false);
+      toast.error("Connection error. Please try again later.");
     }
-  }, [formData, validate]);
+  }
   return (
-    <section id="apply" className="py-24 bg-background transition-colors duration-300">
+    <section id="apply" className="py-24 bg-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-orange-600 text-white font-bold text-xs uppercase tracking-widest shadow-hard-sm animate-bounce-slight">
+          <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-orange-600 text-white font-bold text-xs uppercase tracking-widest shadow-hard-sm">
             <FileText className="w-4 h-4" />
-            Whitelisting Open
+            Join the Whitelist
           </div>
-          <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tight text-foreground">Community Application</h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto font-medium">
-            Fill out the details below. Our staff reviews applications daily.
+          <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tight">SMP Application</h2>
+          <p className="text-xl text-muted-foreground">
+            Complete the form below to become a member of the Forsaken community.
           </p>
         </div>
-        <RetroCard className="p-6 md:p-10 lg:p-12 relative min-h-[400px] bg-card overflow-hidden">
-          {isSubmitted ? (
-            <div className="flex flex-col items-center justify-center text-center py-20 space-y-8 animate-in fade-in zoom-in duration-500">
-              <div className="w-24 h-24 bg-green-100 dark:bg-green-900/20 rounded-3xl border-4 border-foreground flex items-center justify-center shadow-hard">
-                <CheckCircle2 className="w-12 h-12 text-green-600" />
-              </div>
-              <div className="space-y-4">
-                <h3 className="text-4xl font-black uppercase italic tracking-tighter text-foreground">Application Sent!</h3>
-                <p className="text-xl text-muted-foreground max-w-sm font-medium mx-auto">
-                  The Forsaken staff team has received your request. We review applications daily.
-                </p>
-              </div>
-              <Button
-                onClick={() => setIsSubmitted(false)}
-                variant="ghost"
-                className="font-black uppercase tracking-widest text-muted-foreground hover:text-orange-600 hover:bg-orange-600/10 transition-colors"
-              >
-                Send another application
-              </Button>
-            </div>
-          ) : (
-            <form onSubmit={onSubmit} className="space-y-8">
+        <RetroCard className="p-8 md:p-12">
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="form-item">
-                  <label className="font-black uppercase tracking-tight text-xs text-foreground block mb-2">Discord Username</label>
-                  <Input
-                    name="discord"
-                    placeholder="username"
-                    value={formData.discord}
-                    onChange={handleChange}
-                    className="border-4 border-foreground p-6 rounded-xl focus-visible:ring-orange-500 bg-background transition-all shadow-hard-sm"
-                  />
-                  {errors.discord && <p className="text-xs font-black text-destructive mt-1">{errors.discord}</p>}
-                </div>
-                <div className="form-item">
-                  <label className="font-black uppercase tracking-tight text-xs text-foreground block mb-2">Your Age</label>
-                  <Input
-                    name="age"
-                    placeholder="e.g. 18+"
-                    value={formData.age}
-                    onChange={handleChange}
-                    className="border-4 border-foreground p-6 rounded-xl focus-visible:ring-orange-500 bg-background transition-all shadow-hard-sm"
-                  />
-                  {errors.age && <p className="text-xs font-black text-destructive mt-1">{errors.age}</p>}
-                </div>
-              </div>
-              <div className="form-item">
-                <label className="font-black uppercase tracking-tight text-xs text-foreground block mb-2">Region & Timezone</label>
-                <Textarea
-                  name="region"
-                  placeholder="e.g. US East / EST"
-                  value={formData.region}
-                  onChange={handleChange}
-                  className="border-4 border-foreground p-4 rounded-xl min-h-[80px] focus-visible:ring-orange-500 bg-background transition-all shadow-hard-sm"
+                <FormField
+                  control={form.control}
+                  name="discord"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="font-black uppercase tracking-tight text-xs">Discord Username</FormLabel>
+                      <FormControl>
+                        <Input placeholder="username#0000" className="border-2 border-black p-6 rounded-xl focus-visible:ring-orange-500 bg-secondary/30" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
-                {errors.region && <p className="text-xs font-black text-destructive mt-1">{errors.region}</p>}
-              </div>
-              <div className="form-item">
-                <label className="font-black uppercase tracking-tight text-xs text-foreground block mb-2">What brings you here?</label>
-                <Textarea
-                  name="whyJoin"
-                  placeholder="Tell us why you want to be part of our community..."
-                  value={formData.whyJoin}
-                  onChange={handleChange}
-                  className="border-4 border-foreground p-4 rounded-xl min-h-[120px] focus-visible:ring-orange-500 bg-background transition-all shadow-hard-sm"
-                />
-                {errors.whyJoin && <p className="text-xs font-black text-destructive mt-1">{errors.whyJoin}</p>}
-              </div>
-              <div className="form-item">
-                <label className="flex items-center gap-2 font-black uppercase tracking-tight text-xs text-foreground block mb-2">
-                  <Video className="w-3 h-3 text-orange-600" />
-                  Video/Portfolio Link (Optional)
-                </label>
-                <Input
-                  name="videoLink"
-                  placeholder="YouTube, TikTok, or Portfolio URL..."
-                  value={formData.videoLink}
-                  onChange={handleChange}
-                  className="border-4 border-foreground p-6 rounded-xl focus-visible:ring-orange-500 bg-background transition-all shadow-hard-sm"
+                <FormField
+                  control={form.control}
+                  name="age"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="font-black uppercase tracking-tight text-xs">Your Age</FormLabel>
+                      <FormControl>
+                        <Input type="number" placeholder="18" className="border-2 border-black p-6 rounded-xl focus-visible:ring-orange-500 bg-secondary/30" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
               </div>
-              <div 
-                className="flex flex-row items-start space-x-3 space-y-0 rounded-xl border-4 border-foreground p-6 bg-orange-50 dark:bg-orange-900/5 shadow-hard-sm hover:bg-orange-100/50 dark:hover:bg-orange-900/10 transition-colors cursor-pointer"
-                onClick={() => setFormData(prev => ({ ...prev, rulesAccepted: !prev.rulesAccepted }))}
+              <FormField
+                control={form.control}
+                name="region"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="font-black uppercase tracking-tight text-xs">Region & Timezone</FormLabel>
+                    <FormControl>
+                      <Textarea placeholder="e.g. Europe / GMT+1" className="border-2 border-black p-4 rounded-xl min-h-[100px] focus-visible:ring-orange-500 bg-secondary/30" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <FormField
+                  control={form.control}
+                  name="playtime"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="font-black uppercase tracking-tight text-xs">Minecraft Playtime</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g. 5 years" className="border-2 border-black p-6 rounded-xl focus-visible:ring-orange-500 bg-secondary/30" {...field} />
+                      </FormControl>
+                      <FormDescription>How long have you been playing MC?</FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="activity"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="font-black uppercase tracking-tight text-xs">Weekly Activity</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g. 15 hours / week" className="border-2 border-black p-6 rounded-xl focus-visible:ring-orange-500 bg-secondary/30" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <FormField
+                control={form.control}
+                name="whyJoin"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="font-black uppercase tracking-tight text-xs">Why do you want to join Forsaken?</FormLabel>
+                    <FormControl>
+                      <Textarea placeholder="Tell us what draws you to our community..." className="border-2 border-black p-4 rounded-xl min-h-[150px] focus-visible:ring-orange-500 bg-secondary/30" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="skills"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="font-black uppercase tracking-tight text-xs">What are your skills/contributions?</FormLabel>
+                    <FormControl>
+                      <Textarea placeholder="Builder, Redstoner, Community organizer..." className="border-2 border-black p-4 rounded-xl min-h-[120px] focus-visible:ring-orange-500 bg-secondary/30" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="rulesAccepted"
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-xl border-2 border-black p-4 bg-orange-50/50">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                        className="mt-1 border-2 border-black data-[state=checked]:bg-orange-600 data-[state=checked]:border-black"
+                      />
+                    </FormControl>
+                    <div className="space-y-1 leading-none">
+                      <FormLabel className="font-bold cursor-pointer">
+                        I agree to respect the rules, staff, and decisions made by the community.
+                      </FormLabel>
+                      <p className="text-xs text-muted-foreground">
+                        Membership can be revoked at any time for misconduct.
+                      </p>
+                    </div>
+                  </FormItem>
+                )}
+              />
+              <Button
+                type="submit"
+                disabled={form.formState.isSubmitting}
+                className="w-full h-16 text-xl font-black bg-orange-600 hover:bg-orange-700 text-white border-4 border-black shadow-hard active:translate-y-1 active:shadow-none transition-all"
               >
-                <input
-                  type="checkbox"
-                  checked={formData.rulesAccepted}
-                  readOnly
-                  className="mt-1 border-4 border-foreground h-6 w-6 transition-all accent-orange-600"
-                />
-                <label className="font-bold cursor-pointer text-foreground text-sm leading-none">
-                  I agree to follow the community guidelines and respect all players.
-                </label>
-              </div>
-              {errors.rulesAccepted && <p className="text-xs font-black text-destructive mt-1">{errors.rulesAccepted}</p>}
-              <div className="pt-4">
-                <Button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full h-16 text-xl font-black bg-orange-600 hover:bg-orange-700 text-white border-4 border-foreground shadow-hard hover:shadow-hard-lg active:translate-y-1 active:shadow-none transition-all disabled:opacity-70"
-                >
-                  {isSubmitting ? "Processing..." : "Submit Application"}
-                  <Send className="ml-3 h-6 w-6" />
-                </Button>
-                <div className="mt-4 flex items-center justify-center gap-2 text-muted-foreground text-xs uppercase tracking-widest font-black">
-                  <AlertCircle className="w-4 h-4 text-orange-600" />
-                  Average response: 24 hours
-                </div>
-              </div>
+                {form.formState.isSubmitting ? "Processing..." : "Submit Application"}
+                <Send className="ml-2 h-6 w-6" />
+              </Button>
             </form>
-          )}
+          </Form>
         </RetroCard>
       </div>
     </section>

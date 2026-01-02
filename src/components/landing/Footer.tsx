@@ -2,6 +2,7 @@ import React from 'react';
 import { SOCIAL_LINKS, SERVER_NAME } from '@/data/server-data';
 import { Button } from '@/components/ui/button';
 import { MessageSquare, Twitter } from 'lucide-react';
+import { DiscordJoinModal } from './DiscordJoinModal';
 export function Footer() {
   return (
     <footer className="bg-[#111] text-white pt-20 pb-10">
@@ -14,15 +15,14 @@ export function Footer() {
             The survival community awaits. Join the Forsaken community and explore the world today.
           </p>
           <div className="flex justify-center w-full">
-            <Button
-              size="lg"
-              className="h-16 px-12 text-xl font-bold bg-orange-600 hover:bg-orange-500 text-white border-4 border-white shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] hover:shadow-[10px_10px_0px_0px_rgba(255,255,255,1)] transition-all active:translate-x-1 active:translate-y-1 active:shadow-none focus-visible:ring-offset-black"
-              asChild
-            >
-              <a href={SOCIAL_LINKS.discord} target="_blank" rel="noopener noreferrer">
+            <DiscordJoinModal>
+              <Button
+                size="lg"
+                className="h-16 px-12 text-xl font-bold bg-orange-600 hover:bg-orange-500 text-white border-4 border-white shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] hover:shadow-[10px_10px_0px_0px_rgba(255,255,255,1)] transition-all active:translate-x-1 active:translate-y-1 active:shadow-none focus-visible:ring-offset-black"
+              >
                 Join Discord
-              </a>
-            </Button>
+              </Button>
+            </DiscordJoinModal>
           </div>
         </div>
         <div className="h-px bg-white/10 w-full mb-10" />
@@ -36,20 +36,20 @@ export function Footer() {
             </p>
           </div>
           <div className="flex items-center gap-4">
-            <a 
-              href={SOCIAL_LINKS.discord} 
+            <a
+              href={SOCIAL_LINKS.discord}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-3 bg-white/5 rounded-xl hover:bg-white/10 hover:text-orange-500 transition-all border border-transparent hover:border-orange-500/50" 
+              className="p-3 bg-white/5 rounded-xl hover:bg-white/10 hover:text-orange-500 transition-all border border-transparent hover:border-orange-500/50"
               aria-label="Discord"
             >
               <MessageSquare className="w-6 h-6" />
             </a>
-            <a 
-              href={SOCIAL_LINKS.twitter} 
+            <a
+              href={SOCIAL_LINKS.twitter}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-3 bg-white/5 rounded-xl hover:bg-white/10 hover:text-orange-500 transition-all border border-transparent hover:border-orange-500/50" 
+              className="p-3 bg-white/5 rounded-xl hover:bg-white/10 hover:text-orange-500 transition-all border border-transparent hover:border-orange-500/50"
               aria-label="Twitter"
             >
               <Twitter className="w-6 h-6" />

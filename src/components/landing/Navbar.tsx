@@ -1,8 +1,9 @@
 import React from 'react';
-import { SOCIAL_LINKS, NAV_LINKS, HERO_DATA } from '@/data/server-data';
+import { NAV_LINKS, HERO_DATA } from '@/data/server-data';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader, SheetClose, SheetDescription } from '@/components/ui/sheet';
 import { Menu, ChevronRight } from 'lucide-react';
+import { DiscordJoinModal } from './DiscordJoinModal';
 export function Navbar() {
   const scrollToTop = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -14,8 +15,8 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20 items-center">
           {/* Logo / Home Trigger */}
-          <a 
-            href="#" 
+          <a
+            href="#"
             onClick={scrollToTop}
             className="flex items-center gap-3 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 rounded-lg p-1"
           >
@@ -40,14 +41,13 @@ export function Navbar() {
                 {link.label}
               </a>
             ))}
-            <Button
-              className="bg-orange-600 hover:bg-orange-700 text-white border-2 border-black shadow-hard-sm hover:translate-y-[-2px] hover:shadow-hard active:translate-y-[0px] active:shadow-hard-sm transition-all"
-              asChild
-            >
-              <a href={SOCIAL_LINKS.discord} target="_blank" rel="noopener noreferrer">
+            <DiscordJoinModal>
+              <Button
+                className="bg-orange-600 hover:bg-orange-700 text-white border-2 border-black shadow-hard-sm hover:translate-y-[-2px] hover:shadow-hard active:translate-y-[0px] active:shadow-hard-sm transition-all"
+              >
                 Join Discord <ChevronRight className="ml-1 h-4 w-4" />
-              </a>
-            </Button>
+              </Button>
+            </DiscordJoinModal>
           </div>
           {/* Mobile Menu */}
           <div className="md:hidden">
@@ -80,14 +80,13 @@ export function Navbar() {
                       </a>
                     </SheetClose>
                   ))}
-                  <Button
-                    className="w-full h-14 text-lg font-bold bg-orange-600 text-white border-2 border-black shadow-hard active:translate-y-1 active:shadow-none transition-all"
-                    asChild
-                  >
-                    <a href={SOCIAL_LINKS.discord} target="_blank" rel="noopener noreferrer">
+                  <DiscordJoinModal>
+                    <Button
+                      className="w-full h-14 text-lg font-bold bg-orange-600 text-white border-2 border-black shadow-hard active:translate-y-1 active:shadow-none transition-all"
+                    >
                       Join Discord
-                    </a>
-                  </Button>
+                    </Button>
+                  </DiscordJoinModal>
                 </div>
               </SheetContent>
             </Sheet>

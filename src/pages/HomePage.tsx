@@ -5,6 +5,7 @@ import { AboutSection } from '@/components/landing/AboutSection';
 import { SeasonHighlight } from '@/components/landing/SeasonHighlight';
 import { GallerySection } from '@/components/landing/GallerySection';
 import { PluginGrid } from '@/components/landing/PluginGrid';
+import { ApplicationSection } from '@/components/landing/ApplicationSection';
 import { Footer } from '@/components/landing/Footer';
 import { Toaster } from '@/components/ui/sonner';
 export function HomePage() {
@@ -18,6 +19,7 @@ export function HomePage() {
         <SeasonHighlight />
         <GallerySection />
         <PluginGrid />
+        <ApplicationSection />
       </main>
       <Footer />
       <Toaster richColors closeButton position="top-center" />

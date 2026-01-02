@@ -1,8 +1,9 @@
 import React from 'react';
-import { CURRENT_SEASON_DATA, SOCIAL_LINKS } from '@/data/server-data';
+import { CURRENT_SEASON_DATA } from '@/data/server-data';
 import { RetroCard } from '@/components/ui/retro-card';
 import { Button } from '@/components/ui/button';
 import { Sparkles, ArrowRight } from 'lucide-react';
+import { DiscordJoinModal } from './DiscordJoinModal';
 export function SeasonHighlight() {
   return (
     <section id="current-season" className="py-24 bg-orange-50/50 relative overflow-hidden">
@@ -35,15 +36,14 @@ export function SeasonHighlight() {
               <p className="text-muted-foreground">
                 Step into our most vibrant world yet. Season 3 brings the community together in an ever-evolving landscape.
               </p>
-              <Button
-                size="lg"
-                className="w-full h-14 text-lg font-black bg-orange-600 hover:bg-orange-700 text-white border-4 border-black shadow-hard active:translate-y-1 active:shadow-none transition-all"
-                asChild
-              >
-                <a href={SOCIAL_LINKS.discord} target="_blank" rel="noopener noreferrer">
+              <DiscordJoinModal>
+                <Button
+                  size="lg"
+                  className="w-full h-14 text-lg font-black bg-orange-600 hover:bg-orange-700 text-white border-4 border-black shadow-hard active:translate-y-1 active:shadow-none transition-all"
+                >
                   Join Season 3 <ArrowRight className="ml-2 h-5 w-5" />
-                </a>
-              </Button>
+                </Button>
+              </DiscordJoinModal>
             </div>
           </div>
         </RetroCard>

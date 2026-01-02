@@ -1,8 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { HERO_DATA, SOCIAL_LINKS } from '@/data/server-data';
+import { HERO_DATA } from '@/data/server-data';
 import { Button } from '@/components/ui/button';
 import { ChevronRight, Shield } from 'lucide-react';
+import { DiscordJoinModal } from './DiscordJoinModal';
 export function HeroSection() {
   return (
     <section className="relative min-h-[85vh] flex items-center justify-center pt-16 overflow-hidden bg-white">
@@ -31,15 +32,14 @@ export function HeroSection() {
               {HERO_DATA.subtitle}
             </p>
             <div className="flex flex-wrap justify-center lg:justify-start gap-4 pt-4">
-              <Button
-                size="lg"
-                className="h-14 px-10 text-lg font-bold bg-orange-600 hover:bg-orange-700 text-white border-4 border-black shadow-hard hover:shadow-hard-lg transition-all active:translate-x-1 active:translate-y-1 active:shadow-none"
-                asChild
-              >
-                <a href={SOCIAL_LINKS.discord} target="_blank" rel="noopener noreferrer">
+              <DiscordJoinModal>
+                <Button
+                  size="lg"
+                  className="h-14 px-10 text-lg font-bold bg-orange-600 hover:bg-orange-700 text-white border-4 border-black shadow-hard hover:shadow-hard-lg transition-all active:translate-x-1 active:translate-y-1 active:shadow-none"
+                >
                   Join The Community <ChevronRight className="ml-2 h-5 w-5" />
-                </a>
-              </Button>
+                </Button>
+              </DiscordJoinModal>
             </div>
           </motion.div>
           <motion.div

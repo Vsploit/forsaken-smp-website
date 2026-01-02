@@ -1,13 +1,14 @@
 export const SERVER_NAME = "Forsaken SMP";
 export const SOCIAL_LINKS = {
-  discord: "https://discord.gg/Hh8d9V8brj",
+  discord: "https://discord.gg/BTjwSbvQM9",
   twitter: "https://twitter.com/ForsakenSMP"
 };
 export const NAV_LINKS = [
   { label: "The World", href: "#about" },
   { label: "Current Season", href: "#current-season" },
   { label: "Archives", href: "#gallery" },
-  { label: "Plugins", href: "#plugins" }
+  { label: "Plugins", href: "#plugins" },
+  { label: "Apply Now", href: "#apply" }
 ];
 export const HERO_DATA = {
   title: "A New Chapter in Survival",
