@@ -78,7 +78,7 @@ Deploy to Cloudflare Workers with Pages integration:
    bunx wrangler deploy --env production
    ```
 
-[cloudflarebutton]
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/Vsploit/forsaken-smp-website)
 
 ## Environment Variables
 
