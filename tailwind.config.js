@@ -44,10 +44,15 @@ export default {
         'bounce-slight': {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-5px)' }
+        },
+        'bounce-slow': {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-15px)' }
         }
   		},
   		animation: {
-        'bounce-slight': 'bounce-slight 2s ease-in-out infinite'
+        'bounce-slight': 'bounce-slight 2s ease-in-out infinite',
+        'bounce-slow': 'bounce-slow 4s ease-in-out infinite'
   		}
   	}
   },
