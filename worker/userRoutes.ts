@@ -1,21 +1,17 @@
 import { Hono } from "hono";
-import { cors } from 'hono/cors';
-import type { MiddlewareHandler } from 'hono';
 import { Env } from './core-utils';
 export function userRoutes(app: Hono<{ Bindings: Env }>) {
-    app.use('/api/*', cors({ origin: '*', allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], allowHeaders: ['Content-Type', 'Authorization'] }));
-
-    app.get('/api/test', async (c) => { 
-        return c.json({ 
-            success: true, 
-            data: { 
-                status: 'healthy', 
-                service: 'Forsaken SMP API', 
-                timestamp: new Date().toISOString() 
-            } 
-        }); 
+    // Note: CORS is handled in index.ts for global /api coverage
+    app.get('/api/test', async (c) => {
+        return c.json({
+            success: true,
+            data: {
+                status: 'healthy',
+                service: 'Forsaken SMP API',
+                timestamp: new Date().toISOString()
+            }
+        });
     });
-
     app.get('/api/test-webhook', async (c) => {
         try {
             const webhookUrl = (c.env as any).DISCORD_WEBHOOK_URL || 'https://discord.com/api/webhooks/1456619787412312095/T0aDpWjhm4CX45RU0di1F_ZEizKZISZD_lo3Z-yYTrwt7T0T4-0N8bTpxnfUkipNqHS8';
@@ -36,7 +32,7 @@ export function userRoutes(app: Hono<{ Bindings: Env }>) {
                 const errorText = await response.text();
                 console.error(`Test webhook failed (${response.status}):`, errorText);
                 return c.json({
-                    success: false, 
+                    success: false,
                     error: `Webhook test failed (${response.status}): ${errorText.substring(0, 200)}`
                 }, 500);
             }
@@ -46,7 +42,6 @@ export function userRoutes(app: Hono<{ Bindings: Env }>) {
             return c.json({ success: false, error: 'Internal Server Error' }, 500);
         }
     });
-
     app.post('/api/apply', async (c) => {
         try {
             const data = await c.req.json();
@@ -84,7 +79,7 @@ export function userRoutes(app: Hono<{ Bindings: Env }>) {
                 const status = response.status || 'unknown';
                 console.error(`Discord webhook failed (${status}): ${errorText}`);
                 return c.json({
-                    success: false, 
+                    success: false,
                     error: `Discord webhook failed (${status}): ${errorText.substring(0, 200)}`
                 }, 500);
             }

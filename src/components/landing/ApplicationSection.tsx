@@ -67,14 +67,16 @@ export function ApplicationSection() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
+      
       if (!response.ok) {
         const text = await response.text();
+        console.error(`API Submission Failed: ${response.status}`, text);
         let errorMsg = `Server error ${response.status}`;
         try {
           const data = JSON.parse(text);
           errorMsg = data.error || data.message || data.detail || errorMsg;
         } catch(e) {
-          /* suppress empty block */
+          console.warn("Failed to parse error response as JSON", e);
         }
         throw new Error(errorMsg);
       }
