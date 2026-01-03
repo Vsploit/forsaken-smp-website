@@ -3,23 +3,21 @@ import { HERO_DATA } from '@/data/server-data';
 import { Button } from '@/components/ui/button';
 import { ChevronRight, Shield } from 'lucide-react';
 import { DiscordJoinModal } from './DiscordJoinModal';
-
 export function HeroSection() {
   const [logoError, setLogoError] = useState(false);
-
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center pt-28 md:pt-32 lg:pt-24 overflow-hidden bg-white">
+    <section className="relative min-h-[90vh] flex items-center justify-center pt-28 md:pt-32 lg:pt-24 overflow-hidden bg-background">
       <div
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-[0.08]"
+        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-[0.08] dark:opacity-[0.05]"
         style={{ backgroundImage: `url('${HERO_DATA.backgroundImage}')` }}
       />
       <div className="absolute inset-0 z-0 bg-[radial-gradient(#f97316_1px,transparent_1px)] [background-size:40px_40px] opacity-[0.05]" />
-      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-orange-500/5 via-transparent to-white pointer-events-none" />
+      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-orange-500/5 via-transparent to-background pointer-events-none" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-8 md:py-12">
         <div className="flex flex-col lg:grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
-          <div className="w-full max-w-[280px] sm:max-w-[350px] lg:max-w-[500px] order-first lg:order-last opacity-100 scale-100 transition-all duration-800 delay-200">
+          <div className="w-full max-w-[280px] sm:max-w-[350px] lg:max-w-[500px] order-first lg:order-last">
             <div className="relative">
-              <div className="absolute -inset-10 bg-orange-100 rounded-full blur-[120px] opacity-10 animate-pulse" />
+              <div className="absolute -inset-10 bg-orange-100 dark:bg-orange-900/10 rounded-full blur-[120px] opacity-20 animate-pulse" />
               <div className="flex justify-center p-4">
                 {!logoError ? (
                   <img
@@ -30,14 +28,14 @@ export function HeroSection() {
                     className="w-full h-auto max-h-[400px] object-contain drop-shadow-[0_15px_35px_rgba(234,88,12,0.4)] transition-all duration-[8s] animate-bounce-slow hover:scale-105 hover:rotate-[0.5deg]"
                   />
                 ) : (
-                  <div className="w-full aspect-square max-w-[300px] bg-orange-50 border-8 border-black rounded-[2rem] shadow-hard-lg flex items-center justify-center rotate-3 transition-opacity duration-300 opacity-100">
+                  <div className="w-full aspect-square max-w-[300px] bg-orange-50 dark:bg-orange-900/10 border-8 border-foreground rounded-[2rem] shadow-hard-lg flex items-center justify-center rotate-3">
                     <Shield className="w-32 h-32 text-orange-600" />
                   </div>
                 )}
               </div>
             </div>
           </div>
-          <div className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 sm:space-y-8 opacity-100 translate-x-0 transition-all duration-600 ease-out">
+          <div className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 sm:space-y-8">
             <div className="inline-flex items-center px-4 py-1 rounded-full bg-orange-500/10 border-2 border-orange-500 text-orange-600 font-bold text-xs sm:text-sm uppercase tracking-wider animate-bounce-slight whitespace-nowrap shadow-hard-sm transition-all duration-500 hover:scale-105">
               <Shield className="w-4 h-4 mr-2" />
               {HERO_DATA.badgeText}
@@ -52,7 +50,7 @@ export function HeroSection() {
               <DiscordJoinModal>
                 <Button
                   size="lg"
-                  className="h-14 px-8 sm:px-10 text-base sm:text-lg font-bold bg-orange-600 hover:bg-orange-700 text-white border-4 border-black shadow-hard hover:shadow-hard-lg transition-all active:translate-x-1 active:translate-y-1 active:shadow-none"
+                  className="h-14 px-8 sm:px-10 text-base sm:text-lg font-bold bg-orange-600 hover:bg-orange-700 text-white border-4 border-foreground shadow-hard hover:shadow-hard-lg transition-all active:translate-x-1 active:translate-y-1 active:shadow-none"
                 >
                   Join The Community <ChevronRight className="ml-2 h-5 w-5" />
                 </Button>
@@ -64,4 +62,3 @@ export function HeroSection() {
     </section>
   );
 }
-//

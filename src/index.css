@@ -24,6 +24,26 @@
     --input: 0 0% 0%;
     --radius: 0.75rem;
   }
+  .dark {
+    --background: 224 71.4% 4.1%;
+    --foreground: 210 20% 98%;
+    --primary: 24.6 95% 53.1%;
+    --primary-foreground: 210 20% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --border: 0 0% 100%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 20% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 20% 98%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 20% 98%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 20% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 20% 98%;
+    --input: 0 0% 100%;
+  }
   *:focus {
     @apply outline-none;
   }
@@ -37,7 +57,7 @@
     scrollbar-gutter: stable;
   }
   body {
-    @apply bg-background text-foreground overflow-x-hidden;
+    @apply bg-background text-foreground overflow-x-hidden transition-colors duration-300;
   }
   section {
     @apply scroll-mt-20;
@@ -57,16 +77,16 @@
 }
 @layer utilities {
   .shadow-hard {
-    box-shadow: 4px 4px 0px 0px rgba(0,0,0,1);
+    box-shadow: 4px 4px 0px 0px currentColor;
   }
   .shadow-hard-lg {
-    box-shadow: 8px 8px 0px 0px rgba(0,0,0,1);
+    box-shadow: 8px 8px 0px 0px currentColor;
   }
   .shadow-hard-sm {
-    box-shadow: 2px 2px 0px 0px rgba(0,0,0,1);
+    box-shadow: 2px 2px 0px 0px currentColor;
   }
   .shadow-chunky {
-    box-shadow: 6px 6px 0px 0px rgba(0,0,0,1);
+    box-shadow: 6px 6px 0px 0px currentColor;
   }
   .scrollbar-hide {
     -ms-overflow-style: none;
@@ -82,6 +102,9 @@
     opacity: 0.035;
     z-index: 150;
     background-image: url('https://www.transparenttextures.com/patterns/noise-lines.png');
+  }
+  .dark .noise-overlay {
+    opacity: 0.02;
   }
 }
 ::selection {

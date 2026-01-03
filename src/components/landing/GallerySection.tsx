@@ -13,34 +13,29 @@ export function GallerySection() {
     if (!el) return;
     el.scrollBy({ left: -(el.clientWidth * 0.85), behavior: 'smooth' });
   }, []);
-
   const scrollNext = useCallback(() => {
     const el = carouselRef.current;
     if (!el) return;
     el.scrollBy({ left: el.clientWidth * 0.85, behavior: 'smooth' });
   }, []);
-
   useEffect(() => {
     const el = carouselRef.current;
     if (!el) return;
-
     const checkScroll = () => {
       if (!el) return;
       setPrevBtnDisabled(el.scrollLeft <= 5);
       setNextBtnDisabled(el.scrollLeft + el.clientWidth + 5 >= el.scrollWidth);
     };
-
     el.addEventListener('scroll', checkScroll);
     window.addEventListener('resize', checkScroll);
     checkScroll();
-
     return () => {
       el.removeEventListener('scroll', checkScroll);
       window.removeEventListener('resize', checkScroll);
     };
   }, []);
   return (
-    <section id="gallery" className="py-24 bg-white overflow-hidden">
+    <section id="gallery" className="py-24 bg-background overflow-hidden transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
           <div className="space-y-4 text-left">
@@ -60,7 +55,7 @@ export function GallerySection() {
               size="icon"
               aria-label="Previous slide"
               className={cn(
-                "w-12 h-12 bg-white border-4 border-black text-black hover:bg-black hover:text-white shadow-hard-sm transition-all active:translate-y-0.5 active:shadow-none",
+                "w-12 h-12 bg-background border-4 border-foreground text-foreground hover:bg-foreground hover:text-background shadow-hard-sm transition-all active:translate-y-0.5 active:shadow-none",
                 prevBtnDisabled && "opacity-30 cursor-not-allowed pointer-events-none shadow-none"
               )}
             >
@@ -72,7 +67,7 @@ export function GallerySection() {
               size="icon"
               aria-label="Next slide"
               className={cn(
-                "w-12 h-12 bg-white border-4 border-black text-black hover:bg-black hover:text-white shadow-hard-sm transition-all active:translate-y-0.5 active:shadow-none",
+                "w-12 h-12 bg-background border-4 border-foreground text-foreground hover:bg-foreground hover:text-background shadow-hard-sm transition-all active:translate-y-0.5 active:shadow-none",
                 nextBtnDisabled && "opacity-30 cursor-not-allowed pointer-events-none shadow-none"
               )}
             >
