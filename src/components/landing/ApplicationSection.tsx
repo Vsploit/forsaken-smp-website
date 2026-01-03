@@ -47,7 +47,13 @@ export function ApplicationSection() {
         body: JSON.stringify(values),
       });
       if (!response.ok) {
-        throw new Error("Failed to submit application.");
+        const text = await response.text();
+        let errorMsg = `Server error ${response.status}`;
+        try {
+          const data = JSON.parse(text);
+          errorMsg = data.error || data.message || data.detail || errorMsg;
+        } catch(e) {}
+        throw new Error(errorMsg);
       }
       const result = await response.json();
       if (result.success) {
@@ -59,7 +65,7 @@ export function ApplicationSection() {
       }
     } catch (error) {
       console.error("Application submission error:", error);
-      toast.error("Connection error. Please try again later.");
+      toast.error(error.message || "Connection error. Please try again later.");
     }
   }, [form]);
   return (
