@@ -9,7 +9,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { toast } from 'sonner';
-import { Send, FileText, AlertCircle, BellRing, CheckCircle2 } from 'lucide-react';
+import { Send, FileText, AlertCircle, BellRing, CheckCircle2, Video } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 const formSchema = z.object({
   age: z.string().min(1, "Age is required"),
@@ -19,6 +19,7 @@ const formSchema = z.object({
   playtime: z.string().min(1, "Required"),
   skills: z.string().min(10, "Tell us a bit about your skills"),
   activity: z.string().min(1, "Required"),
+  videoLink: z.string().url("Please enter a valid URL").or(z.literal("")),
   rulesAccepted: z.boolean().refine(val => val === true, "You must accept the community rules")
 });
 type FormValues = z.infer<typeof formSchema>;
@@ -34,6 +35,7 @@ export function ApplicationSection() {
       playtime: "",
       skills: "",
       activity: "",
+      videoLink: "",
       rulesAccepted: false,
     },
   });
@@ -202,6 +204,26 @@ export function ApplicationSection() {
                             <Textarea
                               placeholder="Building, Redstone, Technical, Lore writing..."
                               className="border-4 border-black p-4 rounded-xl min-h-[100px] focus-visible:ring-orange-500 ring-offset-2 bg-white transition-all shadow-hard-sm"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage className="text-xs font-black text-destructive" />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="videoLink"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="flex items-center gap-2 font-black uppercase tracking-tight text-xs text-foreground">
+                            <Video className="w-3 h-3 text-orange-600" />
+                            Video Application Link (Optional)
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              placeholder="YouTube/TikTok link for your portfolio or introduction..."
+                              className="border-4 border-black p-6 rounded-xl focus-visible:ring-orange-500 ring-offset-2 bg-white transition-all shadow-hard-sm"
                               {...field}
                             />
                           </FormControl>
