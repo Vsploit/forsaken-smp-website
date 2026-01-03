@@ -34,7 +34,7 @@ export function HomePage() {
       </main>
       <Footer />
       {/* Toaster placed at end of DOM for consistent z-index hierarchy */}
-      <Toaster richColors closeButton position="top-center" />
+      <Toaster />
     </div>
   );
 }

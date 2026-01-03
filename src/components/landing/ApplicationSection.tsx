@@ -1,50 +1,71 @@
 import React, { useState, useCallback } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
 import { RetroCard } from '@/components/ui/retro-card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { toast } from 'sonner';
 import { Send, FileText, AlertCircle, BellRing, CheckCircle2, Video } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-const formSchema = z.object({
-  age: z.string().min(1, "Age is required"),
-  discord: z.string().min(2, "Invalid Discord username"),
-  region: z.string().min(5, "Please provide your region and timezone"),
-  whyJoin: z.string().min(20, "Please provide a more detailed reason (min 20 chars)"),
-  playtime: z.string().min(1, "Required"),
-  skills: z.string().min(10, "Tell us a bit about your skills"),
-  activity: z.string().min(1, "Required"),
-  videoLink: z.string().url("Please enter a valid URL").or(z.literal("")),
-  rulesAccepted: z.boolean().refine(val => val === true, "You must accept the community rules")
-});
-type FormValues = z.infer<typeof formSchema>;
+interface FormValues {
+  age: string;
+  discord: string;
+  region: string;
+  whyJoin: string;
+  playtime: string;
+  skills: string;
+  activity: string;
+  videoLink: string;
+  rulesAccepted: boolean;
+}
 export function ApplicationSection() {
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const form = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      age: "",
-      discord: "",
-      region: "",
-      whyJoin: "",
-      playtime: "",
-      skills: "",
-      activity: "",
-      videoLink: "",
-      rulesAccepted: false,
-    },
+  const [formData, setFormData] = useState<FormValues>({
+    age: "",
+    discord: "",
+    region: "",
+    whyJoin: "",
+    playtime: "",
+    skills: "",
+    activity: "",
+    videoLink: "",
+    rulesAccepted: false,
   });
-  const onSubmit = useCallback(async (values: FormValues) => {
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  }, []);
+
+  const handleCheck = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData(prev => ({ ...prev, rulesAccepted: e.target.checked }));
+  }, []);
+
+  const validate = useCallback((): Record<string, string> => {
+    const errs: Record<string, string> = {};
+    if (!formData.age.trim()) errs.age = "Age is required";
+    if (formData.discord.length < 2) errs.discord = "Invalid Discord username";
+    if (formData.region.length < 5) errs.region = "Please provide your region and timezone";
+    if (formData.whyJoin.length < 20) errs.whyJoin = "Please provide a more detailed reason (min 20 chars)";
+    if (!formData.playtime.trim()) errs.playtime = "Required";
+    if (formData.skills.length < 10) errs.skills = "Tell us a bit about your skills";
+    if (!formData.activity.trim()) errs.activity = "Required";
+    if (formData.videoLink && !formData.videoLink.match(/^https?:\/\/.+/)) errs.videoLink = "Please enter a valid URL";
+    if (!formData.rulesAccepted) errs.rulesAccepted = "You must accept the community rules";
+    return errs;
+  }, [formData]);
+  const onSubmit = useCallback(async (e: React.FormEvent) => {
+    e.preventDefault();
+    const errs = validate();
+    if (Object.keys(errs).length > 0) {
+      setErrors(errs);
+      return;
+    }
+    setIsSubmitting(true);
     try {
       const response = await fetch('/api/apply', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values),
+        body: JSON.stringify(formData),
       });
       if (!response.ok) {
         const text = await response.text();
@@ -59,17 +80,29 @@ export function ApplicationSection() {
       }
       const result = await response.json();
       if (result.success) {
-        toast.success("Application received!");
-        form.reset();
+        setFormData({
+          age: "",
+          discord: "",
+          region: "",
+          whyJoin: "",
+          playtime: "",
+          skills: "",
+          activity: "",
+          videoLink: "",
+          rulesAccepted: false,
+        });
         setIsSubmitted(true);
       } else {
-        toast.error(result.error || "Submission failed.");
+        alert(result.error || "Submission failed.");
       }
     } catch (error) {
       console.error("Application submission error:", error);
-      toast.error(error.message || "Connection error. Please try again later.");
+      const msg = error instanceof Error ? error.message : 'Connection error. Please try again later.';
+      alert(msg);
+    } finally {
+      setIsSubmitting(false);
     }
-  }, [form]);
+  }, [formData, validate]);
   return (
     <section id="apply" className="py-24 bg-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -84,214 +117,12 @@ export function ApplicationSection() {
           </p>
         </div>
         <RetroCard className="p-6 md:p-10 lg:p-12 relative min-h-[400px] overflow-hidden">
-          <AnimatePresence mode="wait">
-            {!isSubmitted ? (
-              <motion.div
-                key="form"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.98, transition: { duration: 0.2 } }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
-              >
-                <Form {...form}>
-                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                      <FormField
-                        control={form.control}
-                        name="discord"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">Discord Username</FormLabel>
-                            <FormControl>
-                              <Input
-                                placeholder="username"
-                                className="border-4 border-black p-6 rounded-xl focus-visible:ring-orange-500 ring-offset-2 bg-white transition-all shadow-hard-sm"
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage className="text-xs font-black text-destructive" />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="age"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">Your Age</FormLabel>
-                            <FormControl>
-                              <Input
-                                type="text"
-                                placeholder="e.g. 18+"
-                                className="border-4 border-black p-6 rounded-xl focus-visible:ring-orange-500 ring-offset-2 bg-white transition-all shadow-hard-sm"
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage className="text-xs font-black text-destructive" />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-                    <FormField
-                      control={form.control}
-                      name="region"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">Region & Timezone</FormLabel>
-                          <FormControl>
-                            <Textarea
-                              placeholder="e.g. US East / EST"
-                              className="border-4 border-black p-4 rounded-xl min-h-[100px] focus-visible:ring-orange-500 ring-offset-2 bg-white transition-all shadow-hard-sm"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage className="text-xs font-black text-destructive" />
-                        </FormItem>
-                      )}
-                    />
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                      <FormField
-                        control={form.control}
-                        name="playtime"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">Minecraft Experience</FormLabel>
-                            <FormControl>
-                              <Input
-                                placeholder="e.g. 3 years"
-                                className="border-4 border-black p-6 rounded-xl focus-visible:ring-orange-500 ring-offset-2 bg-white transition-all shadow-hard-sm"
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage className="text-xs font-black text-destructive" />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="activity"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">Weekly Hours</FormLabel>
-                            <FormControl>
-                              <Input
-                                placeholder="e.g. 10 hrs/week"
-                                className="border-4 border-black p-6 rounded-xl focus-visible:ring-orange-500 ring-offset-2 bg-white transition-all shadow-hard-sm"
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage className="text-xs font-black text-destructive" />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-                    <FormField
-                      control={form.control}
-                      name="whyJoin"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">What brings you here?</FormLabel>
-                          <FormControl>
-                            <Textarea
-                              placeholder="Tell us why you want to be part of our community..."
-                              className="border-4 border-black p-4 rounded-xl min-h-[120px] focus-visible:ring-orange-500 ring-offset-2 bg-white transition-all shadow-hard-sm"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage className="text-xs font-black text-destructive" />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="skills"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">Your Specializations</FormLabel>
-                          <FormControl>
-                            <Textarea
-                              placeholder="Building, Redstone, Technical, Lore writing..."
-                              className="border-4 border-black p-4 rounded-xl min-h-[100px] focus-visible:ring-orange-500 ring-offset-2 bg-white transition-all shadow-hard-sm"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage className="text-xs font-black text-destructive" />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="videoLink"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="flex items-center gap-2 font-black uppercase tracking-tight text-xs text-foreground">
-                            <Video className="w-3 h-3 text-orange-600" />
-                            Video Intro or Portfolio Link (Optional)
-                          </FormLabel>
-                          <FormControl>
-                            <Input
-                              placeholder="YouTube, TikTok, or Portfolio URL..."
-                              className="border-4 border-black p-6 rounded-xl focus-visible:ring-orange-500 ring-offset-2 bg-white transition-all shadow-hard-sm"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage className="text-xs font-black text-destructive" />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="rulesAccepted"
-                      render={({ field }) => (
-                        <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-xl border-4 border-black p-6 bg-orange-50 shadow-hard-sm hover:bg-orange-100/50 transition-colors cursor-pointer">
-                          <FormControl>
-                            <Checkbox
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
-                              className="mt-1 border-4 border-black data-[state=checked]:bg-orange-600 data-[state=checked]:border-black h-6 w-6 transition-all"
-                            />
-                          </FormControl>
-                          <div className="space-y-1 leading-none">
-                            <FormLabel className="font-bold cursor-pointer text-foreground text-sm">
-                              I agree to follow the community guidelines and respect all players.
-                            </FormLabel>
-                          </div>
-                        </FormItem>
-                      )}
-                    />
-                    <div className="pt-4">
-                      <Button
-                        type="submit"
-                        disabled={form.formState.isSubmitting}
-                        className="w-full h-16 text-xl font-black bg-orange-600 hover:bg-orange-700 text-white border-4 border-black shadow-hard hover:shadow-hard-lg active:translate-y-1 active:shadow-none transition-all disabled:opacity-70"
-                      >
-                        {form.formState.isSubmitting ? "Processing Submission..." : "Submit Whitelist Application"}
-                        <Send className="ml-3 h-6 w-6" />
-                      </Button>
-                      <div className="mt-4 flex items-center justify-center gap-2 text-muted-foreground text-xs uppercase tracking-widest font-black">
-                        <AlertCircle className="w-4 h-4 text-orange-600" />
-                        Average response time: 24 hours
-                      </div>
-                    </div>
-                  </form>
-                </Form>
-              </motion.div>
-            ) : (
-              <motion.div
-                key="success"
-                initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ type: "spring", damping: 15, stiffness: 200, duration: 0.3 }}
-                className="flex flex-col items-center justify-center text-center py-20 space-y-8"
-              >
-                <motion.div
-                  initial={{ rotate: -20 }}
-                  animate={{ rotate: [-20, 10, -5, 0] }}
-                  transition={{ delay: 0.2, duration: 0.5 }}
-                  className="w-24 h-24 bg-green-100 rounded-3xl border-4 border-black flex items-center justify-center shadow-hard"
-                >
+          {(
+            isSubmitted ? (
+              <div className="block opacity-100 scale-100 flex flex-col items-center justify-center text-center py-20 space-y-8 transition-all duration-300">
+                <div className="w-24 h-24 bg-green-100 rounded-3xl border-4 border-black flex items-center justify-center shadow-hard">
                   <CheckCircle2 className="w-12 h-12 text-green-600" />
-                </motion.div>
+                </div>
                 <div className="space-y-4">
                   <h3 className="text-4xl font-black uppercase italic tracking-tighter">Application Sent!</h3>
                   <p className="text-xl text-muted-foreground max-w-sm font-medium mx-auto">
@@ -314,9 +145,137 @@ export function ApplicationSection() {
                 >
                   Send another application
                 </Button>
-              </motion.div>
-            )}
-          </AnimatePresence>
+              </div>
+            ) : (
+              <div className="transition-all duration-300 opacity-100 scale-100">
+                <form onSubmit={onSubmit} className="space-y-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="form-item">
+                      <label className="font-black uppercase tracking-tight text-xs text-foreground block mb-2">Discord Username</label>
+                      <Input
+                        name="discord"
+                        placeholder="username"
+                        value={formData.discord}
+                        onChange={handleChange}
+                        className="border-4 border-black p-6 rounded-xl focus-visible:ring-orange-500 ring-offset-2 bg-white transition-all shadow-hard-sm"
+                      />
+                      {errors.discord && <p className="text-xs font-black text-destructive mt-1">{errors.discord}</p>}
+                    </div>
+                    <div className="form-item">
+                      <label className="font-black uppercase tracking-tight text-xs text-foreground block mb-2">Your Age</label>
+                      <Input
+                        name="age"
+                        type="text"
+                        placeholder="e.g. 18+"
+                        value={formData.age}
+                        onChange={handleChange}
+                        className="border-4 border-black p-6 rounded-xl focus-visible:ring-orange-500 ring-offset-2 bg-white transition-all shadow-hard-sm"
+                      />
+                      {errors.age && <p className="text-xs font-black text-destructive mt-1">{errors.age}</p>}
+                    </div>
+                  </div>
+                  <div className="form-item">
+                    <label className="font-black uppercase tracking-tight text-xs text-foreground block mb-2">Region & Timezone</label>
+                    <Textarea
+                      name="region"
+                      placeholder="e.g. US East / EST"
+                      value={formData.region}
+                      onChange={handleChange}
+                      className="border-4 border-black p-4 rounded-xl min-h-[100px] focus-visible:ring-orange-500 ring-offset-2 bg-white transition-all shadow-hard-sm"
+                    />
+                    {errors.region && <p className="text-xs font-black text-destructive mt-1">{errors.region}</p>}
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="form-item">
+                      <label className="font-black uppercase tracking-tight text-xs text-foreground block mb-2">Minecraft Experience</label>
+                      <Input
+                        name="playtime"
+                        placeholder="e.g. 3 years"
+                        value={formData.playtime}
+                        onChange={handleChange}
+                        className="border-4 border-black p-6 rounded-xl focus-visible:ring-orange-500 ring-offset-2 bg-white transition-all shadow-hard-sm"
+                      />
+                      {errors.playtime && <p className="text-xs font-black text-destructive mt-1">{errors.playtime}</p>}
+                    </div>
+                    <div className="form-item">
+                      <label className="font-black uppercase tracking-tight text-xs text-foreground block mb-2">Weekly Hours</label>
+                      <Input
+                        name="activity"
+                        placeholder="e.g. 10 hrs/week"
+                        value={formData.activity}
+                        onChange={handleChange}
+                        className="border-4 border-black p-6 rounded-xl focus-visible:ring-orange-500 ring-offset-2 bg-white transition-all shadow-hard-sm"
+                      />
+                      {errors.activity && <p className="text-xs font-black text-destructive mt-1">{errors.activity}</p>}
+                    </div>
+                  </div>
+                  <div className="form-item">
+                    <label className="font-black uppercase tracking-tight text-xs text-foreground block mb-2">What brings you here?</label>
+                    <Textarea
+                      name="whyJoin"
+                      placeholder="Tell us why you want to be part of our community..."
+                      value={formData.whyJoin}
+                      onChange={handleChange}
+                      className="border-4 border-black p-4 rounded-xl min-h-[120px] focus-visible:ring-orange-500 ring-offset-2 bg-white transition-all shadow-hard-sm"
+                    />
+                    {errors.whyJoin && <p className="text-xs font-black text-destructive mt-1">{errors.whyJoin}</p>}
+                  </div>
+                  <div className="form-item">
+                    <label className="font-black uppercase tracking-tight text-xs text-foreground block mb-2">Your Specializations</label>
+                    <Textarea
+                      name="skills"
+                      placeholder="Building, Redstone, Technical, Lore writing..."
+                      value={formData.skills}
+                      onChange={handleChange}
+                      className="border-4 border-black p-4 rounded-xl min-h-[100px] focus-visible:ring-orange-500 ring-offset-2 bg-white transition-all shadow-hard-sm"
+                    />
+                    {errors.skills && <p className="text-xs font-black text-destructive mt-1">{errors.skills}</p>}
+                  </div>
+                  <div className="form-item">
+                    <label className="flex items-center gap-2 font-black uppercase tracking-tight text-xs text-foreground block mb-2">
+                      <Video className="w-3 h-3 text-orange-600" />
+                      Video Intro or Portfolio Link (Optional)
+                    </label>
+                    <Input
+                      name="videoLink"
+                      placeholder="YouTube, TikTok, or Portfolio URL..."
+                      value={formData.videoLink}
+                      onChange={handleChange}
+                      className="border-4 border-black p-6 rounded-xl focus-visible:ring-orange-500 ring-offset-2 bg-white transition-all shadow-hard-sm"
+                    />
+                    {errors.videoLink && <p className="text-xs font-black text-destructive mt-1">{errors.videoLink}</p>}
+                  </div>
+                  <div className="flex flex-row items-start space-x-3 space-y-0 rounded-xl border-4 border-black p-6 bg-orange-50 shadow-hard-sm hover:bg-orange-100/50 transition-colors cursor-pointer">
+                    <input
+                      type="checkbox"
+                      id="rules"
+                      checked={formData.rulesAccepted}
+                      onChange={handleCheck}
+                      className="mt-1 border-4 border-black data-[state=checked]:bg-orange-600 data-[state=checked]:border-black h-6 w-6 transition-all"
+                    />
+                    <label htmlFor="rules" className="font-bold cursor-pointer text-foreground text-sm leading-none">
+                      I agree to follow the community guidelines and respect all players.
+                    </label>
+                  </div>
+                  {errors.rulesAccepted && <p className="text-xs font-black text-destructive mt-1 ml-12">{errors.rulesAccepted}</p>}
+                  <div className="pt-4">
+                    <Button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full h-16 text-xl font-black bg-orange-600 hover:bg-orange-700 text-white border-4 border-black shadow-hard hover:shadow-hard-lg active:translate-y-1 active:shadow-none transition-all disabled:opacity-70"
+                    >
+                      {isSubmitting ? "Processing Submission..." : "Submit Whitelist Application"}
+                      <Send className="ml-3 h-6 w-6" />
+                    </Button>
+                    <div className="mt-4 flex items-center justify-center gap-2 text-muted-foreground text-xs uppercase tracking-widest font-black">
+                      <AlertCircle className="w-4 h-4 text-orange-600" />
+                      Average response time: 24 hours
+                    </div>
+                  </div>
+                </form>
+              </div>
+            )
+          )}
         </RetroCard>
       </div>
     </section>

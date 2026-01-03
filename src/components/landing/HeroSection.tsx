@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import { HERO_DATA } from '@/data/server-data';
 import { Button } from '@/components/ui/button';
 import { ChevronRight, Shield } from 'lucide-react';
 import { DiscordJoinModal } from './DiscordJoinModal';
+
 export function HeroSection() {
   const [logoError, setLogoError] = useState(false);
+
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center pt-28 md:pt-32 lg:pt-24 overflow-hidden bg-white">
       <div
@@ -16,51 +17,28 @@ export function HeroSection() {
       <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-orange-500/5 via-transparent to-white pointer-events-none" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-8 md:py-12">
         <div className="flex flex-col lg:grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-            className="w-full max-w-[280px] sm:max-w-[350px] lg:max-w-[500px] order-first lg:order-last"
-          >
+          <div className="w-full max-w-[280px] sm:max-w-[350px] lg:max-w-[500px] order-first lg:order-last opacity-100 scale-100 transition-all duration-800 delay-200">
             <div className="relative">
               <div className="absolute -inset-10 bg-orange-100 rounded-full blur-[120px] opacity-10 animate-pulse" />
               <div className="flex justify-center p-4">
                 {!logoError ? (
-                  <motion.img
+                  <img
                     src={HERO_DATA.logoUrl}
                     alt="Forsaken SMP Logo"
                     loading="eager"
                     onError={() => setLogoError(true)}
-                    className="w-full h-auto max-h-[400px] object-contain drop-shadow-[0_15px_35px_rgba(234,88,12,0.4)]"
-                    animate={{
-                      y: [0, -10, 0],
-                      rotate: [0, 0.5, -0.5, 0]
-                    }}
-                    transition={{
-                      duration: 8,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
+                    className="w-full h-auto max-h-[400px] object-contain drop-shadow-[0_15px_35px_rgba(234,88,12,0.4)] transition-all duration-[8s] animate-bounce-slow hover:scale-105 hover:rotate-[0.5deg]"
                   />
                 ) : (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="w-full aspect-square max-w-[300px] bg-orange-50 border-8 border-black rounded-[2rem] shadow-hard-lg flex items-center justify-center rotate-3"
-                  >
+                  <div className="w-full aspect-square max-w-[300px] bg-orange-50 border-8 border-black rounded-[2rem] shadow-hard-lg flex items-center justify-center rotate-3 transition-opacity duration-300 opacity-100">
                     <Shield className="w-32 h-32 text-orange-600" />
-                  </motion.div>
+                  </div>
                 )}
               </div>
             </div>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 sm:space-y-8"
-          >
-            <div className="inline-flex items-center px-4 py-1 rounded-full bg-orange-500/10 border-2 border-orange-500 text-orange-600 font-bold text-xs sm:text-sm uppercase tracking-wider animate-bounce-slight whitespace-nowrap shadow-hard-sm">
+          </div>
+          <div className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 sm:space-y-8 opacity-100 translate-x-0 transition-all duration-600 ease-out">
+            <div className="inline-flex items-center px-4 py-1 rounded-full bg-orange-500/10 border-2 border-orange-500 text-orange-600 font-bold text-xs sm:text-sm uppercase tracking-wider animate-bounce-slight whitespace-nowrap shadow-hard-sm transition-all duration-500 hover:scale-105">
               <Shield className="w-4 h-4 mr-2" />
               {HERO_DATA.badgeText}
             </div>
@@ -80,9 +58,10 @@ export function HeroSection() {
                 </Button>
               </DiscordJoinModal>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
   );
 }
+//

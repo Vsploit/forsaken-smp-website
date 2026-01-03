@@ -1,43 +1,44 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import useEmblaCarousel from 'embla-carousel-react';
-import type { EmblaCarouselType } from 'embla-carousel';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { SEASONS_GALLERY } from '@/data/server-data';
 import { RetroCard } from '@/components/ui/retro-card';
 import { ChevronLeft, ChevronRight, Calendar, History } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 export function GallerySection() {
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    loop: false,
-    align: 'start',
-    containScroll: 'trimSnaps',
-    skipSnaps: false,
-    dragFree: false,
-    duration: 30
-  });
+  const carouselRef = useRef<HTMLDivElement>(null);
   const [prevBtnDisabled, setPrevBtnDisabled] = useState(true);
   const [nextBtnDisabled, setNextBtnDisabled] = useState(true);
   const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev();
-  }, [emblaApi]);
-  const scrollNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext();
-  }, [emblaApi]);
-  const onSelect = useCallback((api: EmblaCarouselType) => {
-    setPrevBtnDisabled(!api.canScrollPrev());
-    setNextBtnDisabled(!api.canScrollNext());
+    const el = carouselRef.current;
+    if (!el) return;
+    el.scrollBy({ left: -(el.clientWidth * 0.85), behavior: 'smooth' });
   }, []);
+
+  const scrollNext = useCallback(() => {
+    const el = carouselRef.current;
+    if (!el) return;
+    el.scrollBy({ left: el.clientWidth * 0.85, behavior: 'smooth' });
+  }, []);
+
   useEffect(() => {
-    if (!emblaApi) return;
-    onSelect(emblaApi);
-    emblaApi.on('reInit', onSelect);
-    emblaApi.on('select', onSelect);
-    return () => {
-      emblaApi.off('reInit', onSelect);
-      emblaApi.off('select', onSelect);
+    const el = carouselRef.current;
+    if (!el) return;
+
+    const checkScroll = () => {
+      if (!el) return;
+      setPrevBtnDisabled(el.scrollLeft <= 5);
+      setNextBtnDisabled(el.scrollLeft + el.clientWidth + 5 >= el.scrollWidth);
     };
-  }, [emblaApi, onSelect]);
+
+    el.addEventListener('scroll', checkScroll);
+    window.addEventListener('resize', checkScroll);
+    checkScroll();
+
+    return () => {
+      el.removeEventListener('scroll', checkScroll);
+      window.removeEventListener('resize', checkScroll);
+    };
+  }, []);
   return (
     <section id="gallery" className="py-24 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -79,14 +80,11 @@ export function GallerySection() {
             </Button>
           </div>
         </div>
-        <div className="embla overflow-visible" ref={emblaRef}>
-          <div className="embla__container flex -ml-4 md:-ml-6">
+        <div className="embla overflow-x-auto scrollbar-hide snap-x-mandatory" ref={carouselRef}>
+          <div className="embla__container flex snap-start gap-4 -ml-4 md:-ml-6 flex-nowrap">
             {SEASONS_GALLERY.map((season) => (
-              <div key={season.id} className="embla__slide flex-[0_0_85%] min-w-0 sm:flex-[0_0_50%] lg:flex-[0_0_40%] pl-4 md:pl-6 select-none">
-                <motion.div
-                  whileHover={{ y: -10 }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                >
+              <div key={season.id} className="embla__slide flex-shrink-0 snap-start flex-[0_0_85%] min-w-0 sm:flex-[0_0_50%] lg:flex-[0_0_40%] pl-4 md:pl-6 select-none">
+                <div className="transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02]">
                   <RetroCard className="h-[350px] md:h-[450px] relative group p-0">
                     <img
                       src={season.url}
@@ -110,7 +108,7 @@ export function GallerySection() {
                       </p>
                     </div>
                   </RetroCard>
-                </motion.div>
+                </div>
               </div>
             ))}
           </div>
