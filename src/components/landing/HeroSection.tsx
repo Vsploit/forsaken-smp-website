@@ -9,7 +9,7 @@ export function HeroSection() {
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center pt-28 md:pt-32 lg:pt-24 overflow-hidden bg-white">
       <div
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-[0.08] md:bg-fixed"
+        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-[0.08]"
         style={{ backgroundImage: `url('${HERO_DATA.backgroundImage}')` }}
       />
       <div className="absolute inset-0 z-0 bg-[radial-gradient(#f97316_1px,transparent_1px)] [background-size:40px_40px] opacity-[0.05]" />

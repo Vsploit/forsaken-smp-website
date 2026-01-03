@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
+import type { EmblaCarouselType } from 'embla-carousel-react';
 import { motion } from 'framer-motion';
 import { SEASONS_GALLERY } from '@/data/server-data';
 import { RetroCard } from '@/components/ui/retro-card';
@@ -23,8 +24,7 @@ export function GallerySection() {
   const scrollNext = useCallback(() => {
     if (emblaApi) emblaApi.scrollNext();
   }, [emblaApi]);
-  const onSelect = useCallback((api: any) => {
-    if (!api) return;
+  const onSelect = useCallback((api: EmblaCarouselType) => {
     setPrevBtnDisabled(!api.canScrollPrev());
     setNextBtnDisabled(!api.canScrollNext());
   }, []);
@@ -33,11 +33,9 @@ export function GallerySection() {
     onSelect(emblaApi);
     emblaApi.on('reInit', onSelect);
     emblaApi.on('select', onSelect);
-    emblaApi.on('scroll', onSelect);
     return () => {
       emblaApi.off('reInit', onSelect);
       emblaApi.off('select', onSelect);
-      emblaApi.off('scroll', onSelect);
     };
   }, [emblaApi, onSelect]);
   return (
