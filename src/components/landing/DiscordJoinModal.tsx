@@ -4,7 +4,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, Dialog
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Copy, Check, MessageSquare } from 'lucide-react';
-import { toast } from 'sonner';
+import { toast } from '@/components/ui/sonner';
 interface DiscordJoinModalProps {
   children: React.ReactNode;
 }
@@ -15,10 +15,10 @@ export function DiscordJoinModal({ children }: DiscordJoinModalProps) {
     try {
       await navigator.clipboard.writeText(discordLink);
       setCopied(true);
-      toast.success("Invite link copied!");
+      toast("Invite link copied!", { type: 'success' });
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
-      toast.error("Failed to copy link.");
+      toast("Failed to copy link.", { type: 'error' });
       console.error("Copy failed:", err);
     }
   }, [discordLink]);
