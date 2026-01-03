@@ -9,10 +9,10 @@ export function HeroSection() {
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center pt-28 md:pt-32 lg:pt-24 overflow-hidden bg-white">
       <div
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-[0.08]"
+        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-[0.08] md:bg-fixed"
         style={{ backgroundImage: `url('${HERO_DATA.backgroundImage}')` }}
       />
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(#f97316_1px,transparent_1px)] [background-size:40px_40px] opacity-[0.1]" />
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(#f97316_1px,transparent_1px)] [background-size:40px_40px] opacity-[0.05]" />
       <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-orange-500/5 via-transparent to-white pointer-events-none" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-8 md:py-12">
         <div className="flex flex-col lg:grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
@@ -23,7 +23,7 @@ export function HeroSection() {
             className="w-full max-w-[280px] sm:max-w-[350px] lg:max-w-[500px] order-first lg:order-last"
           >
             <div className="relative">
-              <div className="absolute -inset-10 bg-orange-100 rounded-full blur-[120px] opacity-20 animate-pulse" />
+              <div className="absolute -inset-10 bg-orange-100 rounded-full blur-[120px] opacity-10 animate-pulse" />
               <div className="flex justify-center p-4">
                 {!logoError ? (
                   <motion.img
@@ -33,17 +33,17 @@ export function HeroSection() {
                     onError={() => setLogoError(true)}
                     className="w-full h-auto max-h-[400px] object-contain drop-shadow-[0_15px_35px_rgba(234,88,12,0.4)]"
                     animate={{
-                      y: [0, -15, 0],
-                      rotate: [0, 1, -1, 0]
+                      y: [0, -10, 0],
+                      rotate: [0, 0.5, -0.5, 0]
                     }}
                     transition={{
-                      duration: 6,
+                      duration: 8,
                       repeat: Infinity,
                       ease: "easeInOut"
                     }}
                   />
                 ) : (
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     className="w-full aspect-square max-w-[300px] bg-orange-50 border-8 border-black rounded-[2rem] shadow-hard-lg flex items-center justify-center rotate-3"
@@ -64,7 +64,7 @@ export function HeroSection() {
               <Shield className="w-4 h-4 mr-2" />
               {HERO_DATA.badgeText}
             </div>
-            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-black leading-tight uppercase tracking-tight break-words text-gradient-forsaken">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-black leading-[1.1] uppercase tracking-tight break-words text-gradient-forsaken">
               {HERO_DATA.title}
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-lg leading-relaxed font-medium">

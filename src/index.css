@@ -39,6 +39,9 @@
   body {
     @apply bg-background text-foreground overflow-x-hidden;
   }
+  section {
+    @apply scroll-mt-20;
+  }
 }
 @layer components {
   .btn-hard {
@@ -46,7 +49,10 @@
   }
   .text-gradient-forsaken {
     @apply bg-gradient-to-br from-orange-500 to-orange-700 bg-clip-text text-transparent;
-    filter: drop-shadow(0 1px 1px rgba(0,0,0,0.05));
+    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1));
+  }
+  .section-spacing {
+    @apply py-20 md:py-24 lg:py-32;
   }
 }
 @layer utilities {
@@ -74,7 +80,6 @@
 ::selection {
   @apply bg-orange-500 text-white;
 }
-/* Embla Carousel Global Fixes */
 .embla {
   position: relative;
   width: 100%;
