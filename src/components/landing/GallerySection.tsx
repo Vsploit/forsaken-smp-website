@@ -43,17 +43,16 @@ export function GallerySection() {
               <History className="w-4 h-4" />
               The Archives
             </div>
-            <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tight">Past Seasons</h2>
-            <p className="text-xl text-muted-foreground max-w-xl">
-              Take a trip through the history of Forsaken and see our journey since the beginning.
+            <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tight text-foreground">Past Seasons</h2>
+            <p className="text-xl text-muted-foreground max-w-xl font-medium">
+              Explore the history of Forsaken and see our journey since the first day.
             </p>
           </div>
-          <div className="flex gap-4">
+          <div className="flex gap-4 p-1">
             <Button
               onClick={scrollPrev}
               disabled={prevBtnDisabled}
               size="icon"
-              aria-label="Previous slide"
               className={cn(
                 "w-12 h-12 bg-background border-4 border-foreground text-foreground hover:bg-foreground hover:text-background shadow-hard-sm transition-all active:translate-y-0.5 active:shadow-none",
                 prevBtnDisabled && "opacity-30 cursor-not-allowed pointer-events-none shadow-none"
@@ -65,7 +64,6 @@ export function GallerySection() {
               onClick={scrollNext}
               disabled={nextBtnDisabled}
               size="icon"
-              aria-label="Next slide"
               className={cn(
                 "w-12 h-12 bg-background border-4 border-foreground text-foreground hover:bg-foreground hover:text-background shadow-hard-sm transition-all active:translate-y-0.5 active:shadow-none",
                 nextBtnDisabled && "opacity-30 cursor-not-allowed pointer-events-none shadow-none"
@@ -75,12 +73,16 @@ export function GallerySection() {
             </Button>
           </div>
         </div>
-        <div className="embla overflow-x-auto scrollbar-hide snap-x-mandatory" ref={carouselRef}>
-          <div className="embla__container flex snap-start gap-4 -ml-4 md:-ml-6 flex-nowrap">
+        <div 
+          className="overflow-x-auto scrollbar-hide snap-x-mandatory" 
+          ref={carouselRef}
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          <div className="flex snap-start gap-6 -ml-4 md:-ml-6 flex-nowrap pb-8">
             {SEASONS_GALLERY.map((season) => (
-              <div key={season.id} className="embla__slide flex-shrink-0 snap-start flex-[0_0_85%] min-w-0 sm:flex-[0_0_50%] lg:flex-[0_0_40%] pl-4 md:pl-6 select-none">
+              <div key={season.id} className="flex-shrink-0 snap-start flex-[0_0_85%] sm:flex-[0_0_50%] lg:flex-[0_0_40%] pl-4 md:pl-6 select-none">
                 <div className="transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02]">
-                  <RetroCard className="h-[350px] md:h-[450px] relative group p-0">
+                  <RetroCard className="h-[350px] md:h-[450px] relative group p-0 border-4 border-foreground">
                     <img
                       src={season.url}
                       alt={season.title}
