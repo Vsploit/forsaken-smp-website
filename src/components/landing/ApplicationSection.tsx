@@ -52,7 +52,9 @@ export function ApplicationSection() {
         try {
           const data = JSON.parse(text);
           errorMsg = data.error || data.message || data.detail || errorMsg;
-        } catch(e) {}
+        } catch(e) {
+          /* suppress empty block */
+        }
         throw new Error(errorMsg);
       }
       const result = await response.json();
@@ -102,7 +104,7 @@ export function ApplicationSection() {
                             <FormLabel className="font-black uppercase tracking-tight text-xs text-foreground">Discord Username</FormLabel>
                             <FormControl>
                               <Input
-                                placeholder="username#0000"
+                                placeholder="username"
                                 className="border-4 border-black p-6 rounded-xl focus-visible:ring-orange-500 ring-offset-2 bg-white transition-all shadow-hard-sm"
                                 {...field}
                               />
@@ -224,11 +226,11 @@ export function ApplicationSection() {
                         <FormItem>
                           <FormLabel className="flex items-center gap-2 font-black uppercase tracking-tight text-xs text-foreground">
                             <Video className="w-3 h-3 text-orange-600" />
-                            Video Application Link (Optional)
+                            Video Intro or Portfolio Link (Optional)
                           </FormLabel>
                           <FormControl>
                             <Input
-                              placeholder="YouTube/TikTok link for your portfolio or introduction..."
+                              placeholder="YouTube, TikTok, or Portfolio URL..."
                               className="border-4 border-black p-6 rounded-xl focus-visible:ring-orange-500 ring-offset-2 bg-white transition-all shadow-hard-sm"
                               {...field}
                             />
@@ -263,7 +265,7 @@ export function ApplicationSection() {
                         disabled={form.formState.isSubmitting}
                         className="w-full h-16 text-xl font-black bg-orange-600 hover:bg-orange-700 text-white border-4 border-black shadow-hard hover:shadow-hard-lg active:translate-y-1 active:shadow-none transition-all disabled:opacity-70"
                       >
-                        {form.formState.isSubmitting ? "Submitting..." : "Send Application"}
+                        {form.formState.isSubmitting ? "Processing Submission..." : "Submit Whitelist Application"}
                         <Send className="ml-3 h-6 w-6" />
                       </Button>
                       <div className="mt-4 flex items-center justify-center gap-2 text-muted-foreground text-xs uppercase tracking-widest font-black">
@@ -293,7 +295,7 @@ export function ApplicationSection() {
                 <div className="space-y-4">
                   <h3 className="text-4xl font-black uppercase italic tracking-tighter">Application Sent!</h3>
                   <p className="text-xl text-muted-foreground max-w-sm font-medium mx-auto">
-                    Thank you for applying to Forsaken SMP. Our team has received your request.
+                    The Forsaken staff team has received your request. We review applications daily.
                   </p>
                 </div>
                 <div className="p-6 bg-orange-50 border-4 border-black rounded-2xl shadow-hard-sm flex items-start gap-4 max-w-md mx-auto text-left">
