@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
-import type { EmblaCarouselType } from 'embla-carousel-react';
+import type { EmblaCarouselType } from 'embla-carousel';
 import { motion } from 'framer-motion';
 import { SEASONS_GALLERY } from '@/data/server-data';
 import { RetroCard } from '@/components/ui/retro-card';
