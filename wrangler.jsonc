@@ -4,7 +4,7 @@
  */
  {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "craft-adventures-smp-2o6fmufxqo0nxvfd8p8mw",
+	"name": "forsaken-smp-website",
 	"main": "worker/index.ts",
 	"compatibility_date": "2025-04-24",
 	"assets": {
